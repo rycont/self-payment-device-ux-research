@@ -7,11 +7,12 @@ import { Onboarding } from './page'
 globalCss({
   "@import": ["https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css"],
   ":root": {
-    fontSize: "12px"
+    fontSize: "8px"
   },
   body: {
     fontSize: "4rem",
-    fontFamily: 'Pretendard'
+    fontFamily: 'Pretendard',
+    margin: '0px'
   },
 })()
 

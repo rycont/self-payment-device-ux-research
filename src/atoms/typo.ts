@@ -5,7 +5,15 @@ const typoGenerator = (fontSize: number, fontWeight: Property.FontWeight, opacit
     styled('p', {
         fontSize: fontSize + "rem",
         fontWeight,
-        opacity
+        opacity,
+        margin: 0,
+        variants: {
+            accent: {
+                true: {
+                    color: '$accent'
+                }
+            }
+        },
     })
 
 export const PageHeader = typoGenerator(5, '700')
