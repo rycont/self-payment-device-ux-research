@@ -1,4 +1,4 @@
-import { globalCss } from '../stitches.config'
+import { globalCss } from '@/stitches.config'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
