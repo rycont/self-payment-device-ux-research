@@ -1,8 +1,8 @@
-import { verticalLogo } from "@/src/asset/brand"
-import { DescriptionImportant, Hexile, Regular, Vexile } from "@/src/atoms"
+import { verticalLogo } from "@/asset/brand"
+import { DescriptionImportant, Regular, Vexile } from "@/atom"
 import { MainLogo } from "./style"
 
-export const Onboarding = () => {
+function Onboarding() {
     return <Vexile fillx filly x="center" y="center" gap={12}>
         <MainLogo src={verticalLogo} alt="" />
         <Vexile x="center" gap={2}>
@@ -13,3 +13,5 @@ export const Onboarding = () => {
         </Vexile>
     </Vexile>
 }
+
+export { Onboarding }

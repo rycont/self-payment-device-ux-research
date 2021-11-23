@@ -1,13 +1,16 @@
-import { globalCss } from '@/stitches.config'
+import { globalCss } from '#/stitches.config'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Onboarding } from './page'
+import { Onboarding, ScanProduct } from './page'
+import server from './server'
+
+server()
 
 globalCss({
   "@import": ["https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css"],
   ":root": {
-    fontSize: "8px"
+    fontSize: "6px"
   },
   body: {
     fontSize: "4rem",
@@ -21,6 +24,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Onboarding />} />
+        <Route path="/scan-product" element={<ScanProduct />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

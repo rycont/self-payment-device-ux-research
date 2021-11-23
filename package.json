@@ -9,6 +9,7 @@
   "dependencies": {
     "@stitches/react": "^1.2.5",
     "history": "5",
+    "miragejs": "^0.1.42",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-router-dom": "^6.0.2",

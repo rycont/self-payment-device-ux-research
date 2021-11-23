@@ -1,8 +1,15 @@
-import { styled } from "@/stitches.config";
+import { styled } from "#/stitches.config";
 
-export const Hexile = styled('div', {
+export const HexileCore = styled('div', {
     display: 'flex',
+    gap: 'var(--gap)',
+    boxSizing: 'border-box',
     variants: {
+        linebreak: {
+            true: {
+                flexWrap: 'wrap'
+            }
+        },
         fillx: {
             true: {
                 width: '100%'
@@ -47,14 +54,19 @@ export const VexileCore = styled('div', {
     gap: 'var(--gap)',
     boxSizing: 'border-box',
     variants: {
+        linebreak: {
+            true: {
+                flexWrap: 'wrap'
+            }
+        },
         filly: {
             true: {
-                width: '100%'
+                height: '100%'
             }
         },
         fillx: {
             true: {
-                height: '100%'
+                width: '100%'
             }
         },
         x: {
@@ -88,21 +100,28 @@ export const VexileCore = styled('div', {
 interface FlexileProps {
     fillx?: boolean;
     filly?: boolean;
-    x?: | 'top' | 'bottom' | 'center';
-    y?: | 'right' | 'left' | 'center' | 'space';
     gap?: number;
-    children: JSX.Element[];
+    linebreak?: boolean;
 }
 
-export const Vexile = (props: FlexileProps) => {
-    // if (props.gap) {
-    //     return <VexileCore {...props} style={{
-    //         margin: -props.gap + 'rem'
-    //     }}>
-    //         {props.children}
-    //     </VexileCore>
-    // }
-    return <VexileCore css={{
+interface VexileProps extends FlexileProps {
+    x?: | 'top' | 'bottom' | 'center';
+    y?: | 'right' | 'left' | 'center' | 'space';
+}
+
+interface HexileProps extends FlexileProps {
+    x?: | 'right' | 'left' | 'center' | 'space';
+    y?: | 'top' | 'bottom' | 'center';
+}
+
+export const Vexile: React.FC<VexileProps> = props =>
+    <VexileCore css={{
         "--gap": props.gap + "rem"
     }} {...props} />
-}
+
+
+export const Hexile: React.FC<HexileProps> = props =>
+    <HexileCore css={{
+        "--gap": props.gap + "rem"
+    }} {...props} />
+
