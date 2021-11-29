@@ -22,11 +22,11 @@ export const fillURLParameter = <URLParams>(
   return filled
 }
 
-interface APIConnectorConfig<ReqType, ResType> {
+interface APIConnectorConfig<URLParams, ReqType, ResType> {
   needAuth: boolean
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE'
   mockHandler(
-    req?: ReqType
+    req?: URLParams
   ): (ResType | undefined) | Promise<ResType | undefined>
 }
 
@@ -34,7 +34,7 @@ export function createAPIConnector<
   URLParams extends {},
   ReqType extends {} | undefined,
   ResType extends {}
->(uri: string, config: APIConnectorConfig<ReqType | undefined, ResType>) {
+>(uri: string, config: APIConnectorConfig<URLParams, ReqType | undefined, ResType>) {
   return {
     useHook(urlParams: URLParams, reqBody?: ReqType) {
       const [data, setData] = useState<ResType>()
@@ -43,7 +43,7 @@ export function createAPIConnector<
       const loadData = () => {
         if (isDev && config.mockHandler) {
           setTimeout(async () => {
-            const responseData = await config.mockHandler(reqBody)
+            const responseData = await config.mockHandler(urlParams)
             setData(responseData)
             setLoaded(true)
             return
@@ -96,6 +96,7 @@ export const createMockModel = <DataType>(
     get:
       <ResType extends ResPlate | undefined>(idKey: string) =>
         (reqData: ResType) => {
+          console.log(reqData)
           if (!reqData) throw new Error('Cannot find error to find docment')
           return datas.find((data) => data._id === reqData[idKey]) || undefined
         },

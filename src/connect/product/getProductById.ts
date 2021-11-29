@@ -1,6 +1,6 @@
 import { Product } from "@/type/product";
-import { productMockModel } from ".";
 import { createAPIConnector, Doc } from "..";
+import { productMockModel } from "./index.model";
 
 export const getProductById = createAPIConnector<{
   productId: string
