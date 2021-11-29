@@ -1,5 +1,5 @@
 import { Description, Hexile, Space, Vexile } from "@/atom"
-import { Product } from "./partial"
+import { ProductCard } from "./partial"
 import { ViewArea } from "./style"
 
 function ScanProduct() {
@@ -10,14 +10,14 @@ function ScanProduct() {
             </Description>
             <Space size={3} />
             <Hexile gap={3} linebreak>
-                <Product id="1010" />
-                <Product id="1010" />
-                <Product id="1010" />
-                <Product id="1010" />
-                <Product id="1010" />
-                <Product id="1010" />
-                <Product id="1010" />
-                <Product id="1010" />
+                <ProductCard id="1010" />
+                <ProductCard id="1010" />
+                <ProductCard id="1010" />
+                <ProductCard id="1010" />
+                <ProductCard id="1010" />
+                <ProductCard id="1010" />
+                <ProductCard id="1010" />
+                <ProductCard id="1010" />
             </Hexile>
         </ViewArea>
         <Hexile>
