@@ -1,5 +1,7 @@
 import { createStitches } from '@stitches/react';
 
+export const MAIN_ACCENT = "#2EA4AB"
+
 export const {
   styled,
   css,
@@ -12,7 +14,7 @@ export const {
 } = createStitches({
   theme: {
     colors: {
-      accent: "#2EA4AB",
+      accent: MAIN_ACCENT,
       background: "#F9F9F9"
     },
   }

@@ -11,4 +11,5 @@ export const ProductWrapper = styled(Vexile, {
   padding: "4rem",
   borderRadius: "2rem",
   width: "30rem",
+  height: "18rem"
 });
