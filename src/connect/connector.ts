@@ -87,7 +87,7 @@ export function createAPIConnector<
       }
     },
     request(urlParams: URLParams, reqBody?: ReqType) {
-      return new Promise((ok, error) => {
+      return new Promise<ResType | undefined>((ok, error) => {
         if (isDev && config.mockHandler) {
           setTimeout(async () => {
             const responseData = await config.mockHandler(urlParams)

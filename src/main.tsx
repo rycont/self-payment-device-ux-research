@@ -16,6 +16,9 @@ globalCss({
     fontFamily: 'Pretendard',
     margin: '0px',
   },
+  button: {
+    fontFamily: 'Pretendard',
+  },
 })()
 
 ReactDOM.render(

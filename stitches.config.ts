@@ -15,7 +15,8 @@ export const {
   theme: {
     colors: {
       accent: MAIN_ACCENT,
-      background: "#F9F9F9"
+      background: "#F9F9F9",
+      actionableGray: "#333333"
     },
   }
 });

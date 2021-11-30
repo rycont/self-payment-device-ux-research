@@ -45,6 +45,11 @@ export const HexileCore = styled('div', {
         alignItems: 'center',
       },
     },
+    keepsize: {
+      true: {
+        flexShrink: 0,
+      },
+    },
   },
 })
 
@@ -94,6 +99,11 @@ export const VexileCore = styled('div', {
         justifyContent: 'space-between',
       },
     },
+    keepsize: {
+      true: {
+        flexShrink: 0,
+      },
+    },
   },
 })
 
@@ -101,7 +111,11 @@ interface FlexileProps {
   fillx?: boolean
   filly?: boolean
   gap?: number
+  padding?: number
   linebreak?: boolean
+  paddingx?: number
+  paddingy?: number
+  keepsize?: boolean
 }
 
 interface VexileProps extends FlexileProps {
@@ -119,7 +133,19 @@ export const Vexile: React.FC<
 > = (props) => (
   <VexileCore
     css={{
-      '--gap': props.gap + 'rem',
+      ...{
+        '--gap': props.gap ? props.gap + 'rem' : '0rem',
+      },
+      ...(props.padding && {
+        padding: props.padding + 'rem',
+      }),
+      ...(props.gap && {
+        gap: props.gap + 'rem',
+      }),
+      ...(props.paddingx && {
+        paddingLeft: props.paddingx + 'rem',
+        paddingRight: props.paddingx + 'rem',
+      }),
     }}
     {...props}
   />
@@ -130,7 +156,19 @@ export const Hexile: React.FC<
 > = (props) => (
   <HexileCore
     css={{
-      '--gap': props.gap + 'rem',
+      ...{
+        '--gap': props.gap ? props.gap + 'rem' : '0rem',
+      },
+      ...(props.padding && {
+        padding: props.padding + 'rem',
+      }),
+      ...(props.gap && {
+        gap: props.gap + 'rem',
+      }),
+      ...(props.paddingx && {
+        paddingLeft: props.paddingx + 'rem',
+        paddingRight: props.paddingx + 'rem',
+      }),
     }}
     {...props}
   />
