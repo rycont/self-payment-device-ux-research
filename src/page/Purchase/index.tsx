@@ -10,7 +10,12 @@ import { useLocation, useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 
 export const Purchase = () => {
-  const { drawboard } = useCanvas(drawBackdrop)
+  const { drawboard } = useCanvas(drawBackdrop, {
+    style: {
+      filter: 'blur(240px)',
+      opacity: 0.3,
+    },
+  })
   const goto = useNavigate()
   return (
     // <Transition timeout={5000}>

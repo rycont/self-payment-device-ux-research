@@ -1,6 +1,9 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
-export const useCanvas = (func: (board: CanvasRenderingContext2D) => void) => {
+export const useCanvas = (
+  func: (board: CanvasRenderingContext2D) => void,
+  props: React.CanvasHTMLAttributes<HTMLCanvasElement>
+) => {
   const ref = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -11,7 +14,12 @@ export const useCanvas = (func: (board: CanvasRenderingContext2D) => void) => {
   }, [])
 
   const drawboard = (
-    <canvas width={window.innerWidth} height={window.innerHeight} ref={ref} />
+    <canvas
+      {...props}
+      width={window.innerWidth}
+      height={window.innerHeight}
+      ref={ref}
+    />
   )
   return {
     drawboard,
@@ -25,10 +33,10 @@ abstract class Sprite {
 
 class Ball extends Sprite {
   radius: number
-  x = Math.floor(Math.random() * window.innerWidth - 2)
+  x = Math.floor(Math.random() * window.innerWidth)
   y = Math.floor(Math.random() * window.innerHeight)
   color: string
-  speed = 10
+  speed = 5
   health = 1000
   direction = Math.random() * 4
   lastCount = Math.floor(Math.random() * this.health)
@@ -93,7 +101,6 @@ class Drawboard {
 }
 
 export const drawBackdrop = (ctx: CanvasRenderingContext2D) => {
-  ctx.filter = 'blur(240px) opacity(0.3)'
   const board = new Drawboard(ctx)
   board.addSprite(new Ball(200, '#00ff88'))
   board.addSprite(new Ball(200, '#4200FF'))
