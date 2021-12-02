@@ -30,6 +30,11 @@ const typoGenerator = (
         true: {
           letterSpacing: "0em",
         }
+      },
+      center: {
+        true: {
+          textAlign: "center"
+        }
       }
     },
   });

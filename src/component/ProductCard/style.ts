@@ -1,5 +1,5 @@
-import { Description, Vexile } from "@/atom";
 import { styled } from "@stitches/react";
+import { Description, Vexile } from "@/component";
 
 export const ProductWrapper = styled(Vexile, {
     backgroundColor: "white",

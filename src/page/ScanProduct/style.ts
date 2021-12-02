@@ -1,4 +1,4 @@
-import { Vexile } from "@/atom";
+import { Vexile } from "@/component";
 import { styled } from "@stitches/react";
 
 export const ViewArea = styled(Vexile, {

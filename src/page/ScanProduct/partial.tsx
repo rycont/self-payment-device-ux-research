@@ -1,16 +1,10 @@
-import {
-  Description,
-  DescriptionImportant,
-  PageHeader,
-  Regular,
-  SectionHeader,
-  Vexile,
-} from '@/atom'
+import { Description, SectionHeader } from '@/component'
 import { PurchaseButtonWrapper } from './style'
 
 export const PurchaseButton: React.FC<{
   wholePrice: number
   amount: number
+  onClick(): void
 }> = (props) => {
   return (
     <PurchaseButtonWrapper
@@ -19,6 +13,7 @@ export const PurchaseButton: React.FC<{
       paddingx={5}
       paddingy={3}
       y="center"
+      onClick={() => props.onClick()}
     >
       <Description>{props.amount}개 상품</Description>
       <SectionHeader notight>

@@ -1,10 +1,12 @@
-import HashLoader from 'react-spinners/HashLoader'
-import { Description, Hexile, Regular, Vexile } from '@/atom'
-import { Doc, getProductById } from '@/connect'
-import { Product } from '@/type/product'
 import { MAIN_ACCENT } from '#/stitches.config'
-import { DiscountedPrice, ProductWrapper } from './style'
 import { useEffect } from 'react'
+import HashLoader from 'react-spinners/HashLoader'
+
+import { Description, Hexile, Regular, Vexile } from '@/component'
+import { Doc, getProductById } from '@/connect'
+import { Product } from '@/type'
+
+import { DiscountedPrice, ProductWrapper } from './style'
 
 export const ProductView: React.FC<
   Doc<Product> & {
@@ -75,3 +77,5 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     </ProductWrapper>
   )
 }
+
+export * from './style'

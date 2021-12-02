@@ -2,7 +2,8 @@ import { globalCss } from '#/stitches.config'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Onboarding, ScanProduct } from './page'
+
+import { Onboarding, Purchase, ScanProduct } from '@/page'
 
 globalCss({
   '@import': [
@@ -15,6 +16,7 @@ globalCss({
     fontSize: '4rem',
     fontFamily: 'Pretendard',
     margin: '0px',
+    overflow: 'hidden',
   },
   button: {
     fontFamily: 'Pretendard',
@@ -27,6 +29,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<Onboarding />} />
         <Route path="/scan-product" element={<ScanProduct />} />
+        <Route path="/purchase" element={<Purchase />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

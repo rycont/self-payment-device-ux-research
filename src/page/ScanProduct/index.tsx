@@ -1,18 +1,27 @@
 import { MAIN_ACCENT } from '#/stitches.config'
-import { Description, Hexile, Regular, Space, Vexile } from '@/atom'
-import { Button } from '@/component/Button'
-import { ProductCard, ProductView } from '@/component/ProductCard'
-import { ProductWrapper } from '@/component/ProductCard/style'
-import { Doc, getProductById } from '@/connect'
-import { Product } from '@/type/product'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { HashLoader } from 'react-spinners'
+
+import {
+  Button,
+  ProductView,
+  ProductWrapper,
+  Description,
+  Hexile,
+  Space,
+  Vexile,
+} from '@/component'
+import { Doc, getProductById } from '@/connect'
+import { Product } from '@/type'
+
 import { PurchaseButton } from './partial'
 import { ViewArea } from './style'
 
 function ScanProduct() {
   const [products, setProducts] = useState<Doc<Product>[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
 
   const addProduct = async (e: KeyboardEvent) => {
     if (isNaN(+e.key)) return
@@ -34,6 +43,10 @@ function ScanProduct() {
 
   const removeProduct = (index: number) => {
     setProducts((keys) => [...keys.slice(0, index), ...keys.slice(index + 1)])
+  }
+
+  const goToPurchasePage = () => {
+    navigate('/purchase')
   }
 
   return (
@@ -60,6 +73,7 @@ function ScanProduct() {
           <Button>전체 취소</Button>
         </Hexile>
         <PurchaseButton
+          onClick={goToPurchasePage}
           amount={products.length}
           wholePrice={products.reduce((a, b) => a + b.price, 0)}
         />
