@@ -1,9 +1,11 @@
 import { globalCss } from '#/stitches.config'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
-import { Onboarding, Purchase, ScanProduct } from '@/page'
+import { Onboarding, Purchase, ScanProduct, UserChecked } from '@/page'
+import './animated.css'
 
 globalCss({
   '@import': [
@@ -23,14 +25,26 @@ globalCss({
   },
 })()
 
+const AnimatedRouter = () => {
+  const location = useLocation()
+  return (
+    <TransitionGroup component={null}>
+      <CSSTransition key={location.key} timeout={300} classNames="fade">
+        <Routes location={location}>
+          <Route path="/" element={<Onboarding />} />
+          <Route path="/scan-product" element={<ScanProduct />} />
+          <Route path="/purchase" element={<Purchase />} />
+          <Route path="/user-checked" element={<UserChecked />} />
+        </Routes>
+      </CSSTransition>
+    </TransitionGroup>
+  )
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Onboarding />} />
-        <Route path="/scan-product" element={<ScanProduct />} />
-        <Route path="/purchase" element={<Purchase />} />
-      </Routes>
+      <AnimatedRouter />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

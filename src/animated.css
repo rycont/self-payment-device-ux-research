@@ -1,0 +1,21 @@
+[class*='fade'] {
+  border: 1px solid red;
+  transition: 800ms cubic-bezier(0, 1, 0, 1);
+}
+.fade-enter {
+  opacity: 0;
+  transform: translate(0, 240px);
+  z-index: 1;
+}
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.fade-exit {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.fade-exit.fade-exit-active {
+  opacity: 0;
+  transform: translate(0, -240px);
+}

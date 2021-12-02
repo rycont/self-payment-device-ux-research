@@ -1,15 +1,25 @@
-import { paywaveLogo } from '@/asset'
-import { DescriptionImportant, Regular, SubHeader, Vexile } from '@/component'
 import { useEffect, useRef } from 'react'
+import { Transition } from 'react-transition-group'
+
+import { paywaveLogo } from '@/asset'
+import { DescriptionImportant, Regular, Vexile } from '@/component'
+
 import { drawBackdrop, useCanvas } from './backdrop'
 import { ContentWrapper, Paywave } from './style'
+import { useLocation, useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
 
 export const Purchase = () => {
   const { drawboard } = useCanvas(drawBackdrop)
+  const goto = useNavigate()
   return (
+    // <Transition timeout={5000}>
+    //   {(state) => (
     <Vexile>
       <ContentWrapper gap={6} x="center">
-        <Paywave src={paywaveLogo} />
+        <Link to="/user-checked">
+          <Paywave src={paywaveLogo} />
+        </Link>
         <Vexile gap={2} x="center">
           <Regular center>
             결제 단말기 화면 위쪽에 있는 NFC 태그를
@@ -22,5 +32,7 @@ export const Purchase = () => {
       </ContentWrapper>
       {drawboard}
     </Vexile>
+    //   )}
+    // </Transition>
   )
 }

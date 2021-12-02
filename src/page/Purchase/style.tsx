@@ -13,4 +13,15 @@ export const ContentWrapper = styled(Vexile, {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   mixBlendMode: 'overlay',
+  variants: {
+    appearState: {
+      entering: {},
+      entered: {},
+      exiting: {
+        opacity: 0.1,
+      },
+      exited: {},
+      unmounted: {},
+    },
+  },
 })
