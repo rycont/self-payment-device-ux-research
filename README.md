@@ -6,6 +6,8 @@
 
 ## 구동 방법
 
+> deployed on [mergecoin.netlify.app](https://mergecoin.netlify.app/)
+
 ```
 npm install # or `yarn`
 npm run dev
