@@ -14,6 +14,7 @@ export const Purchase = () => {
     style: {
       filter: 'blur(240px)',
       opacity: 0.3,
+      pointerEvents: 'none',
     },
   })
   const goto = useNavigate()
