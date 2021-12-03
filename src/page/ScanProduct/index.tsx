@@ -49,6 +49,10 @@ function ScanProduct() {
     navigate('/purchase')
   }
 
+  const removeAll = () => {
+    setProducts(() => [])
+  }
+
   return (
     <Vexile fillx filly>
       <ViewArea filly padding={6}>
@@ -70,7 +74,7 @@ function ScanProduct() {
       <Hexile>
         <Hexile padding={6} gap={3} fillx>
           <Button>바코드가 없는 상품 등록</Button>
-          <Button>전체 취소</Button>
+          <Button onClick={removeAll}>전체 취소</Button>
         </Hexile>
         <PurchaseButton
           onClick={goToPurchasePage}
