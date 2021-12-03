@@ -6,6 +6,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 import { Onboarding, Purchase, ScanProduct, UserChecked } from '@/page'
 import './animated.css'
+import { PaymentSucceed } from './page/PaymentSucceed'
 
 globalCss({
   '@import': [
@@ -35,6 +36,7 @@ const AnimatedRouter = () => {
           <Route path="/scan-product" element={<ScanProduct />} />
           <Route path="/purchase" element={<Purchase />} />
           <Route path="/user-checked" element={<UserChecked />} />
+          <Route path="/success" element={<PaymentSucceed />} />
         </Routes>
       </CSSTransition>
     </TransitionGroup>

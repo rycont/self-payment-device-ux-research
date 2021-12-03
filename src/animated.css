@@ -1,5 +1,4 @@
 [class*='fade'] {
-  border: 1px solid red;
   transition: 800ms cubic-bezier(0, 1, 0, 1);
 }
 .fade-enter {
