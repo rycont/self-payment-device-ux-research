@@ -1,5 +1,1 @@
-export const isDev = (import.meta as (ImportMeta & {
-    env: {
-        DEV: boolean
-    }
-})).env.DEV
+export const isDev = import.meta.env.FORCE_MOCK_SERVER || import.meta.env.DEV
