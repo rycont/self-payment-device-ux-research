@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 interface ImportMetaEnv {
     readonly VITE_APP_TITLE: string
-    readonly FORCE_MOCK_SERVER: boolean
+    readonly VITE_FORCE_MOCK_SERVER: boolean
     // more env variables...
 }
 
