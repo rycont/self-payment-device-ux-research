@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom'
 export const Purchase = () => {
   const { drawboard } = useCanvas(drawBackdrop, {
     style: {
-      filter: 'blur(240px)',
+      filter: 'blur(20rem)',
       opacity: 0.3,
       pointerEvents: 'none',
     },
