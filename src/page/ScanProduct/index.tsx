@@ -16,16 +16,23 @@ import {
 import { Doc, getProductById } from '@/connect'
 import { Product } from '@/type'
 
-import { PurchaseButton } from './partial'
+import { NonBarcodeProduct, PurchaseButton } from './partial'
 import { GoBackButton, ViewArea } from './style'
 import { leftArrow } from '@/asset'
 
 function ScanProduct() {
   const [products, setProducts] = useState<Doc<Product>[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [showNonBarcodeProduct, setShowNonBarcodeProduct] = useState(false)
+
   const navigate = useNavigate()
 
-  const addProduct = async (e: KeyboardEvent) => {
+  const addProduct = (product: Doc<Product>) => {
+    setProducts(registeredProduct => [...registeredProduct, product])
+    setShowNonBarcodeProduct(false)
+  }
+
+  const addProductFromKeyboard = async (e: KeyboardEvent) => {
     if (isNaN(+e.key)) return
 
     setIsLoading(() => true)
@@ -39,8 +46,8 @@ function ScanProduct() {
   }
 
   useEffect(() => {
-    window.addEventListener('keypress', addProduct)
-    return () => window.removeEventListener('keypress', addProduct)
+    window.addEventListener('keypress', addProductFromKeyboard)
+    return () => window.removeEventListener('keypress', addProductFromKeyboard)
   }, [])
 
   const removeProduct = (index: number) => {
@@ -53,6 +60,10 @@ function ScanProduct() {
 
   const removeAll = () => {
     setProducts(() => [])
+  }
+
+  const toggleNonBarcodeProduct = () => {
+    setShowNonBarcodeProduct(e => !e)
   }
 
   return (
@@ -73,14 +84,18 @@ function ScanProduct() {
           )}
         </Hexile>
       </ViewArea>
-      <Hexile>
+      <Hexile relative>
+        {showNonBarcodeProduct &&
+          <NonBarcodeProduct
+            selectProduct={addProduct}
+          />}
         <Vexile fillx padding={6} gap={3}>
           <Hexile gap={2}>
             <GoBackButton src={leftArrow} />
             <PlainLink to="/"><Description>이전 화면으로</Description></PlainLink>
           </Hexile>
           <Hexile gap={3} fillx>
-            <Button>바코드가 없는 상품 등록</Button>
+            <Button onClick={toggleNonBarcodeProduct}>바코드가 없는 상품 등록</Button>
             <Button onClick={removeAll}>전체 취소</Button>
           </Hexile>
         </Vexile>

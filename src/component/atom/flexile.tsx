@@ -50,6 +50,11 @@ export const HexileCore = styled('div', {
         flexShrink: 0,
       },
     },
+    relative: {
+      true: {
+        position: "relative"
+      }
+    }
   },
 })
 
@@ -104,6 +109,11 @@ export const VexileCore = styled('div', {
         flexShrink: 0,
       },
     },
+    relative: {
+      true: {
+        position: "relative"
+      }
+    }
   },
 })
 
@@ -116,6 +126,7 @@ interface FlexileProps {
   paddingx?: number
   paddingy?: number
   keepsize?: boolean
+  relative?: boolean
 }
 
 interface VexileProps extends FlexileProps {

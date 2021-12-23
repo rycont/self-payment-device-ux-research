@@ -13,3 +13,9 @@ export const PurchaseButtonWrapper = styled(Vexile, {
 export const GoBackButton = styled('img', {
   width: "1rem"
 })
+
+export const NonBarcodeProductWrapper = styled(Vexile, {
+  position: "absolute",
+  bottom: "30rem",
+  width: "100%"
+})
