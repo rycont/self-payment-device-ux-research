@@ -6,4 +6,5 @@ export const ButtonWrapper = styled('button', {
     color: "white",
     border: "none",
     borderRadius: "1rem",
+    boxShadow: "0px 12px 24px rgba(0, 0, 0, 0.12)"
 })

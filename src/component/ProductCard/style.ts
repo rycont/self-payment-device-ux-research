@@ -1,4 +1,4 @@
-import { styled } from "@stitches/react";
+import { styled } from "#/stitches.config";
 import { Description, Vexile } from "@/component";
 
 export const ProductWrapper = styled(Vexile, {
@@ -6,7 +6,8 @@ export const ProductWrapper = styled(Vexile, {
     padding: "4rem",
     borderRadius: "2rem",
     width: "36rem",
-    height: "18rem"
+    height: "18rem",
+    elevated: true,
 });
 
 export const DiscountedPrice = styled(Description, {
