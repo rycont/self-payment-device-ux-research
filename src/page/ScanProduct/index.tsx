@@ -1,6 +1,6 @@
 import { MAIN_ACCENT } from '#/stitches.config'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { HashLoader } from 'react-spinners'
 
 import {
@@ -11,12 +11,14 @@ import {
   Hexile,
   Space,
   Vexile,
+  PlainLink,
 } from '@/component'
 import { Doc, getProductById } from '@/connect'
 import { Product } from '@/type'
 
 import { PurchaseButton } from './partial'
-import { ViewArea } from './style'
+import { GoBackButton, ViewArea } from './style'
+import { leftArrow } from '@/asset'
 
 function ScanProduct() {
   const [products, setProducts] = useState<Doc<Product>[]>([])
@@ -72,17 +74,23 @@ function ScanProduct() {
         </Hexile>
       </ViewArea>
       <Hexile>
-        <Hexile padding={6} gap={3} fillx>
-          <Button>바코드가 없는 상품 등록</Button>
-          <Button onClick={removeAll}>전체 취소</Button>
-        </Hexile>
+        <Vexile fillx padding={6} gap={3}>
+          <Hexile gap={2}>
+            <GoBackButton src={leftArrow} />
+            <PlainLink to="/"><Description>이전 화면으로</Description></PlainLink>
+          </Hexile>
+          <Hexile gap={3} fillx>
+            <Button>바코드가 없는 상품 등록</Button>
+            <Button onClick={removeAll}>전체 취소</Button>
+          </Hexile>
+        </Vexile>
         <PurchaseButton
           onClick={goToPurchasePage}
           amount={products.length}
           wholePrice={products.reduce((a, b) => a + b.price, 0)}
         />
-      </Hexile>
-    </Vexile>
+      </Hexile >
+    </Vexile >
   )
 }
 
