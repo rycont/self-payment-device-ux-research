@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
-import { Onboarding, Purchase, ScanProduct, UserChecked } from '@/page'
+import { Onboarding, PinPage, Purchase, ScanProduct, UserChecked } from '@/page'
 import './animated.css'
 import { PaymentSucceed } from './page/PaymentSucceed'
 
@@ -37,6 +37,7 @@ const AnimatedRouter = () => {
           <Route path="/purchase" element={<Purchase />} />
           <Route path="/user-checked" element={<UserChecked />} />
           <Route path="/success" element={<PaymentSucceed />} />
+          <Route path="/pin-page" element={<PinPage />} />
         </Routes>
       </CSSTransition>
     </TransitionGroup>

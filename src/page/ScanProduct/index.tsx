@@ -11,14 +11,13 @@ import {
   Hexile,
   Space,
   Vexile,
-  PlainLink,
+  GoBack,
 } from '@/component'
 import { Doc, getProductById } from '@/connect'
 import { Product } from '@/type'
 
 import { NonBarcodeProduct, PurchaseButton } from './partial'
-import { GoBackButton, ViewArea } from './style'
-import { leftArrow } from '@/asset'
+import { ViewArea } from './style'
 
 function ScanProduct() {
   const [products, setProducts] = useState<Doc<Product>[]>([])
@@ -90,10 +89,7 @@ function ScanProduct() {
             selectProduct={addProduct}
           />}
         <Vexile fillx padding={6} gap={3}>
-          <Hexile gap={2}>
-            <GoBackButton src={leftArrow} />
-            <PlainLink to="/"><Description>이전 화면으로</Description></PlainLink>
-          </Hexile>
+          <GoBack />
           <Hexile gap={3} fillx>
             <Button onClick={toggleNonBarcodeProduct}>바코드가 없는 상품 등록</Button>
             <Button onClick={removeAll}>전체 취소</Button>
