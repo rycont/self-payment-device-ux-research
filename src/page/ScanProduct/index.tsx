@@ -18,16 +18,19 @@ import { Product } from '@/type'
 
 import { NonBarcodeProduct, PurchaseButton } from './partial'
 import { ViewArea } from './style'
+import { useRecoilState } from 'recoil'
+import { cartAtom } from '@/coil'
+import { toast } from 'react-toastify'
 
 function ScanProduct() {
-  const [products, setProducts] = useState<Doc<Product>[]>([])
+  const [products, setProducts] = useRecoilState(cartAtom)
   const [isLoading, setIsLoading] = useState(false)
   const [showNonBarcodeProduct, setShowNonBarcodeProduct] = useState(false)
 
   const navigate = useNavigate()
 
   const addProduct = (product: Doc<Product>) => {
-    setProducts(registeredProduct => [...registeredProduct, product])
+    setProducts((registeredProduct) => [...registeredProduct, product])
     setShowNonBarcodeProduct(false)
   }
 
@@ -36,12 +39,17 @@ function ScanProduct() {
 
     setIsLoading(() => true)
 
-    const productInfo = await getProductById.request({
-      productId: e.key,
-    })
+    try {
+      const productInfo = await getProductById.request({
+        productId: e.key,
+      })
+      if (!productInfo) throw new Error()
+      else setProducts((prev) => [...prev, productInfo])
+    } catch (e) {
+      if (e) toast.error('등록되지 않은 상품 정보입니다')
+    }
+
     setIsLoading(() => false)
-    if (!productInfo) return alert('알 수 없는 상품입니다')
-    else setProducts((prev) => [...prev, productInfo])
   }
 
   useEffect(() => {
@@ -54,7 +62,8 @@ function ScanProduct() {
   }
 
   const goToPurchasePage = () => {
-    navigate('/purchase')
+    setProducts(products)
+    navigate('/facesign')
   }
 
   const removeAll = () => {
@@ -62,7 +71,7 @@ function ScanProduct() {
   }
 
   const toggleNonBarcodeProduct = () => {
-    setShowNonBarcodeProduct(e => !e)
+    setShowNonBarcodeProduct((e) => !e)
   }
 
   return (
@@ -72,7 +81,11 @@ function ScanProduct() {
         <Space size={3} />
         <Hexile gap={3} linebreak>
           {products.map((product, index) => (
-            <ProductView onClick={() => removeProduct(index)} {...product} />
+            <ProductView
+              key={product._id}
+              onClick={() => removeProduct(index)}
+              {...product}
+            />
           ))}
           {isLoading && (
             <ProductWrapper>
@@ -84,14 +97,15 @@ function ScanProduct() {
         </Hexile>
       </ViewArea>
       <Hexile relative>
-        {showNonBarcodeProduct &&
-          <NonBarcodeProduct
-            selectProduct={addProduct}
-          />}
+        {showNonBarcodeProduct && (
+          <NonBarcodeProduct selectProduct={addProduct} />
+        )}
         <Vexile fillx padding={6} gap={3}>
           <GoBack />
           <Hexile gap={3} fillx>
-            <Button onClick={toggleNonBarcodeProduct}>바코드가 없는 상품 등록</Button>
+            <Button onClick={toggleNonBarcodeProduct}>
+              바코드가 없는 상품 등록
+            </Button>
             <Button onClick={removeAll}>전체 취소</Button>
           </Hexile>
         </Vexile>
@@ -100,8 +114,8 @@ function ScanProduct() {
           amount={products.length}
           wholePrice={products.reduce((a, b) => a + b.price, 0)}
         />
-      </Hexile >
-    </Vexile >
+      </Hexile>
+    </Vexile>
   )
 }
 

@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom'
 import Modal from 'react-modal'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Onboarding, PinPage, Purchase, ScanProduct, UserChecked } from '@/page'
 import './animated.css'
@@ -36,6 +38,7 @@ const AnimatedRouter = () => {
   return (
     <>
       <Modal isOpen={!!modalContent}>{modalContent}</Modal>
+      <ToastContainer />
       <TransitionGroup component={null}>
         <CSSTransition key={location.key} timeout={300} classNames="fade">
           <Routes location={location}>

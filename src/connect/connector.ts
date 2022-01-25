@@ -34,7 +34,10 @@ export function createAPIConnector<
   URLParams extends {},
   ReqType extends {} | undefined,
   ResType extends {}
->(uri: string, config: APIConnectorConfig<URLParams, ReqType | undefined, ResType>) {
+>(
+  uri: string,
+  config: APIConnectorConfig<URLParams, ReqType | undefined, ResType>
+) {
   return {
     useHook(urlParams?: URLParams, reqBody?: ReqType) {
       const [data, setData] = useState<ResType>()
@@ -48,9 +51,13 @@ export function createAPIConnector<
               setData(responseData)
               setLoaded(true)
             } catch (raisedError) {
-              if (raisedError instanceof Error) setError(() => raisedError as Error)
+              if (raisedError instanceof Error)
+                setError(() => raisedError as Error)
               if ((raisedError as Record<string, string>).message)
-                setError(() => new Error((raisedError as Record<string, string>).message))
+                setError(
+                  () =>
+                    new Error((raisedError as Record<string, string>).message)
+                )
               setError(() => new Error(raisedError as string))
               setLoaded(true)
             }
@@ -83,16 +90,20 @@ export function createAPIConnector<
         reload: loadData,
         data,
         error,
-        loaded
+        loaded,
       }
     },
     request(urlParams: URLParams, reqBody?: ReqType) {
       return new Promise<ResType | undefined>((ok, error) => {
         if (isDev && config.mockHandler) {
           setTimeout(async () => {
-            const responseData = await config.mockHandler(urlParams)
-            ok(responseData)
-            return
+            try {
+              const responseData = await config.mockHandler(urlParams)
+              ok(responseData)
+              return
+            } catch (e) {
+              error(e)
+            }
           }, 1000)
           return
         }
@@ -113,7 +124,7 @@ export function createAPIConnector<
             error(new Error(raisedError))
           })
       })
-    }
+    },
   }
 }
 
@@ -133,12 +144,12 @@ export const createMockModel = <DataType>(
     dataName,
     get:
       <ResType extends ResPlate | undefined>(idKey: string) =>
-        (reqData: ResType) => {
-          if (!reqData) throw new Error('Cannot find error to find docment')
-          const queried = datas.find((data) => data._id === reqData[idKey])
-          if (queried) return queried
-          throw new Error(`Cannot find ${dataName} by key "${reqData[idKey]}"`)
-        },
+      (reqData: ResType) => {
+        if (!reqData) throw new Error('Cannot find error to find docment')
+        const queried = datas.find((data) => data._id === reqData[idKey])
+        if (queried) return queried
+        throw new Error(`Cannot find ${dataName} by key "${reqData[idKey]}"`)
+      },
     create: () => (reqData: DataType) => {
       const createdDocument: Doc<DataType> = {
         _id: (uniqueIndex++).toString(),
