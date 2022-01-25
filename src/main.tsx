@@ -7,11 +7,12 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { Onboarding, PinPage, Purchase, ScanProduct, UserChecked } from '@/page'
+import { Onboarding, Purchase, ScanProduct, UserChecked } from '@/page'
 import './animated.css'
 import { PaymentSucceed } from './page/PaymentSucceed'
 import { RecoilRoot, useRecoilState } from 'recoil'
 import { modalContentAtom } from './coil'
+import { UserPaymentPin } from './page/UserPaymentPin'
 
 globalCss({
   '@import': [
@@ -47,7 +48,7 @@ const AnimatedRouter = () => {
             <Route path="/purchase" element={<Purchase />} />
             <Route path="/user-checked" element={<UserChecked />} />
             <Route path="/success" element={<PaymentSucceed />} />
-            <Route path="/pin-page" element={<PinPage />} />
+            <Route path="/user-payment-pin" element={<UserPaymentPin />} />
           </Routes>
         </CSSTransition>
       </TransitionGroup>
