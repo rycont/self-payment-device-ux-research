@@ -1,12 +1,15 @@
 import { globalCss } from '#/stitches.config'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Modal from 'react-modal'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 import { Onboarding, PinPage, Purchase, ScanProduct, UserChecked } from '@/page'
 import './animated.css'
 import { PaymentSucceed } from './page/PaymentSucceed'
+import { RecoilRoot, useRecoilState } from 'recoil'
+import { modalContentAtom } from './coil'
 
 globalCss({
   '@import': [
@@ -28,27 +31,34 @@ globalCss({
 
 const AnimatedRouter = () => {
   const location = useLocation()
+  const [modalContent] = useRecoilState(modalContentAtom)
+
   return (
-    <TransitionGroup component={null}>
-      <CSSTransition key={location.key} timeout={300} classNames="fade">
-        <Routes location={location}>
-          <Route path="/" element={<Onboarding />} />
-          <Route path="/scan-product" element={<ScanProduct />} />
-          <Route path="/purchase" element={<Purchase />} />
-          <Route path="/user-checked" element={<UserChecked />} />
-          <Route path="/success" element={<PaymentSucceed />} />
-          <Route path="/pin-page" element={<PinPage />} />
-        </Routes>
-      </CSSTransition>
-    </TransitionGroup>
+    <>
+      <Modal isOpen={!!modalContent}>{modalContent}</Modal>
+      <TransitionGroup component={null}>
+        <CSSTransition key={location.key} timeout={300} classNames="fade">
+          <Routes location={location}>
+            <Route path="/" element={<Onboarding />} />
+            <Route path="/scan-product" element={<ScanProduct />} />
+            <Route path="/purchase" element={<Purchase />} />
+            <Route path="/user-checked" element={<UserChecked />} />
+            <Route path="/success" element={<PaymentSucceed />} />
+            <Route path="/pin-page" element={<PinPage />} />
+          </Routes>
+        </CSSTransition>
+      </TransitionGroup>
+    </>
   )
 }
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AnimatedRouter />
-    </BrowserRouter>
+    <RecoilRoot>
+      <BrowserRouter>
+        <AnimatedRouter />
+      </BrowserRouter>
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById('root')
 )
