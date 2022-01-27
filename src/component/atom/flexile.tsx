@@ -52,9 +52,9 @@ export const HexileCore = styled('div', {
     },
     relative: {
       true: {
-        position: "relative"
-      }
-    }
+        position: 'relative',
+      },
+    },
   },
 })
 
@@ -80,10 +80,10 @@ export const VexileCore = styled('div', {
       },
     },
     x: {
-      top: {
+      left: {
         alignItems: 'flex-start',
       },
-      bottom: {
+      right: {
         alignItems: 'flex-end',
       },
       center: {
@@ -91,10 +91,10 @@ export const VexileCore = styled('div', {
       },
     },
     y: {
-      right: {
+      bottom: {
         justifyContent: 'flex-end',
       },
-      left: {
+      top: {
         justifyContent: 'flex-start',
       },
       center: {
@@ -111,9 +111,9 @@ export const VexileCore = styled('div', {
     },
     relative: {
       true: {
-        position: "relative"
-      }
-    }
+        position: 'relative',
+      },
+    },
   },
 })
 
@@ -130,8 +130,8 @@ interface FlexileProps {
 }
 
 interface VexileProps extends FlexileProps {
-  x?: 'top' | 'bottom' | 'center'
-  y?: 'right' | 'left' | 'center' | 'space'
+  x?: 'right' | 'left' | 'center'
+  y?: 'top' | 'bottom' | 'center' | 'space'
 }
 
 interface HexileProps extends FlexileProps {
