@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 
-export const useHIDInput = (props: { onData(data: number): void }) => {
+export const useHIDInput = (props: { onData(data: string): void }) => {
   useEffect(() => {
     let text = ''
 
     const listener = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
-        props.onData(parseInt(text))
+        props.onData(text)
         text = ''
       }
 

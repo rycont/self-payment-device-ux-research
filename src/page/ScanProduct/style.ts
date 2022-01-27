@@ -1,5 +1,5 @@
+import { styled } from '#/stitches.config'
 import { Vexile } from '@/component'
-import { styled } from '@stitches/react'
 
 export const ViewArea = styled(Vexile, {
   backgroundColor: '$background',

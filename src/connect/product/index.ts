@@ -1,2 +1,2 @@
-export * from "./getProductById"
-export * from "./getBarcodelessProduct"
+export * from './getProductByBarcode'
+export * from './getBarcodelessProduct'

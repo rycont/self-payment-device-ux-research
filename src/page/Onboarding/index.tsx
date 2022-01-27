@@ -11,7 +11,11 @@ function Onboarding() {
 
   useHIDInput({
     onData(e) {
-      console.log(e)
+      goto(ROUTES.SCAN_PRODUCT, {
+        state: {
+          init: e,
+        },
+      })
     },
   })
 
