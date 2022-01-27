@@ -143,10 +143,16 @@ export const createMockModel = <DataType>(
   return {
     dataName,
     get:
-      <ResType extends ResPlate | undefined>(idKey: string) =>
+      <ResType extends ResPlate | undefined>(
+        idKey: string,
+        searchProperty?: keyof DataType
+      ) =>
       (reqData: ResType) => {
         if (!reqData) throw new Error('Cannot find error to find docment')
-        const queried = datas.find((data) => data._id === reqData[idKey])
+        const queried = datas.find(
+          (data) =>
+            data[searchProperty ? searchProperty : '_id'] === reqData[idKey]
+        )
         if (queried) return queried
         throw new Error(`Cannot find ${dataName} by key "${reqData[idKey]}"`)
       },
@@ -156,6 +162,9 @@ export const createMockModel = <DataType>(
         ...reqData,
       }
       return createdDocument
+    },
+    getAll: () => {
+      return datas
     },
   }
 }

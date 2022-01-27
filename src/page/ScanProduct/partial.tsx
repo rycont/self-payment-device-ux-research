@@ -1,6 +1,5 @@
 import {
   Description,
-  ProductCard,
   ProductView,
   RegularImportant,
   SectionHeader,

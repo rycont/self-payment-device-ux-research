@@ -16,65 +16,60 @@ export const useLogics = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const addProductByBarcode = async (barcode: string) => {
-    setIsLoading(true)
+  const functions = {
+    addNonBarcodeProduct(product: Doc<Product>) {
+      setProducts((registeredProduct) => [...registeredProduct, product])
+      setShowNonBarcodeProduct(false)
+    },
+    removeProductByIndex(index: number) {
+      setProducts((prev) => [...prev.slice(0, index), ...prev.slice(index + 1)])
+    },
+    goToPurchasePage() {
+      setProducts(products)
+      navigate(ROUTES.OPEN_FACE_SIGN)
+    },
+    removeAll() {
+      setProducts(() => [])
+    },
+    toggleNonBarcodeProduct() {
+      setShowNonBarcodeProduct((e) => !e)
+    },
+    async addProductByBarcode(barcode: string) {
+      setIsLoading(true)
 
-    try {
-      const product = await getProductByBarcode.request({
-        productId: barcode,
-      })
+      try {
+        const product = await getProductByBarcode.request({
+          barcode,
+        })
 
-      if (!product) throw new Error()
+        if (!product) throw new Error()
 
-      setProducts([...products, product])
-    } catch (e) {
-      toast('상품 정보를 찾을 수 없어요', {
-        type: 'error',
-        autoClose: 2000,
-      })
-    }
+        setProducts((prev) => [...prev, product])
+      } catch (e) {
+        toast('상품 정보를 찾을 수 없어요', {
+          type: 'error',
+          autoClose: 2000,
+        })
+      }
 
-    setIsLoading(false)
+      setIsLoading(false)
+    },
   }
 
   useHIDInput({
-    onData: addProductByBarcode,
+    onData: functions.addProductByBarcode,
   })
 
   useEffect(() => {
-    location.state.init && addProductByBarcode(location.state.init)
+    location.state.init && functions.addProductByBarcode(location.state.init)
   }, [location.state.init])
 
-  const addNonBarcodeProduct = (product: Doc<Product>) => {
-    setProducts((registeredProduct) => [...registeredProduct, product])
-    setShowNonBarcodeProduct(false)
-  }
-
-  const removeProductByIndex = (index: number) => {
-    setProducts((keys) => [...keys.slice(0, index), ...keys.slice(index + 1)])
-  }
-
-  const goToPurchasePage = () => {
-    setProducts(products)
-    navigate(ROUTES.OPEN_FACE_SIGN)
-  }
-
-  const removeAll = () => {
-    setProducts(() => [])
-  }
-
-  const toggleNonBarcodeProduct = () => {
-    setShowNonBarcodeProduct((e) => !e)
-  }
-
   return {
-    products,
-    removeProduct: removeProductByIndex,
-    goToPurchasePage,
-    removeAll,
-    isLoading,
-    addProduct: addNonBarcodeProduct,
-    showNonBarcodeProduct,
-    toggleNonBarcodeProduct,
+    state: {
+      products,
+      isLoading,
+      showNonBarcodeProduct,
+    },
+    logics: functions,
   }
 }

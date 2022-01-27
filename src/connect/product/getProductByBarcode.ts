@@ -4,12 +4,12 @@ import { productMockModel } from './index.model'
 
 export const getProductByBarcode = createAPIConnector<
   {
-    productId: string
+    barcode: string
   },
   undefined,
   Doc<Product>
->('product/:productId', {
+>('product/:barcode', {
   method: 'GET',
   needAuth: false,
-  mockHandler: productMockModel.get('productId'),
+  mockHandler: productMockModel.get('barcode', 'barcode'),
 })

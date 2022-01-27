@@ -1,14 +1,14 @@
-import { Product } from "@/type";
-import { createAPIConnector, Doc } from "..";
+import { Product } from '@/type'
+import { createAPIConnector, Doc } from '..'
+import { productMockModel } from './index.model'
 
-export const getBarcodelessProduct = createAPIConnector<{}, {}, Doc<Product>[]>('product/barcodeless', {
-    method: "GET",
+export const getBarcodelessProduct = createAPIConnector<{}, {}, Doc<Product>[]>(
+  'product/barcodeless',
+  {
+    method: 'GET',
     needAuth: false,
     mockHandler() {
-        return [{
-            _id: "101010010100",
-            name: "넥타이",
-            price: 1000,
-        }]
-    }
-})
+      return productMockModel.getAll().filter((e) => !e.barcode)
+    },
+  }
+)

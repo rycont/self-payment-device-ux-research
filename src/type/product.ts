@@ -1,8 +1,9 @@
 export interface Product {
-  name: string;
-  price: number;
+  name: string
+  price: number
+  barcode?: string
   discountPolicy?: {
-    percent?: number;
-    fixedPrice?: number;
+    percent?: number
+    fixedPrice?: number
   }
 }

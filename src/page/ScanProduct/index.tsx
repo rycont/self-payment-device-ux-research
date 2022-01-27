@@ -17,7 +17,7 @@ import { ViewArea } from './style'
 import { useLogics } from './logic'
 
 function ScanProduct() {
-  const logics = useLogics()
+  const { state, logics } = useLogics()
 
   return (
     <Vexile fillx filly>
@@ -25,14 +25,14 @@ function ScanProduct() {
         <Description>상품을 터치해서 삭제할 수 있어요</Description>
         <Space size={3} />
         <Hexile gap={3} linebreak>
-          {logics.products.map((product, index) => (
+          {state.products.map((product, index) => (
             <ProductView
               key={product._id}
-              onClick={() => logics.removeProduct(index)}
+              onClick={() => logics.removeProductByIndex(index)}
               {...product}
             />
           ))}
-          {logics.isLoading && (
+          {state.isLoading && (
             <ProductWrapper>
               <Vexile x="center" y="center" filly>
                 <HashLoader size={30} color={MAIN_ACCENT} />
@@ -42,8 +42,8 @@ function ScanProduct() {
         </Hexile>
       </ViewArea>
       <Hexile relative>
-        {logics.showNonBarcodeProduct && (
-          <NonBarcodeProduct selectProduct={logics.addProduct} />
+        {state.showNonBarcodeProduct && (
+          <NonBarcodeProduct selectProduct={logics.addNonBarcodeProduct} />
         )}
         <Vexile fillx padding={6} gap={3}>
           <GoBack />
@@ -56,8 +56,8 @@ function ScanProduct() {
         </Vexile>
         <PurchaseButton
           onClick={logics.goToPurchasePage}
-          amount={logics.products.length}
-          wholePrice={logics.products.reduce((a, b) => a + b.price, 0)}
+          amount={state.products.length}
+          wholePrice={state.products.reduce((a, b) => a + b.price, 0)}
         />
       </Hexile>
     </Vexile>
