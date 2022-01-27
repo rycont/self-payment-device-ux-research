@@ -11,7 +11,7 @@ import { drawBackdrop, useCanvas } from './backdrop'
 import { ContentWrapper, Paywave } from './style'
 import { useNavigate } from 'react-router'
 
-export const Purchase = () => {
+export const TagNFC = () => {
   const { drawboard } = useCanvas(drawBackdrop, {
     style: {
       filter: 'blur(20rem)',

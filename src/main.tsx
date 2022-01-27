@@ -1,5 +1,5 @@
 import { globalCss } from '#/stitches.config'
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import ReactDOM from 'react-dom'
 import Modal from 'react-modal'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
@@ -7,12 +7,13 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { Onboarding, Purchase, ScanProduct, UserChecked } from '@/page'
+import { Onboarding, TagNFC, ScanProduct, UserRecognized } from '@/page'
 import './animated.css'
 import { PaymentSucceed } from './page/PaymentSucceed'
 import { RecoilRoot, useRecoilState } from 'recoil'
 import { modalContentAtom } from './coil'
 import { UserPaymentPin } from './page/UserPaymentPin'
+import { ROUTES } from './constants'
 
 globalCss({
   '@import': [
@@ -32,6 +33,15 @@ globalCss({
   },
 })()
 
+const pages: Record<ROUTES, FunctionComponent> = {
+  [ROUTES.ROOT]: Onboarding,
+  [ROUTES.SCAN_PRODUCT]: ScanProduct,
+  [ROUTES.TAG_NFC]: TagNFC,
+  [ROUTES.USER_RECOGNIZED]: UserRecognized,
+  [ROUTES.PAYMENT_SUCCEED]: PaymentSucceed,
+  [ROUTES.PAYMENT_PIN_PROMPT]: UserPaymentPin,
+}
+
 const AnimatedRouter = () => {
   const location = useLocation()
   const [modalContent] = useRecoilState(modalContentAtom)
@@ -43,12 +53,9 @@ const AnimatedRouter = () => {
       <TransitionGroup component={null}>
         <CSSTransition key={location.key} timeout={300} classNames="fade">
           <Routes location={location}>
-            <Route path="/" element={<Onboarding />} />
-            <Route path="/scan-product" element={<ScanProduct />} />
-            <Route path="/purchase" element={<Purchase />} />
-            <Route path="/user-checked" element={<UserChecked />} />
-            <Route path="/success" element={<PaymentSucceed />} />
-            <Route path="/user-payment-pin" element={<UserPaymentPin />} />
+            {Object.entries(pages).map(([route, Component]) => (
+              <Route path={route} element={<Component />} />
+            ))}
           </Routes>
         </CSSTransition>
       </TransitionGroup>

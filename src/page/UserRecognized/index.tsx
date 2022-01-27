@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { UserProfileImage } from './style'
 
-export const UserChecked = () => {
+export const UserRecognized = () => {
   const nagivate = useNavigate()
 
   useEffect(() => {

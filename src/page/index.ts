@@ -1,4 +1,4 @@
 export * from './Onboarding'
 export * from './ScanProduct'
-export * from './Purchase'
-export * from './UserChecked'
+export * from './TagNFC'
+export * from './UserRecognized'
