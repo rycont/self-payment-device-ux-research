@@ -21,6 +21,7 @@ import { ViewArea } from './style'
 import { useRecoilState } from 'recoil'
 import { cartAtom } from '@/coil'
 import { toast } from 'react-toastify'
+import { ROUTES } from '@/constants'
 
 function ScanProduct() {
   const [products, setProducts] = useRecoilState(cartAtom)
@@ -63,7 +64,7 @@ function ScanProduct() {
 
   const goToPurchasePage = () => {
     setProducts(products)
-    navigate('/facesign')
+    navigate(ROUTES.OPEN_FACE_SIGN)
   }
 
   const removeAll = () => {

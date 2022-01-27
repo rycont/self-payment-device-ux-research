@@ -40,6 +40,7 @@ const pages: Record<ROUTES, FunctionComponent> = {
   [ROUTES.USER_RECOGNIZED]: UserRecognized,
   [ROUTES.PAYMENT_SUCCEED]: PaymentSucceed,
   [ROUTES.PAYMENT_PIN_PROMPT]: UserPaymentPin,
+  [ROUTES.OPEN_FACE_SIGN]: () => <div>Not Ready</div>,
 }
 
 const AnimatedRouter = () => {
