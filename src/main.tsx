@@ -7,7 +7,13 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 
-import { Onboarding, TagNFC, ScanProduct, UserRecognized } from '@/page'
+import {
+  Onboarding,
+  TagNFC,
+  ScanProduct,
+  UserRecognized,
+  OpenFaceSign,
+} from '@/page'
 import './animated.css'
 import { PaymentSucceed } from './page/PaymentSucceed'
 import { RecoilRoot, useRecoilState } from 'recoil'
@@ -40,7 +46,7 @@ const pages: Record<ROUTES, FunctionComponent> = {
   [ROUTES.USER_RECOGNIZED]: UserRecognized,
   [ROUTES.PAYMENT_SUCCEED]: PaymentSucceed,
   [ROUTES.PAYMENT_PIN_PROMPT]: UserPaymentPin,
-  [ROUTES.OPEN_FACE_SIGN]: () => <div>Not Ready</div>,
+  [ROUTES.OPEN_FACE_SIGN]: OpenFaceSign,
 }
 
 const AnimatedRouter = () => {

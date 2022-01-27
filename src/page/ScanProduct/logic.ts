@@ -61,8 +61,8 @@ export const useLogics = () => {
   })
 
   useEffect(() => {
-    location.state.init && functions.addProductByBarcode(location.state.init)
-  }, [location.state.init])
+    location.state?.init && functions.addProductByBarcode(location.state.init)
+  }, [location.state?.init])
 
   return {
     state: {
