@@ -17,17 +17,9 @@ export const getFaceSignResult = createAPIConnector<
   | {
       type: FaceSignResultType.FAILED
     }
-  | {
-      type: FaceSignResultType.PENDING
-    }
 >('auth/facesign-result', {
   method: 'GET',
   mockHandler() {
-    if (Math.random() > 0.5) {
-      return {
-        type: FaceSignResultType.PENDING,
-      }
-    }
     if (Math.random() > 0.5) {
       return {
         type: FaceSignResultType.SURE,

@@ -47,6 +47,7 @@ const pages: Record<ROUTES, FunctionComponent> = {
   [ROUTES.PAYMENT_SUCCEED]: PaymentSucceed,
   [ROUTES.PAYMENT_PIN_PROMPT]: PaymentPinPrompt,
   [ROUTES.OPEN_FACE_SIGN]: OpenFaceSign,
+  [ROUTES.SMS_VERIFICATION]: () => <div>SMS Verification</div>,
 }
 
 const AnimatedRouter = () => {

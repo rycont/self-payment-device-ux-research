@@ -14,18 +14,14 @@ export const OpenFaceSign = () => {
 
   useEffect(() => {
     window.open('shortcut://open-shortcut?name=facesign')
-    const interval = setInterval(async () => {
+    ;(async () => {
       const result = await getFaceSignResult.request()
       console.log(result)
       if (!result) return
 
       if (result?.type === FaceSignResultType.SURE) {
-        setUser(result.user)
-        goto(ROUTES.USER_RECOGNIZED, {
-          state: {
-            user: result.user,
-          },
-        })
+        setUser(result)
+        goto(ROUTES.USER_RECOGNIZED)
       } else if (result?.type === FaceSignResultType.MULTIPLE_POSSIBILITY) {
         goto(ROUTES.PAYMENT_PIN_PROMPT, {
           state: {
@@ -38,9 +34,7 @@ export const OpenFaceSign = () => {
         })
         goto(ROUTES.TAG_NFC)
       }
-
-      clearInterval(interval)
-    }, 2000)
+    })()
   }, [])
   return (
     <Vexile gap={9} fillx filly x="center" y="center">

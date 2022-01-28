@@ -13,7 +13,10 @@ export const cartAtom = atom<Doc<Product>[]>({
   key: 'CART',
 })
 
-export const currentUserAtom = atom<Doc<User> | null>({
+export const currentUserAtom = atom<{
+  user: User
+  paymentToken: string
+} | null>({
   default: null,
   key: 'CURRENT_USER',
 })

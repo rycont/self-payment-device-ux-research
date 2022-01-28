@@ -1,4 +1,4 @@
-import { styled } from '#/stitches.config'
+import { keyframes, styled } from '#/stitches.config'
 import { Vexile } from '@/component'
 
 export const Paywave = styled('img', {
@@ -13,15 +13,29 @@ export const ContentWrapper = styled(Vexile, {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   mixBlendMode: 'overlay',
-  variants: {
-    appearState: {
-      entering: {},
-      entered: {},
-      exiting: {
-        opacity: 0.1,
-      },
-      exited: {},
-      unmounted: {},
-    },
+})
+
+const grow = keyframes({
+  '0%': {
+    width: '0%',
+  },
+  '100%': {
+    width: '100%',
+  },
+})
+
+export const TimeLeftIndicator = styled('div', {
+  height: '1rem',
+  backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  width: '100%',
+  borderRadius: '1rem',
+  overflow: 'hidden',
+  '&:after': {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    content: '',
+    display: 'block',
+    height: '1rem',
+    width: '0%',
+    transition: '1s linear',
   },
 })
