@@ -9,5 +9,6 @@ export const userMockModel = createMockModel<User>('user', [
     username: 'rycont',
     name: '최재현',
     profileImage: 'https://github.com/rycont.png',
+    hashedPin: btoa('1122'),
   },
 ])

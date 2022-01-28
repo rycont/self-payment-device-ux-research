@@ -26,7 +26,8 @@ interface APIConnectorConfig<URLParams, ReqType, ResType> {
   needAuth: boolean
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE'
   mockHandler(
-    req?: URLParams
+    urlParams?: URLParams,
+    reqBody?: ReqType
   ): (ResType | undefined) | Promise<ResType | undefined>
 }
 

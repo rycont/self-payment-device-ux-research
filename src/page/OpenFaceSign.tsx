@@ -1,7 +1,6 @@
-import { faceSignIcon } from '@/asset'
 import { currentUserAtom } from '@/coil'
 import { Description, FaceSignLogo, GoBack, Regular, Vexile } from '@/component'
-import { getFaceSignResult } from '@/connect/auth/getFaceSignResult'
+import { getFaceSignResult } from '@/connect'
 import { ROUTES } from '@/constants'
 import { FaceSignResultType } from '@/type/user'
 import { useEffect } from 'react'
@@ -34,9 +33,10 @@ export const OpenFaceSign = () => {
           },
         })
       } else if (result?.type === FaceSignResultType.FAILED) {
-        toast('얼굴인증에 실패헀어요..', {
+        toast('얼굴인증에 실패했어요..', {
           type: 'error',
         })
+        goto(ROUTES.TAG_NFC)
       }
 
       clearInterval(interval)

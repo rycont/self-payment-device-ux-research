@@ -5,14 +5,15 @@ import {
   UnderlinedPageHeader,
   Vexile,
 } from '@/component'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import { PinDigit } from './style'
 
 const PIN_DIGITS_LENGTH = 4
 
 export const Pin: React.FC<{
   title: string
-  onSubmit(pin: number): void
+  onSubmit(pin: string): Promise<boolean | void>
   onCancel(): void
 }> = (props) => {
   const [digits, setDigits] = useState<number[]>([])
@@ -24,6 +25,15 @@ export const Pin: React.FC<{
   const addDigit = (digit: number) => {
     setDigits((prevDigits) => [...prevDigits, digit])
   }
+
+  useEffect(() => {
+    props.onSubmit(digits.join('')).then((success) => {
+      if (success === false) {
+        toast('재시도')
+        setDigits([])
+      }
+    })
+  }, [digits])
 
   return (
     <Vexile x="center" filly y="center" gap={6}>

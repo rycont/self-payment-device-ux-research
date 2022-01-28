@@ -8,6 +8,7 @@ export const getFaceSignResult = createAPIConnector<
   | {
       type: FaceSignResultType.SURE
       user: Doc<User>
+      paymentToken: string
     }
   | {
       type: FaceSignResultType.MULTIPLE_POSSIBILITY
@@ -16,13 +17,22 @@ export const getFaceSignResult = createAPIConnector<
   | {
       type: FaceSignResultType.FAILED
     }
+  | {
+      type: FaceSignResultType.PENDING
+    }
 >('auth/facesign-result', {
   method: 'GET',
   mockHandler() {
     if (Math.random() > 0.5) {
       return {
+        type: FaceSignResultType.PENDING,
+      }
+    }
+    if (Math.random() > 0.5) {
+      return {
         type: FaceSignResultType.SURE,
         user: userMockModel.random(),
+        paymentToken: '뭐시기 저시기 토큰',
       }
     }
 

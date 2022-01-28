@@ -6,11 +6,13 @@ import { useLocation, useNavigate } from 'react-router'
 import { UserProfileImage } from './style'
 
 export const UserRecognized = () => {
-  const nagivate = useNavigate()
-  const user: User = useLocation().state.user
+  const goto = useNavigate()
+  const user: User = useLocation().state?.user
 
   useEffect(() => {
-    setTimeout(() => nagivate(ROUTES.PAYMENT_SUCCEED), 1000)
+    if (!user) {
+      return goto(ROUTES.ROOT)
+    } else setTimeout(() => goto(ROUTES.PAYMENT_SUCCEED), 1000)
   }, [])
 
   return (
