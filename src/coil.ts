@@ -1,6 +1,6 @@
 import { atom } from 'recoil'
 import { Doc } from './connect'
-import { Product, User } from './type'
+import { Coupon, Product, User } from './type'
 
 export const modalContentAtom = atom<{
   dismissable: boolean
@@ -9,6 +9,16 @@ export const modalContentAtom = atom<{
 } | null>({
   default: null,
   key: 'MODAL_CONTENT',
+})
+
+export const selectedCouponIdsAtom = atom<number[]>({
+  key: 'SELECTED_COUPONS',
+  default: [],
+})
+
+export const modalAppearanceAtom = atom<boolean>({
+  default: false,
+  key: 'MODAL_APPEARANCE',
 })
 
 export const cartAtom = atom<Doc<Product>[]>({

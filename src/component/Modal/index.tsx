@@ -1,10 +1,21 @@
-import { MouseEvent } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
-import { modalContentAtom } from '@/coil'
+import { modalAppearanceAtom, modalContentAtom } from '@/coil'
 import { ModalBackdrop, ModalWrapper } from './style'
 
 export const ModalPlaceholder = () => {
   const [content, setContent] = useRecoilState(modalContentAtom)
+  const [isClosing, setIsClosing] = useRecoilState(modalAppearanceAtom)
+
+  useEffect(() => {
+    if (isClosing) {
+      content?.onClose?.()
+      setTimeout(() => {
+        setContent(null)
+        setIsClosing(false)
+      }, 800)
+    }
+  }, [isClosing])
 
   return content ? (
     <ModalBackdrop
@@ -14,11 +25,14 @@ export const ModalPlaceholder = () => {
       y="center"
       onClick={() => {
         if (!content.dismissable) return
-        setContent(null)
-        content.onClose?.()
+        setIsClosing(true)
       }}
+      isClosing={isClosing}
     >
-      <ModalWrapper onClick={(e: MouseEvent) => e.stopPropagation()}>
+      <ModalWrapper
+        onClick={(e: MouseEvent) => e.stopPropagation()}
+        isClosing={isClosing}
+      >
         {content.content}
       </ModalWrapper>
     </ModalBackdrop>

@@ -1,4 +1,5 @@
 import { styled } from '#/stitches.config'
+import { StyledComponentProps } from '@stitches/react/types/styled-component'
 
 export const HexileCore = styled('div', {
   display: 'flex',

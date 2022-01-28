@@ -18,6 +18,7 @@ export const {
       background: '#F9F9F9',
       actionableGray: '#333333',
       dark4: '#ABB0B0',
+      dark5: '#D5D7D7',
     },
     shadows: {
       accent: MAIN_ACCENT,
@@ -26,10 +27,10 @@ export const {
   utils: {
     elevated: () => ({
       boxShadow: '0px 0.5rem 1rem rgba(0, 0, 0, 0.12)',
-      border: '0.3rem solid #D8D8DB',
+      border: '2px solid $dark5',
     }),
     animated: () => ({
-      transition: '300ms cubic-bezier(0,.67,0,.99)',
+      transition: '500ms cubic-bezier(0,.67,0,.99)',
     }),
   },
 })

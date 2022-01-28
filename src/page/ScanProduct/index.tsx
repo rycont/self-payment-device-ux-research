@@ -27,7 +27,7 @@ function ScanProduct() {
         <Hexile gap={3} linebreak>
           {state.products.map((product, index) => (
             <ProductView
-              key={product._id}
+              key={product.id}
               onClick={() => logics.removeProductByIndex(index)}
               {...product}
             />

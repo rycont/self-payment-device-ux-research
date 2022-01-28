@@ -1,19 +1,34 @@
-import { currentUserAtom, modalContentAtom } from '@/coil'
-import { PageHeader, RegularImportant, Vexile } from '@/component'
+import {
+  currentUserAtom,
+  modalAppearanceAtom,
+  modalContentAtom,
+  selectedCouponIdsAtom,
+} from '@/coil'
+import {
+  Button,
+  Description,
+  Hexile,
+  PageHeader,
+  RegularImportant,
+  Vexile,
+} from '@/component'
 import { ROUTES } from '@/constants'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { CouponView } from './partial'
+import { CouponSelector, CouponView } from './partial'
 import { UserProfileImage } from './style'
 
 export const UserRecognized = () => {
   const goto = useNavigate()
   const user = useRecoilValue(currentUserAtom)?.user
   const showModal = useRecoilState(modalContentAtom)[1]
+  const closeModal = useRecoilState(modalAppearanceAtom)[1]
 
-  const gotoPaymentPage = () =>
+  const gotoPaymentPage = () => {
+    closeModal(true)
     void setTimeout(() => goto(ROUTES.PAYMENT_SUCCEED), 1000)
+  }
 
   useEffect(() => {
     if (!user) {
@@ -26,14 +41,12 @@ export const UserRecognized = () => {
       () =>
         showModal({
           content: (
-            <Vexile gap={4}>
-              <RegularImportant>쿠폰을 사용하시겠어요?</RegularImportant>
-              <Vexile gap={2}>
-                {user.coupon.map((e) => (
-                  <CouponView {...e} key={e.id} />
-                ))}
-              </Vexile>
-            </Vexile>
+            <CouponSelector
+              coupons={user.coupon}
+              onSubmit={() => {
+                gotoPaymentPage()
+              }}
+            />
           ),
           dismissable: true,
           onClose: gotoPaymentPage,
