@@ -1,6 +1,7 @@
 import { atom } from 'recoil'
 import { Doc } from './connect'
 import { Product } from './type'
+import { User } from './type/user'
 
 export const modalContentAtom = atom<JSX.Element | null>({
   default: null,
@@ -9,5 +10,10 @@ export const modalContentAtom = atom<JSX.Element | null>({
 
 export const cartAtom = atom<Doc<Product>[]>({
   default: [],
-  key: 'CARD',
+  key: 'CART',
+})
+
+export const currentUserAtom = atom<Doc<User> | null>({
+  default: null,
+  key: 'CURRENT_USER',
 })

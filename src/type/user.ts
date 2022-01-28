@@ -5,3 +5,9 @@ export interface User {
   name: string
   profileImage: string
 }
+
+export enum FaceSignResultType {
+  SURE,
+  MULTIPLE_POSSIBILITY,
+  FAILED,
+}

@@ -18,7 +18,7 @@ import './animated.css'
 import { PaymentSucceed } from './page/PaymentSucceed'
 import { RecoilRoot, useRecoilState } from 'recoil'
 import { modalContentAtom } from './coil'
-import { UserPaymentPin } from './page/UserPaymentPin'
+import { PaymentPinPrompt } from './page/PaymentPinPrompt'
 import { ROUTES } from './constants'
 
 globalCss({
@@ -45,7 +45,7 @@ const pages: Record<ROUTES, FunctionComponent> = {
   [ROUTES.TAG_NFC]: TagNFC,
   [ROUTES.USER_RECOGNIZED]: UserRecognized,
   [ROUTES.PAYMENT_SUCCEED]: PaymentSucceed,
-  [ROUTES.PAYMENT_PIN_PROMPT]: UserPaymentPin,
+  [ROUTES.PAYMENT_PIN_PROMPT]: PaymentPinPrompt,
   [ROUTES.OPEN_FACE_SIGN]: OpenFaceSign,
 }
 
