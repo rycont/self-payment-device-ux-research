@@ -1,13 +1,18 @@
 import { verticalLogo } from '@/asset'
+import { cartAtom, currentUserAtom } from '@/coil'
 import { DescriptionImportant, PlainLink, Regular, Vexile } from '@/component'
 import { ROUTES } from '@/constants'
 import { useHIDInput } from '@/hook'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
+import { useResetRecoilState } from 'recoil'
 
 import { MainLogo } from './style'
 
 function Onboarding() {
   const goto = useNavigate()
+  const resetCart = useResetRecoilState(cartAtom)
+  const resetUser = useResetRecoilState(currentUserAtom)
 
   useHIDInput({
     onData(e) {
@@ -18,6 +23,11 @@ function Onboarding() {
       })
     },
   })
+
+  useEffect(() => {
+    resetCart()
+    resetUser()
+  }, [])
 
   return (
     <Vexile fillx filly x="center" y="center" gap={12}>

@@ -32,18 +32,26 @@ export const TagNFC = () => {
   })
 
   useEffect(() => {
-    setInterval(() => setLastTime((prev) => prev - 1), 1000)
-    setTimeout(() => {
+    const decreaseInterval = setInterval(
+      () => setLastTime((prev) => prev - 1),
+      1000
+    )
+    const returnTimeout = setTimeout(() => {
       toast('시간이 초과되어 메인 화면으로 돌아갔어요')
       return goto(ROUTES.ROOT)
     }, 1000 * 20)
-    // ;(async () => {
-    //   const result = await getNFCResult.request()
-    //   if (result?.succeed) {
-    //     setUser(result)
-    //     return goto(ROUTES.USER_RECOGNIZED)
-    //   }
-    // })()
+    ;(async () => {
+      const result = await getNFCResult.request()
+      if (result?.succeed) {
+        setUser(result)
+        return goto(ROUTES.USER_RECOGNIZED)
+      }
+    })()
+
+    return () => {
+      clearTimeout(returnTimeout)
+      clearInterval(decreaseInterval)
+    }
   }, [])
 
   return (

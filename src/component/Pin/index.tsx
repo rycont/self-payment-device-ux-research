@@ -27,9 +27,9 @@ export const Pin: React.FC<{
   }
 
   useEffect(() => {
+    if (digits.length !== PIN_DIGITS_LENGTH) return
     props.onSubmit(digits.join('')).then((success) => {
       if (success === false) {
-        toast('재시도')
         setDigits([])
       }
     })

@@ -1,13 +1,20 @@
+import { currentUserAtom } from '@/coil'
 import { Pin } from '@/component/Pin'
 import { getPinMatchedUser } from '@/connect'
 import { ROUTES } from '@/constants'
+import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { useRecoilState } from 'recoil'
 
 export const PaymentPinPrompt = () => {
   const goto = useNavigate()
-  const ids = useLocation().state.ids
+  const ids = useLocation().state?.ids
+  const setUser = useRecoilState(currentUserAtom)[1]
 
-  console.log('어쩔티비야')
+  useEffect(() => {
+    if (!ids) goto(ROUTES.ROOT)
+  }, [])
 
   return (
     <Pin
@@ -23,8 +30,10 @@ export const PaymentPinPrompt = () => {
         )
 
         if (result?.succeed) {
-          goto(ROUTES.PAYMENT_SUCCEED)
+          setUser(result)
+          goto(ROUTES.USER_RECOGNIZED)
         } else {
+          toast('PIN이 일치하지 않아요')
           return false
         }
       }}

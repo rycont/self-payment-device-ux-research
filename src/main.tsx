@@ -62,7 +62,7 @@ const AnimatedRouter = () => {
         <CSSTransition key={location.key} timeout={300} classNames="fade">
           <Routes location={location}>
             {Object.entries(pages).map(([route, Component]) => (
-              <Route path={route} element={<Component />} />
+              <Route key={route} path={route} element={<Component />} />
             ))}
           </Routes>
         </CSSTransition>

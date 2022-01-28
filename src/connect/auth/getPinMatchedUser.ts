@@ -10,7 +10,7 @@ export const getPinMatchedUser = createAPIConnector<
   },
   | {
       succeed: true
-      matched: User
+      user: User
       paymentToken: string
     }
   | {
@@ -20,6 +20,7 @@ export const getPinMatchedUser = createAPIConnector<
   method: 'GET',
   needAuth: true,
   mockHandler(url, req) {
+    console.log(req)
     if (!req)
       return {
         succeed: false,
@@ -32,7 +33,7 @@ export const getPinMatchedUser = createAPIConnector<
     if (user) {
       return {
         succeed: true,
-        matched: user,
+        user: user,
         paymentToken: '여기에 JWT로 구운 토큰이 들어가겠지 ..',
       }
     }

@@ -99,7 +99,7 @@ export function createAPIConnector<
         if (isDev && config.mockHandler) {
           setTimeout(async () => {
             try {
-              const responseData = await config.mockHandler(urlParams)
+              const responseData = await config.mockHandler(urlParams, reqBody)
               ok(responseData)
               return
             } catch (e) {

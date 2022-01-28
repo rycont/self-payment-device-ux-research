@@ -17,7 +17,9 @@ export const getNFCResult = createAPIConnector<
   method: 'GET',
   needAuth: true,
   async mockHandler() {
-    await new Promise<void>((res) => setTimeout(() => res(), 4000)) // wait 4초
+    await new Promise<void>((res) =>
+      setTimeout(() => res(), Math.random() * 5 + 12)
+    ) // 12 ~ 17초
     if (Math.random() > 0.5) {
       return {
         user: userMockModel.random(),
