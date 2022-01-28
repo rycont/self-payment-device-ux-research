@@ -13,6 +13,7 @@ import {
   ScanProduct,
   UserRecognized,
   OpenFaceSign,
+  SmsVerification,
 } from '@/page'
 import './animated.css'
 import { PaymentSucceed } from './page/PaymentSucceed'
@@ -20,6 +21,7 @@ import { RecoilRoot, useRecoilState } from 'recoil'
 import { modalContentAtom } from './coil'
 import { PaymentPinPrompt } from './page/PaymentPinPrompt'
 import { ROUTES } from './constants'
+import './asset/numericalGlyph/index.css'
 
 globalCss({
   '@import': [
@@ -47,7 +49,7 @@ const pages: Record<ROUTES, FunctionComponent> = {
   [ROUTES.PAYMENT_SUCCEED]: PaymentSucceed,
   [ROUTES.PAYMENT_PIN_PROMPT]: PaymentPinPrompt,
   [ROUTES.OPEN_FACE_SIGN]: OpenFaceSign,
-  [ROUTES.SMS_VERIFICATION]: () => <div>SMS Verification</div>,
+  [ROUTES.SMS_VERIFICATION]: SmsVerification,
 }
 
 const AnimatedRouter = () => {

@@ -20,7 +20,7 @@ export const getFaceSignResult = createAPIConnector<
 >('auth/facesign-result', {
   method: 'GET',
   mockHandler() {
-    if (Math.random() > 0.5) {
+    if (Math.random() > 0.8) {
       return {
         type: FaceSignResultType.SURE,
         user: userMockModel.random(),
@@ -28,7 +28,7 @@ export const getFaceSignResult = createAPIConnector<
       }
     }
 
-    if (Math.random() > 0.5) {
+    if (Math.random() > 0.6) {
       return {
         type: FaceSignResultType.MULTIPLE_POSSIBILITY,
         ids: [userMockModel.random().id, userMockModel.random().id],

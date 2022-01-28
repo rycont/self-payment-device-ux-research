@@ -56,7 +56,7 @@ export const TagNFC = () => {
 
   return (
     <Vexile>
-      <ContentWrapper gap={6} x="center">
+      <ContentWrapper gap={12} x="center">
         <Paywave src={paywaveLogo} />
         <Vexile gap={2} x="center">
           <Regular center>

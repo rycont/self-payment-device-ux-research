@@ -16,7 +16,6 @@ export const OpenFaceSign = () => {
     window.open('shortcut://open-shortcut?name=facesign')
     ;(async () => {
       const result = await getFaceSignResult.request()
-      console.log(result)
       if (!result) return
 
       if (result?.type === FaceSignResultType.SURE) {
