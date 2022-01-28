@@ -1,4 +1,4 @@
-import { cartAtom, selectedCouponIdsAtom } from '@/coil'
+import { cartAtom, cartSumSelector, selectedCouponIdsAtom } from '@/coil'
 import {
   Button,
   Description,
@@ -48,7 +48,7 @@ export const CouponSelector: React.FC<{
   const [selectedCouponIds, setSelectedCouponIds] = useRecoilState(
     selectedCouponIdsAtom
   )
-  const cart = useRecoilValue(cartAtom).reduce((a, b) => a + b.price, 0)
+  const cart = useRecoilValue(cartSumSelector)
 
   const couponSum = props.coupons
     .filter((e) => selectedCouponIds.includes(e.id))

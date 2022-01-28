@@ -1,5 +1,5 @@
 import { verticalLogo } from '@/asset'
-import { cartAtom, currentUserAtom } from '@/coil'
+import { cartAtom, currentUserAtom, selectedCouponIdsAtom } from '@/coil'
 import { DescriptionImportant, PlainLink, Regular, Vexile } from '@/component'
 import { ROUTES } from '@/constants'
 import { useHIDInput } from '@/hook'
@@ -13,6 +13,7 @@ function Onboarding() {
   const goto = useNavigate()
   const resetCart = useResetRecoilState(cartAtom)
   const resetUser = useResetRecoilState(currentUserAtom)
+  const resetCoupon = useResetRecoilState(selectedCouponIdsAtom)
 
   useHIDInput({
     onData(e) {
@@ -27,6 +28,7 @@ function Onboarding() {
   useEffect(() => {
     resetCart()
     resetUser()
+    resetCoupon()
   }, [])
 
   return (

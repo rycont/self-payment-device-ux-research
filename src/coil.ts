@@ -1,5 +1,6 @@
-import { atom } from 'recoil'
+import { atom, selector } from 'recoil'
 import { Doc } from './connect'
+import { calculateDiscountedPrice } from './function'
 import { Coupon, Product, User } from './type'
 
 export const modalContentAtom = atom<{
@@ -24,6 +25,16 @@ export const modalAppearanceAtom = atom<boolean>({
 export const cartAtom = atom<Doc<Product>[]>({
   default: [],
   key: 'CART',
+})
+
+export const cartSumSelector = selector({
+  key: 'CART/SUM',
+  get: ({ get }) => {
+    return get(cartAtom).reduce(
+      (a, b) => a + calculateDiscountedPrice(b.price, b.discountPolicy),
+      0
+    )
+  },
 })
 
 export const currentUserAtom = atom<{

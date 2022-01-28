@@ -1,4 +1,4 @@
-import { cartAtom } from '@/coil'
+import { cartAtom, cartSumSelector } from '@/coil'
 import { Doc, getProductByBarcode } from '@/connect'
 import { ROUTES } from '@/constants'
 import { useHIDInput } from '@/hook'
@@ -6,10 +6,11 @@ import { Product } from '@/type'
 import { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
 export const useLogics = () => {
   const [products, setProducts] = useRecoilState(cartAtom)
+  const cartSum = useRecoilValue(cartSumSelector)
   const [isLoading, setIsLoading] = useState(false)
   const [showNonBarcodeProduct, setShowNonBarcodeProduct] = useState(false)
 
@@ -69,6 +70,7 @@ export const useLogics = () => {
       products,
       isLoading,
       showNonBarcodeProduct,
+      cartSum,
     },
     logics: functions,
   }

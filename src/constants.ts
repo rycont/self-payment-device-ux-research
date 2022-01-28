@@ -2,7 +2,7 @@ export const API_URI = 'localhost/api/'
 
 export enum ROUTES {
   ROOT = '/',
-  SCAN_PRODUCT = '/scan-barcode',
+  SCAN_PRODUCT = '/scan-product',
   TAG_NFC = '/tag-nfc',
   USER_RECOGNIZED = '/user-recognized',
   PAYMENT_SUCCEED = '/payment-succeed',

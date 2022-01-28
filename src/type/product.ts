@@ -1,9 +1,11 @@
+export interface DiscountPolicy {
+  percent?: number
+  fixedPrice?: number
+}
+
 export interface Product {
   name: string
   price: number
   barcode?: string
-  discountPolicy?: {
-    percent?: number
-    fixedPrice?: number
-  }
+  discountPolicy?: DiscountPolicy
 }

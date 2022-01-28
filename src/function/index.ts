@@ -1,1 +1,2 @@
-export * from "./isDev"
+export * from './isDev'
+export * from './calculateDiscountedPrice'

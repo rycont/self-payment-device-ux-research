@@ -1,5 +1,6 @@
 import { Description, Hexile, Regular } from '@/component'
 import { Doc } from '@/connect'
+import { calculateDiscountedPrice } from '@/function'
 import { Product } from '@/type'
 
 import { DiscountedPrice, ProductWrapper } from './style'
@@ -13,16 +14,12 @@ export const ProductView: React.FC<
     <ProductWrapper gap={1} onClick={onClick}>
       <Regular>{product.name}</Regular>
       <Hexile gap={1}>
-        {product.discountPolicy?.percent ? (
+        {product.discountPolicy ? (
           <>
             <Description>
-              {(product.discountPolicy.percent * product.price) / 100}원
+              {calculateDiscountedPrice(product.price, product.discountPolicy)}
+              원
             </Description>
-            <DiscountedPrice>{product.price}원</DiscountedPrice>
-          </>
-        ) : product.discountPolicy?.fixedPrice ? (
-          <>
-            <Description>{product.discountPolicy.fixedPrice}원</Description>
             <DiscountedPrice>{product.price}원</DiscountedPrice>
           </>
         ) : (

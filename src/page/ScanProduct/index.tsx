@@ -57,7 +57,7 @@ function ScanProduct() {
         <PurchaseButton
           onClick={logics.goToPurchasePage}
           amount={state.products.length}
-          wholePrice={state.products.reduce((a, b) => a + b.price, 0)}
+          wholePrice={state.cartSum}
         />
       </Hexile>
     </Vexile>
