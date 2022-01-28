@@ -1,7 +1,15 @@
 import { faceSignIcon } from '@/asset'
 import { Description, FaceSignLogo, GoBack, Regular, Vexile } from '@/component'
+import { getFaceSignResult } from '@/connect/auth/getFaceSignResult'
+import { useEffect } from 'react'
 
 export const OpenFaceSign = () => {
+  useEffect(() => {
+    window.open('shortcut://open-shortcut?name=facesign')
+    setInterval(() => {
+      getFaceSignResult.request()
+    }, 2000)
+  }, [])
   return (
     <Vexile gap={9} fillx filly x="center" y="center">
       <FaceSignLogo />

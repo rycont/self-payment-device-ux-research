@@ -93,7 +93,7 @@ export function createAPIConnector<
         loaded,
       }
     },
-    request(urlParams: URLParams, reqBody?: ReqType) {
+    request(urlParams?: URLParams, reqBody?: ReqType) {
       return new Promise<ResType | undefined>((ok, error) => {
         if (isDev && config.mockHandler) {
           setTimeout(async () => {
@@ -129,7 +129,7 @@ export function createAPIConnector<
 }
 
 export type Doc<Type> = Type & {
-  _id: string
+  id: number
 }
 
 type ResPlate = Record<string, string | number>
@@ -151,20 +151,23 @@ export const createMockModel = <DataType>(
         if (!reqData) throw new Error('Cannot find error to find docment')
         const queried = datas.find(
           (data) =>
-            data[searchProperty ? searchProperty : '_id'] === reqData[idKey]
+            data[searchProperty ? searchProperty : 'id'] === reqData[idKey]
         )
         if (queried) return queried
         throw new Error(`Cannot find ${dataName} by key "${reqData[idKey]}"`)
       },
     create: () => (reqData: DataType) => {
       const createdDocument: Doc<DataType> = {
-        _id: (uniqueIndex++).toString(),
+        id: uniqueIndex++,
         ...reqData,
       }
       return createdDocument
     },
     getAll: () => {
       return datas
+    },
+    random: () => {
+      return datas[Math.floor(Math.random() * datas.length)]
     },
   }
 }
