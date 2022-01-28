@@ -1,10 +1,10 @@
 import { globalCss } from '#/stitches.config'
 import React, { FunctionComponent } from 'react'
 import ReactDOM from 'react-dom'
-import Modal from 'react-modal'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { ToastContainer } from 'react-toastify'
+import { RecoilRoot, useRecoilState } from 'recoil'
 import 'react-toastify/dist/ReactToastify.min.css'
 
 import {
@@ -14,14 +14,14 @@ import {
   UserRecognized,
   OpenFaceSign,
   SmsVerification,
+  PaymentSucceed,
 } from '@/page'
 import './animated.css'
-import { PaymentSucceed } from './page/PaymentSucceed'
-import { RecoilRoot, useRecoilState } from 'recoil'
 import { modalContentAtom } from './coil'
 import { PaymentPinPrompt } from './page/PaymentPinPrompt'
 import { ROUTES } from './constants'
 import './asset/numericalGlyph/index.css'
+import { ModalPlaceholder } from './component'
 
 globalCss({
   '@import': [
@@ -58,7 +58,7 @@ const AnimatedRouter = () => {
 
   return (
     <>
-      <Modal isOpen={!!modalContent}>{modalContent}</Modal>
+      <ModalPlaceholder />
       <ToastContainer />
       <TransitionGroup component={null}>
         <CSSTransition key={location.key} timeout={300} classNames="fade">

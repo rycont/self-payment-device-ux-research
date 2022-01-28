@@ -1,9 +1,12 @@
 import { atom } from 'recoil'
 import { Doc } from './connect'
-import { Product } from './type'
-import { User } from './type/user'
+import { Product, User } from './type'
 
-export const modalContentAtom = atom<JSX.Element | null>({
+export const modalContentAtom = atom<{
+  dismissable: boolean
+  content: JSX.Element
+  onClose?(): void
+} | null>({
   default: null,
   key: 'MODAL_CONTENT',
 })

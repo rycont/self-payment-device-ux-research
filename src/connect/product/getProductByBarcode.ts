@@ -1,4 +1,4 @@
-import { Product } from '@/type/product'
+import { Product } from '@/type'
 import { createAPIConnector, Doc } from '..'
 import { productMockModel } from './index.model'
 

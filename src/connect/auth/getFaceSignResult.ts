@@ -1,4 +1,4 @@
-import { User, FaceSignResultType } from '@/type/user'
+import { User, FaceSignResultType } from '@/type'
 import { createAPIConnector, Doc } from '..'
 import { userMockModel } from './index.model'
 

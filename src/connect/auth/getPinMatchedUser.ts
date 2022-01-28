@@ -1,4 +1,4 @@
-import { User } from '@/type/user'
+import { User } from '@/type'
 import { createAPIConnector } from '..'
 import { userMockModel } from './index.model'
 

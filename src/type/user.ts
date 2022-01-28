@@ -1,3 +1,6 @@
+import { Doc } from '@/connect'
+import { Coupon } from './coupon'
+
 export interface User {
   studentId?: number
   username: string
@@ -5,6 +8,7 @@ export interface User {
   name: string
   profileImage: string
   hashedPin: string
+  coupon: Doc<Coupon>[]
 }
 
 export enum FaceSignResultType {
