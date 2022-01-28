@@ -1,11 +1,13 @@
 import { PageHeader, Vexile } from '@/component'
 import { ROUTES } from '@/constants'
+import { User } from '@/type/user'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import { UserProfileImage } from './style'
 
 export const UserRecognized = () => {
   const nagivate = useNavigate()
+  const user: User = useLocation().state.user
 
   useEffect(() => {
     setTimeout(() => nagivate(ROUTES.PAYMENT_SUCCEED), 1000)
@@ -13,8 +15,8 @@ export const UserRecognized = () => {
 
   return (
     <Vexile filly fillx x="center" y="center" gap={4}>
-      <UserProfileImage src="https://github.com/rycont.png" />
-      <PageHeader>정한</PageHeader>
+      <UserProfileImage src={user.profileImage} />
+      <PageHeader>{user.name}</PageHeader>
     </Vexile>
   )
 }
