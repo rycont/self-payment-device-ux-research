@@ -14,7 +14,7 @@ export const useLogics = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [showNonBarcodeProduct, setShowNonBarcodeProduct] = useState(false)
 
-  const navigate = useNavigate()
+  const goto = useNavigate()
   const location = useLocation()
 
   const functions = {
@@ -27,7 +27,7 @@ export const useLogics = () => {
     },
     goToPurchasePage() {
       setProducts(products)
-      navigate(ROUTES.OPEN_FACE_SIGN)
+      goto(ROUTES.OPEN_FACE_SIGN)
     },
     removeAll() {
       setProducts(() => [])

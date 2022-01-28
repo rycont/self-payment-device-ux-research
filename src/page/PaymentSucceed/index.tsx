@@ -1,5 +1,6 @@
 import { success } from '@/asset'
 import { Lottie, PageHeader, Vexile } from '@/component'
+import { ROUTES } from '@/constants'
 import { useNavigate } from 'react-router'
 
 export const PaymentSucceed = () => {
@@ -13,7 +14,7 @@ export const PaymentSucceed = () => {
         loop={false}
         animate={success}
         autoReverse
-        onFinish={() => goto('/')}
+        onFinish={() => goto(ROUTES.ROOT)}
       />
       <PageHeader>결제가 완료되었습니다</PageHeader>
     </Vexile>

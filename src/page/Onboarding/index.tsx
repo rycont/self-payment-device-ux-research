@@ -40,7 +40,7 @@ function Onboarding() {
       />
       <Vexile x="center" gap={2}>
         <Regular>물건의 바코드를 스캔해서 결제를 시작해주세요</Regular>
-        <PlainLink to="scan-barcode">
+        <PlainLink to={ROUTES.SCAN_PRODUCT}>
           <DescriptionImportant accent>
             물건에 바코드가 없나요?
           </DescriptionImportant>
