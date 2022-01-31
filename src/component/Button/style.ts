@@ -20,5 +20,10 @@ export const ButtonWrapper = styled('button', {
         width: '100%',
       },
     },
+    high: {
+      true: {
+        high: true,
+      },
+    },
   },
 })

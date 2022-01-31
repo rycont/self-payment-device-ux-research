@@ -17,6 +17,7 @@ export const {
       accent: MAIN_ACCENT,
       background: '#F9F9F9',
       actionableGray: '#333333',
+      dark3: '#808888',
       dark4: '#ABB0B0',
       dark5: '#D5D7D7',
     },
@@ -31,6 +32,9 @@ export const {
     }),
     animated: () => ({
       transition: '500ms cubic-bezier(0,.67,0,.99)',
+    }),
+    high: () => ({
+      boxShadow: '0px 0.5rem 1rem rgba(46, 164, 171, 0.36)',
     }),
   },
 })
