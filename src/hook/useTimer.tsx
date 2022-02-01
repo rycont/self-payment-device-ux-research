@@ -46,5 +46,6 @@ export const useTimer = (time: number) => {
       </Vexile>
     ),
     lastTime,
+    isEnded: lastTime < 1,
   }
 }

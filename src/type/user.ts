@@ -9,6 +9,7 @@ export interface User {
   profileImage: string
   hashedPin: string
   coupon: Doc<Coupon>[]
+  phoneNumber?: string
 }
 
 export interface UserWithPaymentToken {

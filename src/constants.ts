@@ -9,7 +9,8 @@ export enum ROUTES {
   PAYMENT_SUCCEED = '/payment-succeed',
   PAYMENT_PIN_PROMPT = '/payment-pin-prompt',
   OPEN_FACE_SIGN = '/open-face-sign',
-  SMS_VERIFICATION = '/sms-verification',
+  SMS_VERIFICATION_REQUEST = '/sms-verification-request',
+  SMS_VERIFICATION_PROMPT = '/sms-verification-prompt',
 }
 
 export const CONFIG = {

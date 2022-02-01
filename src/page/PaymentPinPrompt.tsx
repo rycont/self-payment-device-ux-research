@@ -19,7 +19,6 @@ export const PaymentPinPrompt = () => {
   return (
     <Pin
       title="결제 비밀번호 입력"
-      onCancel={() => goto(ROUTES.SCAN_PRODUCT)}
       onSubmit={async (pin) => {
         const result = await getPinMatchedUser.request(
           {},

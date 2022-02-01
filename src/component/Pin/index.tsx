@@ -7,14 +7,17 @@ import {
 } from '@/component'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
+import { Description } from '../atom'
 import { PinDigit } from './style'
 
 const PIN_DIGITS_LENGTH = 4
 
 export const Pin: React.FC<{
-  title: string
+  title?: string
+  description?: string
+  disableScramble?: boolean
+  header?: JSX.Element
   onSubmit(pin: string): Promise<boolean | void>
-  onCancel(): void
 }> = (props) => {
   const [digits, setDigits] = useState<number[]>([])
 
@@ -36,8 +39,14 @@ export const Pin: React.FC<{
   }, [digits])
 
   return (
-    <Vexile x="center" filly y="center" gap={6}>
-      <UnderlinedPageHeader>{props.title}</UnderlinedPageHeader>
+    <Vexile x="center" filly y="center" gap={12}>
+      {props.title && (
+        <Vexile x="center" gap={6}>
+          <UnderlinedPageHeader>{props.title}</UnderlinedPageHeader>
+          {props.description && <Description>{props.description}</Description>}
+        </Vexile>
+      )}
+      {props.header}
       <Hexile gap={4}>
         {[...Array(PIN_DIGITS_LENGTH)].map((_, index) => (
           <PinDigit
@@ -46,7 +55,11 @@ export const Pin: React.FC<{
           />
         ))}
       </Hexile>
-      <NumberPad onInput={addDigit} removeDigit={removeDigit} />
+      <NumberPad
+        onInput={addDigit}
+        removeDigit={removeDigit}
+        disableScramble={props.disableScramble}
+      />
       <GoBack />
     </Vexile>
   )

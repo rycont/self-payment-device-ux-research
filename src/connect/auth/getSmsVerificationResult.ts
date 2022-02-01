@@ -11,7 +11,7 @@ export const getSmsVerificationResult = createAPIConnector<
   needAuth: true,
   async mockHandler() {
     await new Promise<void>((res) =>
-      setTimeout(() => res(), Math.random() * 5 + 12)
+      setTimeout(() => res(), (Math.random() * 5 + 12) * 1000)
     ) // 12 ~ 17초
 
     return {

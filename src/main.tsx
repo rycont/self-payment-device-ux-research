@@ -13,12 +13,13 @@ import {
   ScanProduct,
   UserRecognized,
   OpenFaceSign,
-  SmsVerification,
+  SmsVerificationRequest,
   PaymentSucceed,
+  SmsValidationPrompt,
+  PaymentPinPrompt,
 } from '@/page'
 import './animated.css'
 import { modalContentAtom } from './coil'
-import { PaymentPinPrompt } from './page/PaymentPinPrompt'
 import { ROUTES } from './constants'
 import './asset/numericalGlyph/index.css'
 import { ModalPlaceholder } from './component'
@@ -52,7 +53,8 @@ const pages: Record<ROUTES, FunctionComponent> = {
   [ROUTES.PAYMENT_SUCCEED]: PaymentSucceed,
   [ROUTES.PAYMENT_PIN_PROMPT]: PaymentPinPrompt,
   [ROUTES.OPEN_FACE_SIGN]: OpenFaceSign,
-  [ROUTES.SMS_VERIFICATION]: SmsVerification,
+  [ROUTES.SMS_VERIFICATION_REQUEST]: SmsVerificationRequest,
+  [ROUTES.SMS_VERIFICATION_PROMPT]: SmsValidationPrompt,
 }
 
 const AnimatedRouter = () => {
