@@ -1,15 +1,13 @@
-import { User, FaceSignResultType } from '@/type'
+import { User, FaceSignResultType, UserWithPaymentToken } from '@/type'
 import { createAPIConnector, Doc } from '..'
 import { userMockModel } from './index.model'
 
 export const getFaceSignResult = createAPIConnector<
   {},
   {},
-  | {
+  | (UserWithPaymentToken & {
       type: FaceSignResultType.SURE
-      user: Doc<User>
-      paymentToken: string
-    }
+    })
   | {
       type: FaceSignResultType.MULTIPLE_POSSIBILITY
       ids: number[]

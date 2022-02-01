@@ -1,15 +1,13 @@
-import { User } from '@/type'
+import { User, UserWithPaymentToken } from '@/type'
 import { userMockModel } from '.'
 import { createAPIConnector } from '..'
 
 export const getQRResult = createAPIConnector<
   {},
   {},
-  | {
+  | (UserWithPaymentToken & {
       succeed: true
-      user: User
-      paymentToken: string
-    }
+    })
   | {
       succeed: false
     }

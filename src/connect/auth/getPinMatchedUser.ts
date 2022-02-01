@@ -1,4 +1,4 @@
-import { User } from '@/type'
+import { User, UserWithPaymentToken } from '@/type'
 import { createAPIConnector } from '..'
 import { userMockModel } from './index.model'
 
@@ -8,11 +8,9 @@ export const getPinMatchedUser = createAPIConnector<
     ids: number[]
     pin: string
   },
-  | {
+  | (UserWithPaymentToken & {
       succeed: true
-      user: User
-      paymentToken: string
-    }
+    })
   | {
       succeed: false
     }

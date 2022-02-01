@@ -1,14 +1,11 @@
-import { User } from '@/type'
+import { User, UserWithPaymentToken } from '@/type'
 import { userMockModel } from '.'
 import { createAPIConnector } from '..'
 
 export const getSmsVerificationResult = createAPIConnector<
   {},
   {},
-  {
-    user: User
-    paymentToken: string
-  }
+  UserWithPaymentToken
 >('auth/sms/verify', {
   method: 'GET',
   needAuth: true,

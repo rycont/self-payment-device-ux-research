@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil'
 import { Doc } from './connect'
 import { calculateDiscountedPrice } from './function'
-import { Coupon, Product, User } from './type'
+import { Product, UserWithPaymentToken } from './type'
 
 export const modalContentAtom = atom<{
   dismissable: boolean
@@ -37,10 +37,7 @@ export const cartSumSelector = selector({
   },
 })
 
-export const currentUserAtom = atom<{
-  user: User
-  paymentToken: string
-} | null>({
+export const currentUserAtom = atom<UserWithPaymentToken | null>({
   default: null,
   key: 'CURRENT_USER',
 })

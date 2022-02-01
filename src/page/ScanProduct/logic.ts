@@ -1,12 +1,14 @@
-import { cartAtom, cartSumSelector } from '@/coil'
-import { Doc, getProductByBarcode } from '@/connect'
-import { ROUTES } from '@/constants'
-import { useHIDInput } from '@/hook'
-import { Product } from '@/type'
 import { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useRecoilState, useRecoilValue } from 'recoil'
+import jwtDecode from 'jwt-decode'
+
+import { cartAtom, cartSumSelector, currentUserAtom } from '@/coil'
+import { Doc, getProductByBarcode } from '@/connect'
+import { ROUTES } from '@/constants'
+import { useHIDInput } from '@/hook'
+import { isUserWithPaymentToken, Product } from '@/type'
 
 export const useLogics = () => {
   const [products, setProducts] = useRecoilState(cartAtom)
@@ -14,6 +16,7 @@ export const useLogics = () => {
   const [loadingProductsAmount, setLoadingProductsAmount] = useState(0)
   const [showNonBarcodeProduct, setShowNonBarcodeProduct] = useState(false)
 
+  const setUser = useRecoilState(currentUserAtom)[1]
   const goto = useNavigate()
   const location = useLocation()
 
@@ -58,7 +61,24 @@ export const useLogics = () => {
   }
 
   useHIDInput({
-    onData: functions.addProductByBarcode,
+    onData(data) {
+      if (data[0] === 'eyJ') {
+        try {
+          const parsed = jwtDecode(data)
+          if (isUserWithPaymentToken(parsed)) {
+            setUser(parsed)
+            goto(ROUTES.USER_RECOGNIZED)
+          }
+        } catch (e) {
+          toast(
+            '정보무늬가 변조되었습니다. 부정사용을 방지하기 30분간 결제가 중지됩니다.',
+            {
+              type: 'error',
+            }
+          )
+        }
+      } else functions.addProductByBarcode(data)
+    },
   })
 
   useEffect(() => {

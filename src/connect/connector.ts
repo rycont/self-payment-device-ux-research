@@ -154,6 +154,7 @@ export const createMockModel = <DataType>(
           (data) =>
             data[searchProperty ? searchProperty : 'id'] === reqData[idKey]
         )
+        console.log(datas, reqData)
         if (queried) return queried
         throw new Error(`Cannot find ${dataName} by key "${reqData[idKey]}"`)
       },

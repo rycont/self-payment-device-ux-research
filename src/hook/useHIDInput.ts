@@ -1,29 +1,6 @@
-import { CONFIG, PUBSUB_URI } from '@/constants'
+import { CONFIG } from '@/constants'
+import { subscribeTopic } from '@/function'
 import { useEffect } from 'react'
-
-const listenPubSub = async (onData: (data: string) => void) => {
-  try {
-    onData(await (await fetch(PUBSUB_URI)).text())
-  } catch (e) {
-  } finally {
-    listenPubSub(onData)
-  }
-}
-
-interface PubSubData {
-  topic: string
-  data: string
-}
-
-const isPubSubData = (data: any): data is PubSubData => {
-  return (
-    data &&
-    'topic' in data &&
-    typeof data.topic === 'string' &&
-    'data' in data &&
-    typeof data.data === 'string'
-  )
-}
 
 export const useHIDInput = (props: {
   onData(data: string): void
@@ -31,15 +8,10 @@ export const useHIDInput = (props: {
 }) => {
   useEffect(() => {
     let text = ''
+    let pubsubUnsubscriber: () => void
 
     if (CONFIG.USE_VIRTUAL_SCANNER) {
-      listenPubSub((_data) => {
-        const data = JSON.parse(_data)
-        if (!isPubSubData(data)) throw new Error('Pub-Sub server malformed!')
-        if (data.topic === 'scanner') {
-          props.onData(data.data)
-        }
-      })
+      pubsubUnsubscriber = subscribeTopic('scanner', props.onData)
     }
 
     const listener = (e: KeyboardEvent) => {
@@ -58,6 +30,9 @@ export const useHIDInput = (props: {
     }
 
     window.addEventListener('keydown', listener)
-    return () => window.removeEventListener('keydown', listener)
+    return () => {
+      window.removeEventListener('keydown', listener)
+      pubsubUnsubscriber()
+    }
   }, [])
 }

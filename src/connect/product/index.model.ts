@@ -54,4 +54,10 @@ export const productMockModel = createMockModel<Product>('product', [
     name: '초밥',
     price: 1000,
   },
+  {
+    id: 9,
+    name: '꿈토리 물티슈',
+    price: 10100,
+    barcode: 'http://www.ggoomtory.com/',
+  },
 ])
