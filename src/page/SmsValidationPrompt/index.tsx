@@ -1,12 +1,13 @@
+import { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { useRecoilState } from 'recoil'
+
 import { currentUserAtom } from '@/coil'
 import { Pin, Regular, Vexile } from '@/component'
 import { validateSmsVerification } from '@/connect'
 import { ROUTES } from '@/constants'
 import { useTimer } from '@/hook'
-import { useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { useRecoilState } from 'recoil'
 
 export const SmsValidationPrompt = () => {
   const goto = useNavigate()
@@ -22,19 +23,11 @@ export const SmsValidationPrompt = () => {
   const timer = useTimer(state?.timelimit || 60)
 
   useEffect(() => {
-    console.log('상태유실')
-  }, [state])
-
-  useEffect(() => {
     if (timer.isEnded) {
       toast('인증번호 입력 시간이 지났습니다')
       goto(ROUTES.SCAN_PRODUCT)
     }
   }, [timer.isEnded])
-
-  // useEffect(() => {
-  //   if (!state.maskedPhoneNumber || !timelimit) goto(ROUTES.ROOT)
-  // }, [state])
 
   return (
     <Pin

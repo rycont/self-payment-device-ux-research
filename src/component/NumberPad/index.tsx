@@ -13,7 +13,7 @@ export const NumberPad: React.FC<{
     () =>
       props.disableScramble
         ? NUMBERS
-        : NUMBERS.sort((a, b) => Math.random() / Math.random() - 0.5),
+        : NUMBERS.sort(() => Math.random() / Math.random() - 0.5),
     []
   )
   const lines = useMemo(() => Math.ceil(numbers.length / 3), [numbers])

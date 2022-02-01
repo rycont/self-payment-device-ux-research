@@ -1,12 +1,7 @@
-import {
-  Description,
-  ProductView,
-  RegularImportant,
-  SectionHeader,
-} from '@/component'
+import { ProductView, RegularImportant } from '@/component'
 import { Doc, getBarcodelessProduct } from '@/connect'
 import { Product } from '@/type'
-import { NonBarcodeProductWrapper, PurchaseButtonWrapper } from './style'
+import { NonBarcodeProductWrapper } from './style'
 
 export const NonBarcodeProduct: React.FC<{
   selectProduct(selected: Doc<Product>): void

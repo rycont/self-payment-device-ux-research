@@ -6,7 +6,6 @@ import {
   Vexile,
 } from '@/component'
 import { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
 import { Description } from '../atom'
 import { PinDigit } from './style'
 

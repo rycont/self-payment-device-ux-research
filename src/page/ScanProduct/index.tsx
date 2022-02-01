@@ -7,23 +7,22 @@ import {
   ProductWrapper,
   Description,
   Hexile,
-  Space,
   Vexile,
   GoBack,
   DescriptionImportant,
   PageHeader,
   PlainLink,
 } from '@/component'
+import { ROUTES } from '@/constants'
 
 import { NonBarcodeProduct } from './partial'
 import { ViewArea } from './style'
 import { useLogics } from './logic'
-import { ROUTES } from '@/constants'
 
 const authenticationMethods = [
   {
     label: '앱 QR 결제',
-    route: ROUTES.TAG_QR,
+    route: ROUTES.SCAN_QR,
   },
   {
     label: '문자인증',

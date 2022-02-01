@@ -1,12 +1,13 @@
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { useRecoilState } from 'recoil'
+
 import { currentUserAtom } from '@/coil'
 import { Description, FaceSignLogo, GoBack, Regular, Vexile } from '@/component'
 import { getFaceSignResult } from '@/connect'
 import { ROUTES } from '@/constants'
 import { FaceSignResultType } from '@/type'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { useRecoilState } from 'recoil'
 
 export const OpenFaceSign = () => {
   const setUser = useRecoilState(currentUserAtom)[1]

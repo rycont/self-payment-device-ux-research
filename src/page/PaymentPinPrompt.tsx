@@ -1,11 +1,12 @@
-import { currentUserAtom } from '@/coil'
-import { Pin } from '@/component/Pin'
-import { getPinMatchedUser } from '@/connect'
-import { ROUTES } from '@/constants'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useRecoilState } from 'recoil'
+
+import { currentUserAtom } from '@/coil'
+import { Pin } from '@/component/Pin'
+import { getPinMatchedUser } from '@/connect'
+import { ROUTES } from '@/constants'
 
 export const PaymentPinPrompt = () => {
   const goto = useNavigate()

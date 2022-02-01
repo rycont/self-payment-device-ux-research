@@ -15,7 +15,6 @@ export const SmsVerificationRequest = () => {
       onSubmit={async (pin) => {
         if (!/[1-3][1-6][0-3][0-9]/.test(pin)) {
           toast('학번 형식이 올바르지 않아요')
-          console.log('HHHHEY...')
           return false
         }
 
@@ -26,12 +25,15 @@ export const SmsVerificationRequest = () => {
               studentId: +pin,
             }
           )
+
           if (!res || !res.isValid) {
             throw new Error(res?.message)
           }
+
           toast('인증번호가 발송됐어요', {
             type: 'success',
           })
+
           goto(ROUTES.SMS_VERIFICATION_PROMPT, {
             state: {
               maskedPhoneNumber: res.maskedPhoneNumber,
@@ -43,6 +45,7 @@ export const SmsVerificationRequest = () => {
           toast((e as Error)?.message || '인증번호 요청에 실패했어요', {
             type: 'error',
           })
+
           return false
         }
       }}

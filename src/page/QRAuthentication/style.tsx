@@ -1,11 +1,5 @@
-import { keyframes, styled } from '#/stitches.config'
+import { styled } from '#/stitches.config'
 import { Vexile } from '@/component'
-
-export const Paywave = styled('img', {
-  width: '30rem',
-  opacity: 0.4,
-  mixBlendMode: 'overlay',
-})
 
 export const ContentWrapper = styled(Vexile, {
   position: 'absolute',

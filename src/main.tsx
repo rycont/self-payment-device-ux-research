@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.min.css'
 
 import {
   Onboarding,
-  TagQR,
+  ScanQR,
   ScanProduct,
   UserRecognized,
   OpenFaceSign,
@@ -48,7 +48,7 @@ globalCss({
 const pages: Record<ROUTES, FunctionComponent> = {
   [ROUTES.ROOT]: Onboarding,
   [ROUTES.SCAN_PRODUCT]: ScanProduct,
-  [ROUTES.TAG_QR]: TagQR,
+  [ROUTES.SCAN_QR]: ScanQR,
   [ROUTES.USER_RECOGNIZED]: UserRecognized,
   [ROUTES.PAYMENT_SUCCEED]: PaymentSucceed,
   [ROUTES.PAYMENT_PIN_PROMPT]: PaymentPinPrompt,

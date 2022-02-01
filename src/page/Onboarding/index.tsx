@@ -1,11 +1,12 @@
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router'
+import { useResetRecoilState } from 'recoil'
+
 import { verticalLogo } from '@/asset'
 import { cartAtom, currentUserAtom, selectedCouponIdsAtom } from '@/coil'
 import { DescriptionImportant, PlainLink, Regular, Vexile } from '@/component'
 import { ROUTES } from '@/constants'
 import { useHIDInput } from '@/hook'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router'
-import { useResetRecoilState } from 'recoil'
 
 import { MainLogo } from './style'
 
@@ -35,7 +36,7 @@ function Onboarding() {
     <Vexile fillx filly x="center" y="center" gap={12}>
       <MainLogo
         src={verticalLogo}
-        alt=""
+        alt="디미페이 로고"
         onClick={() => goto(ROUTES.SCAN_PRODUCT)}
       />
       <Vexile x="center" gap={2}>

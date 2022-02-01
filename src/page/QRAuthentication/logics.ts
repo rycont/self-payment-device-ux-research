@@ -48,15 +48,11 @@ export const useLogics = () => {
   })
 
   useEffect(() => {
-    const returnTimeout = setTimeout(() => {
+    if (timer.isEnded) {
       toast('시간이 초과되어 메인 화면으로 돌아갔어요')
       return goto(ROUTES.ROOT)
-    }, 1000 * WAITING_TIME)
-
-    return () => {
-      clearTimeout(returnTimeout)
     }
-  }, [])
+  }, [timer.isEnded])
 
   return {
     state: {

@@ -2,7 +2,7 @@ import { GoBack, Regular, Vexile } from '@/component'
 import { ContentWrapper } from './style'
 import { useLogics } from './logics'
 
-export const TagQR = () => {
+export const ScanQR = () => {
   const { state, element } = useLogics()
   return (
     <Vexile>

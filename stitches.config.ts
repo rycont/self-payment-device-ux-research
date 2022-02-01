@@ -20,6 +20,7 @@ export const {
       dark3: '#808888',
       dark4: '#ABB0B0',
       dark5: '#D5D7D7',
+      dark6: '#F4F5F5',
     },
     shadows: {
       accent: MAIN_ACCENT,

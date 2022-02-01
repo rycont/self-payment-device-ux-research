@@ -11,10 +11,10 @@ import { useHIDInput } from '@/hook'
 import { isUserWithPaymentToken, Product } from '@/type'
 
 export const useLogics = () => {
+  const [showNonBarcodeProduct, setShowNonBarcodeProduct] = useState(false)
+  const [loadingProductsAmount, setLoadingProductsAmount] = useState(0)
   const [products, setProducts] = useRecoilState(cartAtom)
   const cartSum = useRecoilValue(cartSumSelector)
-  const [loadingProductsAmount, setLoadingProductsAmount] = useState(0)
-  const [showNonBarcodeProduct, setShowNonBarcodeProduct] = useState(false)
 
   const setUser = useRecoilState(currentUserAtom)[1]
   const goto = useNavigate()

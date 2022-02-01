@@ -1,22 +1,10 @@
-import {
-  currentUserAtom,
-  modalAppearanceAtom,
-  modalContentAtom,
-  selectedCouponIdsAtom,
-} from '@/coil'
-import {
-  Button,
-  Description,
-  Hexile,
-  PageHeader,
-  RegularImportant,
-  Vexile,
-} from '@/component'
+import { currentUserAtom, modalAppearanceAtom, modalContentAtom } from '@/coil'
+import { PageHeader, Vexile } from '@/component'
 import { ROUTES } from '@/constants'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { CouponSelector, CouponView } from './partial'
+import { CouponSelector } from './partial'
 import { UserProfileImage } from './style'
 
 export const UserRecognized = () => {

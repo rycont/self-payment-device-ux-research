@@ -1,7 +1,5 @@
 export * from './getFaceSignResult'
 export * from './getPinMatchedUser'
-export * from './getQRResult'
 export * from './index.model'
 export * from './requestSmsVerification'
-export * from './getSmsVerificationResult'
 export * from './validateSmsVerification'

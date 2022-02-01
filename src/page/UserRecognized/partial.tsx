@@ -1,3 +1,6 @@
+import { toast } from 'react-toastify'
+import { useRecoilState, useRecoilValue } from 'recoil'
+
 import { cartSumSelector, selectedCouponIdsAtom } from '@/coil'
 import {
   Button,
@@ -10,8 +13,7 @@ import {
 } from '@/component'
 import { Doc } from '@/connect'
 import { Coupon } from '@/type'
-import { toast } from 'react-toastify'
-import { useRecoilState, useRecoilValue } from 'recoil'
+
 import { CouponViewWrapper } from './style'
 
 export const CouponView: React.FC<
