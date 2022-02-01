@@ -1,4 +1,4 @@
-import { cartAtom, cartSumSelector, selectedCouponIdsAtom } from '@/coil'
+import { cartSumSelector, selectedCouponIdsAtom } from '@/coil'
 import {
   Button,
   Description,
@@ -10,7 +10,6 @@ import {
   Vexile,
 } from '@/component'
 import { Doc } from '@/connect'
-import { ROUTES } from '@/constants'
 import { Coupon } from '@/type'
 import { toast } from 'react-toastify'
 import { useRecoilState, useRecoilValue } from 'recoil'

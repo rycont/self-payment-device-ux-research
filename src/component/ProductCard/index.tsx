@@ -11,7 +11,7 @@ export const ProductView: React.FC<
   }
 > = ({ onClick, ...product }) => {
   return (
-    <ProductWrapper gap={1} onClick={onClick}>
+    <ProductWrapper gap={1} onClick={onClick} y="space">
       <Regular>{product.name}</Regular>
       <Hexile gap={1}>
         {product.discountPolicy ? (

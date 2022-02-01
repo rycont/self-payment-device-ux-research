@@ -39,6 +39,9 @@ globalCss({
   button: {
     fontFamily: 'Pretendard',
   },
+  '*': {
+    wordBreak: 'keep-all',
+  },
 })()
 
 const pages: Record<ROUTES, FunctionComponent> = {

@@ -6,6 +6,11 @@ export const HexileCore = styled('div', {
   gap: 'var(--gap)',
   boxSizing: 'border-box',
   variants: {
+    scrolly: {
+      true: {
+        overflowY: 'auto',
+      },
+    },
     linebreak: {
       true: {
         flexWrap: 'wrap',
@@ -65,6 +70,11 @@ export const VexileCore = styled('div', {
   gap: 'var(--gap)',
   boxSizing: 'border-box',
   variants: {
+    scrolly: {
+      true: {
+        overflowY: 'auto',
+      },
+    },
     linebreak: {
       true: {
         flexWrap: 'wrap',
@@ -128,6 +138,7 @@ interface FlexileProps {
   paddingy?: number
   keepsize?: boolean
   relative?: boolean
+  scrolly?: boolean
 }
 
 interface VexileProps extends FlexileProps {

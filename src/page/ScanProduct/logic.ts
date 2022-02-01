@@ -11,7 +11,7 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 export const useLogics = () => {
   const [products, setProducts] = useRecoilState(cartAtom)
   const cartSum = useRecoilValue(cartSumSelector)
-  const [isLoading, setIsLoading] = useState(false)
+  const [loadingProductsAmount, setLoadingProductsAmount] = useState(0)
   const [showNonBarcodeProduct, setShowNonBarcodeProduct] = useState(false)
 
   const goto = useNavigate()
@@ -36,7 +36,7 @@ export const useLogics = () => {
       setShowNonBarcodeProduct((e) => !e)
     },
     async addProductByBarcode(barcode: string) {
-      setIsLoading(true)
+      setLoadingProductsAmount((prev) => prev + 1)
 
       try {
         const product = await getProductByBarcode.request({
@@ -53,7 +53,7 @@ export const useLogics = () => {
         })
       }
 
-      setIsLoading(false)
+      setLoadingProductsAmount((prev) => prev - 1)
     },
   }
 
@@ -68,7 +68,7 @@ export const useLogics = () => {
   return {
     state: {
       products,
-      isLoading,
+      loadingProductsAmount,
       showNonBarcodeProduct,
       cartSum,
     },

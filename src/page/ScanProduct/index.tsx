@@ -40,24 +40,23 @@ function ScanProduct() {
 
   return (
     <Vexile fillx filly>
-      <ViewArea filly padding={6}>
+      <ViewArea filly padding={6} gap={3} scrolly>
         <Description>상품을 터치해서 삭제할 수 있어요</Description>
-        <Space size={3} />
         <Hexile gap={3} linebreak>
           {state.products.map((product, index) => (
             <ProductView
-              key={product.id}
               onClick={() => logics.removeProductByIndex(index)}
               {...product}
             />
           ))}
-          {state.isLoading && (
-            <ProductWrapper>
-              <Vexile x="center" y="center" filly>
-                <HashLoader size={30} color={MAIN_ACCENT} />
-              </Vexile>
-            </ProductWrapper>
-          )}
+          {state.loadingProductsAmount !== 0 &&
+            [...Array(state.loadingProductsAmount)].map((_, index) => (
+              <ProductWrapper key={index}>
+                <Vexile x="center" y="center" filly>
+                  <HashLoader size={30} color={MAIN_ACCENT} />
+                </Vexile>
+              </ProductWrapper>
+            ))}
         </Hexile>
       </ViewArea>
       <Vexile relative gap={2} padding={6}>
