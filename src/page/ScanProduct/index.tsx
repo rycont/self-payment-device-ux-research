@@ -23,7 +23,7 @@ import { ROUTES } from '@/constants'
 const authenticationMethods = [
   {
     label: '앱 QR 결제',
-    route: ROUTES.TAG_NFC,
+    route: ROUTES.TAG_QR,
   },
   {
     label: '문자인증',

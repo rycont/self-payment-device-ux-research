@@ -9,6 +9,8 @@
   "dependencies": {
     "@stitches/react": "^1.2.5",
     "@types/react-transition-group": "^4.4.4",
+    "jose": "^4.4.0",
+    "jsencrypt": "^3.2.1",
     "lottie-web": "^5.8.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",

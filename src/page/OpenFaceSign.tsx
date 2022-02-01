@@ -31,7 +31,7 @@ export const OpenFaceSign = () => {
         toast('얼굴인증에 실패했어요..', {
           type: 'error',
         })
-        goto(ROUTES.TAG_NFC)
+        goto(ROUTES.TAG_QR)
       }
     })()
   }, [])

@@ -2,7 +2,7 @@ import { User } from '@/type'
 import { userMockModel } from '.'
 import { createAPIConnector } from '..'
 
-export const getNFCResult = createAPIConnector<
+export const getQRResult = createAPIConnector<
   {},
   {},
   | {
@@ -13,7 +13,7 @@ export const getNFCResult = createAPIConnector<
   | {
       succeed: false
     }
->('auth/nfc-result', {
+>('auth/QR-result', {
   method: 'GET',
   needAuth: true,
   async mockHandler() {
@@ -23,7 +23,7 @@ export const getNFCResult = createAPIConnector<
     if (Math.random() > 0.5) {
       return {
         user: userMockModel.random(),
-        paymentToken: 'NFC로 찍었네요.. 토큰',
+        paymentToken: 'QR로 찍었네요.. 토큰',
         succeed: true,
       }
     }

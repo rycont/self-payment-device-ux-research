@@ -1,6 +1,6 @@
 export * from './Onboarding'
 export * from './ScanProduct'
-export * from './TagNFC'
+export * from './QRAuthentication'
 export * from './UserRecognized'
 export * from './OpenFaceSign'
 export * from './SmsVerification'

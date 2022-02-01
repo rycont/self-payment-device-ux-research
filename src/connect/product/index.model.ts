@@ -21,6 +21,27 @@ export const productMockModel = createMockModel<Product>('product', [
     barcode: '0003',
   },
   {
+    barcode: '8888645362187',
+    price: 300,
+    name: '브라이트너 형광펜',
+    id: 6,
+  },
+  {
+    id: 7,
+    name: '모두의 파이썬',
+    price: 12000,
+    barcode: '9791160505856',
+    discountPolicy: {
+      fixedPrice: 10000,
+    },
+  },
+  {
+    name: '마일드라이너 퍼플',
+    id: 8,
+    price: 700,
+    barcode: '4901681401789',
+  },
+  {
     id: 4,
     name: '프라임립',
     price: 4000,
