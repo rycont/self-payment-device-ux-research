@@ -15,7 +15,7 @@ export const UserRecognized = () => {
 
   const gotoPaymentPage = () => {
     closeModal(true)
-    void setTimeout(() => goto(ROUTES.PAYMENT_SUCCEED), 1000)
+    void setTimeout(() => goto(ROUTES.REQUEST_PAYMENT), 1000)
   }
 
   useEffect(() => {

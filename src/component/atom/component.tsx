@@ -8,7 +8,7 @@ export const GoBack: React.FC<{
   <Hexile gap={2}>
     <GoBackButton src={leftArrow} />
     <PlainLink to={props.to || ROUTES.SCAN_PRODUCT}>
-      <Description>{props.children || '상품 화면으로'}</Description>
+      <Description>{props.children || '상품 입력 화면으로'}</Description>
     </PlainLink>
   </Hexile>
 )

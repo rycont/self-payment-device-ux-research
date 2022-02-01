@@ -6,7 +6,7 @@ export enum ROUTES {
   SCAN_PRODUCT = '/scan-product',
   SCAN_QR = '/scan-qr',
   USER_RECOGNIZED = '/user-recognized',
-  PAYMENT_SUCCEED = '/payment-succeed',
+  REQUEST_PAYMENT = '/request-payment',
   PAYMENT_PIN_PROMPT = '/payment-pin-prompt',
   OPEN_FACE_SIGN = '/open-face-sign',
   SMS_VERIFICATION_REQUEST = '/sms-verification-request',
