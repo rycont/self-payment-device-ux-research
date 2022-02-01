@@ -28,7 +28,7 @@ export const {
   utils: {
     elevated: () => ({
       boxShadow: '0px 0.5rem 1rem rgba(0, 0, 0, 0.12)',
-      border: '2px solid $dark5',
+      border: '3px solid $dark5',
     }),
     animated: () => ({
       transition: '500ms cubic-bezier(0,.67,0,.99)',

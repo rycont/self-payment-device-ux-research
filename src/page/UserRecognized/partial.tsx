@@ -4,7 +4,6 @@ import {
   Description,
   DescriptionImportant,
   Hexile,
-  PlainLink,
   Regular,
   RegularImportant,
   Vexile,
@@ -83,7 +82,17 @@ export const CouponSelector: React.FC<{
       <Hexile x="space" fillx y="center">
         {couponSum ? (
           <Button type="accent" fill onClick={props.onSubmit}>
-            {couponSum}원 할인 받아서 {cart - couponSum}원 결제
+            {cart > couponSum ? (
+              <>
+                {couponSum}원 할인 받아서 {cart - couponSum}원 결제
+              </>
+            ) : (
+              <>
+                쿠폰만으로 결제{' '}
+                {cart < couponSum &&
+                  `하고 ${couponSum - cart}원 페이머니에 담아두기`}
+              </>
+            )}
           </Button>
         ) : (
           <DescriptionImportant accent onClick={props.onSubmit}>
