@@ -62,7 +62,7 @@ export const useLogics = () => {
 
   useHIDInput({
     onData(data) {
-      if (data[0] === 'eyJ') {
+      if (data.startsWith('eyJ')) {
         try {
           const parsed = jwtDecode(data)
           if (isUserWithPaymentToken(parsed)) {
