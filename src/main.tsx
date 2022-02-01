@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { ToastContainer } from 'react-toastify'
-import { RecoilRoot, useRecoilState } from 'recoil'
+import { RecoilRoot } from 'recoil'
 import 'react-toastify/dist/ReactToastify.min.css'
 
 import {
@@ -59,7 +59,6 @@ const pages: Record<ROUTES, FunctionComponent> = {
 
 const AnimatedRouter = () => {
   const location = useLocation()
-  const [modalContent] = useRecoilState(modalContentAtom)
 
   return (
     <>

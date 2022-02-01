@@ -1,7 +1,7 @@
+import { useNavigate } from 'react-router'
 import { success } from '@/asset'
 import { Lottie, PageHeader, Vexile } from '@/component'
 import { ROUTES } from '@/constants'
-import { useNavigate } from 'react-router'
 
 export const PaymentSucceed = () => {
   const goto = useNavigate()

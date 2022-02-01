@@ -20,7 +20,7 @@ export const ProductView: React.FC<
               {calculateDiscountedPrice(product.price, product.discountPolicy)}
               원
             </Description>
-            <DiscountedPrice>{product.price}원</DiscountedPrice>
+            <DiscountedPrice strike>{product.price}원</DiscountedPrice>
           </>
         ) : (
           <>

@@ -29,7 +29,6 @@ export const useLogics = () => {
       setProducts((prev) => [...prev.slice(0, index), ...prev.slice(index + 1)])
     },
     goToPurchasePage() {
-      setProducts(products)
       goto(ROUTES.OPEN_FACE_SIGN)
     },
     removeAll() {
@@ -82,8 +81,9 @@ export const useLogics = () => {
   })
 
   useEffect(() => {
-    location.state?.init && functions.addProductByBarcode(location.state.init)
-  }, [location.state?.init])
+    if (location.state?.init) functions.addProductByBarcode(location.state.init)
+    if (location.state?.noBarcode) setShowNonBarcodeProduct(true)
+  }, [location.state])
 
   return {
     state: {

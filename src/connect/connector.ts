@@ -1,6 +1,6 @@
+import { useEffect, useState } from 'react'
 import { API_URI } from '@/constants'
 import { isDev } from '@/function'
-import { useEffect, useState } from 'react'
 
 export const fillURLParameter = <URLParams>(
   route: string,

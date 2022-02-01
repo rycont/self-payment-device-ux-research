@@ -1,5 +1,5 @@
 export * from './brand'
-export { default as paywaveLogo } from './paywave.svg'
 export { default as faceSignIcon } from './facesign.svg'
 export { default as smsIcon } from './sms.svg'
+export { default as leftArrow } from './leftArrow.svg'
 export * from './lottie'

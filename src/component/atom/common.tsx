@@ -1,6 +1,6 @@
+import { Link } from 'react-router-dom'
 import { styled } from '#/stitches.config'
 import { faceSignIcon } from '@/asset'
-import { Link } from 'react-router-dom'
 import { PageHeader } from '.'
 
 export const PlainLink = styled(Link, {

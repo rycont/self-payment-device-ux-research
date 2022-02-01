@@ -12,7 +12,3 @@ export const ProductWrapper = styled(Vexile, {
 export const DiscountedPrice = styled(Description, {
   opacity: '0.36 !important',
 })
-
-DiscountedPrice.defaultProps = {
-  strike: true,
-}

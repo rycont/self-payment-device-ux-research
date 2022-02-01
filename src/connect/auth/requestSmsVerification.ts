@@ -1,19 +1,6 @@
 import { userMockModel } from '.'
 import { createAPIConnector } from '..'
 
-// function maskPhoneNumber(phone: string) .{
-//   var pattern =
-//   var result = ''
-//   if (!phone) return result
-
-//   if (pattern.test(phone)) {
-//     result = sampleHpData[i].replace(pattern, '$1-$2**-*$3')
-//   } else {
-//     result = '***'
-//   }
-//   return result
-// }
-
 export const requestSmsVerification = createAPIConnector<
   {},
   {
