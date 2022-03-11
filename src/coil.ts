@@ -1,7 +1,11 @@
 import { atom, selector } from 'recoil'
+import { recoilPersist } from 'recoil-persist'
+
 import { Doc } from './connect'
 import { calculateDiscountedPrice } from './function'
 import { PosAuth, Product, UserWithPaymentToken } from './type'
+
+const { persistAtom } = recoilPersist()
 
 export const modalContentAtom = atom<{
   dismissable: boolean
@@ -25,6 +29,7 @@ export const modalAppearanceAtom = atom<boolean>({
 export const cartAtom = atom<Doc<Product>[]>({
   default: [],
   key: 'CART',
+  effects_UNSTABLE: [persistAtom],
 })
 
 export const cartSumSelector = selector({
@@ -45,4 +50,5 @@ export const currentUserAtom = atom<UserWithPaymentToken | null>({
 export const posAuthTokenAtom = atom<PosAuth | null>({
   default: null,
   key: 'POS_AUTH',
+  effects_UNSTABLE: [persistAtom],
 })

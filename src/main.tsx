@@ -1,10 +1,16 @@
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import 'react-toastify/dist/ReactToastify.min.css'
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useEffect } from 'react'
 import { ToastContainer } from 'react-toastify'
 import RecoilNexus from 'recoil-nexus'
-import { RecoilRoot } from 'recoil'
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil'
 import ReactDOM from 'react-dom'
 
 import { globalCss } from '#/stitches.config'
@@ -24,6 +30,7 @@ import './animated.css'
 import { ROUTES } from './constants'
 import './asset/numericalGlyph/index.css'
 import { ModalPlaceholder } from './component'
+import { posAuthTokenAtom } from './coil'
 
 globalCss({
   '@import': [
@@ -61,6 +68,13 @@ const pages: Record<ROUTES, FunctionComponent> = {
 
 const AnimatedRouter = () => {
   const location = useLocation()
+  const goto = useNavigate()
+  const posAuthToken = useRecoilValue(posAuthTokenAtom)
+
+  useEffect(() => {
+    if (location.pathname.slice(1) !== ROUTES.POS_AUTH && !posAuthToken)
+      goto(ROUTES.POS_AUTH)
+  }, [location.pathname])
 
   return (
     <>

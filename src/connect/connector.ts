@@ -33,6 +33,7 @@ const fetchAPI = async (
 ): Promise<Response> => {
   try {
     const auth = getRecoil(posAuthTokenAtom)
+
     if (needAuth && !auth) {
       toast.error('포스를 사용할 수 없어요')
       throw new Error()
@@ -124,7 +125,7 @@ export function createAPIConnector<
 
         const reqUri = fillURLParameter(uri, urlParams)
 
-        fetchAPI(API_URI + reqUri, config.method, reqBody)
+        fetchAPI(API_URI + reqUri, config.method, reqBody, config.needAuth)
           .then((r) => r.json())
           .then((data) => {
             setData(data)
@@ -164,7 +165,7 @@ export function createAPIConnector<
 
         const reqUri = fillURLParameter(uri, urlParams)
 
-        fetchAPI(API_URI + reqUri, config.method, reqBody)
+        fetchAPI(API_URI + reqUri, config.method, reqBody, config.needAuth)
           .then((r) => r.json())
           .then((data) => {
             ok(data)

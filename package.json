@@ -20,7 +20,8 @@
     "react-toastify": "^8.1.0",
     "react-transition-group": "^4.4.2",
     "recoil": "^0.5.2",
-    "recoil-nexus": "^0.3.15"
+    "recoil-nexus": "^0.3.15",
+    "recoil-persist": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^16.11.9",
