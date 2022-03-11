@@ -20,11 +20,12 @@ import {
   ScanProduct,
   UserRecognized,
   OpenFaceSign,
-  SmsVerificationRequest,
+  SmsSerialInput as SmsSerialInput,
   RequestPayment,
   SmsValidationPrompt,
   PaymentPinPrompt,
   PosAuth,
+  SmsPinInput,
 } from '@/page'
 import './animated.css'
 import { ROUTES } from './constants'
@@ -62,8 +63,9 @@ const pages: Record<ROUTES, FunctionComponent> = {
   [ROUTES.REQUEST_PAYMENT]: RequestPayment,
   [ROUTES.PAYMENT_PIN_PROMPT]: PaymentPinPrompt,
   [ROUTES.OPEN_FACE_SIGN]: OpenFaceSign,
-  [ROUTES.SMS_VERIFICATION_REQUEST]: SmsVerificationRequest,
+  [ROUTES.SMS_VERIFICATION_SERIAL_INPUT]: SmsSerialInput,
   [ROUTES.SMS_VERIFICATION_PROMPT]: SmsValidationPrompt,
+  [ROUTES.SMS_VERIFICATION_PIN_INPUT]: SmsPinInput,
 }
 
 const AnimatedRouter = () => {

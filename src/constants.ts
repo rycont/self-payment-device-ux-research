@@ -14,7 +14,8 @@ export enum ROUTES {
   REQUEST_PAYMENT = '/request-payment',
   PAYMENT_PIN_PROMPT = '/payment-pin-prompt',
   OPEN_FACE_SIGN = '/open-face-sign',
-  SMS_VERIFICATION_REQUEST = '/sms-verification-request',
+  SMS_VERIFICATION_SERIAL_INPUT = '/sms-verification-serial',
+  SMS_VERIFICATION_PIN_INPUT = '/sms-verification-pin',
   SMS_VERIFICATION_PROMPT = '/sms-verification-prompt',
 }
 

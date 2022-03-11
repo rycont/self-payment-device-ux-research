@@ -4,7 +4,8 @@ import { createAPIConnector } from '..'
 export const requestSmsVerification = createAPIConnector<
   {},
   {
-    studentId: number
+    studentNumber: string
+    pin: string
   },
   | {
       isValid: false
@@ -15,11 +16,11 @@ export const requestSmsVerification = createAPIConnector<
       maskedPhoneNumber: string
       timeLimitSeconds: number
     }
->('auth/sms/create-otp', {
+>('auth/request-sms-code', {
   method: 'POST',
   needAuth: true,
   mockHandler(_, req) {
-    if (!req?.studentId)
+    if (!req?.studentNumber)
       return {
         isValid: false,
         message: '학번이 올바르지 않아요',
@@ -29,7 +30,7 @@ export const requestSmsVerification = createAPIConnector<
       'studentId',
       'studentId'
     )({
-      studentId: req.studentId,
+      studentId: req.studentNumber,
     })
 
     if (queriedUser.phoneNumber)

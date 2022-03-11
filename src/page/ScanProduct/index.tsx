@@ -26,7 +26,7 @@ const authenticationMethods = [
   },
   {
     label: '문자인증',
-    route: ROUTES.SMS_VERIFICATION_REQUEST,
+    route: ROUTES.SMS_VERIFICATION_SERIAL_INPUT,
   },
   {
     label: '얼굴인증',
