@@ -2,13 +2,18 @@ import { Product } from '@/type'
 import { createAPIConnector, Doc } from '..'
 import { productMockModel } from './index.model'
 
-export const getBarcodelessProduct = createAPIConnector<{}, {}, Doc<Product>[]>(
-  'product/barcodeless',
+export const getBarcodelessProduct = createAPIConnector<
+  {},
+  {},
   {
-    method: 'GET',
-    needAuth: false,
-    mockHandler() {
-      return productMockModel.getAll().filter((e) => !e.barcode)
-    },
+    barcodelessProducts: Doc<Product>[]
   }
-)
+>('product/barcodeless', {
+  method: 'GET',
+  needAuth: true,
+  mockHandler() {
+    return {
+      barcodelessProducts: productMockModel.getAll().filter((e) => !e.barcode),
+    }
+  },
+})

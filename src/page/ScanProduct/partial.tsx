@@ -10,9 +10,10 @@ export const NonBarcodeProduct: React.FC<{
   return (
     <NonBarcodeProductWrapper padding={6} gap={4}>
       <RegularImportant>추가할 물건을 선택해주세요</RegularImportant>
-      {data?.map((d) => (
-        <ProductView {...d} onClick={() => props.selectProduct(d)} />
-      ))}
+      {data &&
+        data.barcodelessProducts.map((d) => (
+          <ProductView {...d} onClick={() => props.selectProduct(d)} />
+        ))}
     </NonBarcodeProductWrapper>
   )
 }

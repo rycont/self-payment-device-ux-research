@@ -41,13 +41,15 @@ export const useLogics = () => {
       setLoadingProductsAmount((prev) => prev + 1)
 
       try {
-        const product = await getProductByBarcode.request({
+        const res = await getProductByBarcode.request({
           barcode,
         })
 
-        if (!product) throw new Error()
+        if (!res) {
+          throw new Error()
+        }
 
-        setProducts((prev) => [...prev, product])
+        setProducts((prev) => [...prev, res.product])
       } catch (e) {
         toast('상품 정보를 찾을 수 없어요', {
           type: 'error',

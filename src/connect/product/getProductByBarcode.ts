@@ -7,9 +7,15 @@ export const getProductByBarcode = createAPIConnector<
     barcode: string
   },
   undefined,
-  Doc<Product>
+  {
+    product: Doc<Product>
+  }
 >('product/:barcode', {
   method: 'GET',
   needAuth: true,
-  mockHandler: productMockModel.get('barcode', 'barcode'),
+  mockHandler(id) {
+    return {
+      product: productMockModel.get('barcode', 'barcode')(id),
+    }
+  },
 })

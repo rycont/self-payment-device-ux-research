@@ -29,7 +29,6 @@ export const modalAppearanceAtom = atom<boolean>({
 export const cartAtom = atom<Doc<Product>[]>({
   default: [],
   key: 'CART',
-  effects_UNSTABLE: [persistAtom],
 })
 
 export const cartSumSelector = selector({
