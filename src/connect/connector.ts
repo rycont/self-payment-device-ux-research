@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { API_URI } from '@/constants'
 import { isDev } from '@/function'
+import { posAuthTokenAtom } from '@/coil'
+import { getRecoil, setRecoil } from 'recoil-nexus'
+import { toast } from 'react-toastify'
 
 export const fillURLParameter = <URLParams>(
   route: string,
@@ -20,6 +23,58 @@ export const fillURLParameter = <URLParams>(
   }
 
   return filled
+}
+
+const fetchAPI = async (
+  uri: string,
+  method: string,
+  data: any,
+  needAuth?: boolean
+): Promise<Response> => {
+  try {
+    const auth = getRecoil(posAuthTokenAtom)
+    if (needAuth && !auth) {
+      toast.error('포스를 사용할 수 없어요')
+      throw new Error()
+    }
+
+    const res = await fetch(uri, {
+      method,
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        ...(needAuth && {
+          Authorization: `Bearer ${auth!.accessToken}`,
+        }),
+      }),
+      body: JSON.stringify(data),
+    })
+    if (!res.ok) throw res
+    if (res.status !== 418) return res
+
+    if (!auth?.refreshToken) {
+      toast.error('포스를 사용할 수 없어요')
+      throw new Error()
+    }
+
+    const tokens = await (
+      await fetch(API_URI + '/pos-login/refresh', {
+        method: 'POST',
+        headers: new Headers({
+          Authorization: `Bearer ${auth.refreshToken}`,
+        }),
+      })
+    ).json()
+
+    setRecoil(posAuthTokenAtom, {
+      ...auth,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+    })
+
+    return await fetchAPI(uri, method, data)
+  } catch (e) {
+    throw e
+  }
 }
 
 interface APIConnectorConfig<URLParams, ReqType, ResType> {
@@ -44,6 +99,7 @@ export function createAPIConnector<
       const [data, setData] = useState<ResType>()
       const [error, setError] = useState<Error>()
       const [loaded, setLoaded] = useState(false)
+
       const loadData = () => {
         if (isDev && config.mockHandler) {
           setTimeout(async () => {
@@ -68,10 +124,7 @@ export function createAPIConnector<
 
         const reqUri = fillURLParameter(uri, urlParams)
 
-        fetch(API_URI + reqUri, {
-          method: config.method,
-          body: JSON.stringify(reqBody),
-        })
+        fetchAPI(API_URI + reqUri, config.method, reqBody)
           .then((r) => r.json())
           .then((data) => {
             setData(data)
@@ -95,7 +148,7 @@ export function createAPIConnector<
       }
     },
     request(urlParams?: URLParams, reqBody?: ReqType) {
-      return new Promise<ResType | undefined>((ok, error) => {
+      return new Promise<ResType | undefined>((ok, raiseError) => {
         if (isDev && config.mockHandler) {
           setTimeout(async () => {
             try {
@@ -103,7 +156,7 @@ export function createAPIConnector<
               ok(responseData)
               return
             } catch (e) {
-              error(e)
+              raiseError(e)
             }
           }, 1000)
           return
@@ -111,18 +164,15 @@ export function createAPIConnector<
 
         const reqUri = fillURLParameter(uri, urlParams)
 
-        fetch(API_URI + reqUri, {
-          method: config.method,
-          body: JSON.stringify(reqBody),
-        })
+        fetchAPI(API_URI + reqUri, config.method, reqBody)
           .then((r) => r.json())
           .then((data) => {
             ok(data)
           })
           .catch((raisedError) => {
-            if (raisedError instanceof Error) error(raisedError)
-            if (raisedError.message) error(new Error(raisedError.message))
-            error(new Error(raisedError))
+            if (raisedError instanceof Error) raiseError(raisedError)
+            if (raisedError.message) raiseError(new Error(raisedError.message))
+            raiseError(new Error(raisedError))
           })
       })
     },

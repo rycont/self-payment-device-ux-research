@@ -1,9 +1,14 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import { useResetRecoilState } from 'recoil'
+import { useRecoilValue, useResetRecoilState } from 'recoil'
 
 import { verticalLogo } from '@/asset'
-import { cartAtom, currentUserAtom, selectedCouponIdsAtom } from '@/coil'
+import {
+  cartAtom,
+  currentUserAtom,
+  posAuthTokenAtom,
+  selectedCouponIdsAtom,
+} from '@/coil'
 import { DescriptionImportant, PlainLink, Regular, Vexile } from '@/component'
 import { ROUTES } from '@/constants'
 import { useHIDInput } from '@/hook'
@@ -15,6 +20,7 @@ function Onboarding() {
   const resetCart = useResetRecoilState(cartAtom)
   const resetUser = useResetRecoilState(currentUserAtom)
   const resetCoupon = useResetRecoilState(selectedCouponIdsAtom)
+  const userToken = useRecoilValue(posAuthTokenAtom)
 
   useHIDInput({
     onData(e) {
@@ -27,6 +33,8 @@ function Onboarding() {
   })
 
   useEffect(() => {
+    if (!userToken) goto(ROUTES.POS_AUTH)
+
     resetCart()
     resetUser()
     resetCoupon()

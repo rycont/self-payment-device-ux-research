@@ -1,0 +1,35 @@
+{
+  "background_color": "#ffffff",
+  "categories": ["social", "news", "magazines"],
+  "description": "뉴스 속보",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "https://abs.twimg.com/responsive-web/client-web/icon-default.ee534d85.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://abs.twimg.com/responsive-web/client-web/icon-default-large.8e027b65.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "src": "https://abs.twimg.com/responsive-web/client-web/icon-default-maskable.2fd29c85.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "src": "https://abs.twimg.com/responsive-web/client-web/icon-default-maskable-large.ee2b7aa5.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "name": "Twitter",
+  "short_name": "Twitter",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}

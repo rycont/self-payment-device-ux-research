@@ -6,6 +6,7 @@ import {
   Vexile,
 } from '@/component'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import { Description } from '../atom'
 import { PinDigit } from './style'
 
@@ -30,11 +31,17 @@ export const Pin: React.FC<{
 
   useEffect(() => {
     if (digits.length !== PIN_DIGITS_LENGTH) return
-    props.onSubmit(digits.join('')).then((success) => {
-      if (success === false) {
+    props
+      .onSubmit(digits.join(''))
+      .then((success) => {
+        if (success === false) {
+          setDigits([])
+        }
+      })
+      .catch((error) => {
+        toast.error(error?.toString?.() || '다시 시도해주세요')
         setDigits([])
-      }
-    })
+      })
   }, [digits])
 
   return (

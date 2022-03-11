@@ -1,12 +1,13 @@
-import { globalCss } from '#/stitches.config'
-import React, { FunctionComponent } from 'react'
-import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { ToastContainer } from 'react-toastify'
-import { RecoilRoot } from 'recoil'
 import 'react-toastify/dist/ReactToastify.min.css'
+import React, { FunctionComponent } from 'react'
+import { ToastContainer } from 'react-toastify'
+import RecoilNexus from 'recoil-nexus'
+import { RecoilRoot } from 'recoil'
+import ReactDOM from 'react-dom'
 
+import { globalCss } from '#/stitches.config'
 import {
   Onboarding,
   ScanQR,
@@ -17,6 +18,7 @@ import {
   RequestPayment,
   SmsValidationPrompt,
   PaymentPinPrompt,
+  PosAuth,
 } from '@/page'
 import './animated.css'
 import { ROUTES } from './constants'
@@ -46,6 +48,7 @@ globalCss({
 
 const pages: Record<ROUTES, FunctionComponent> = {
   [ROUTES.ROOT]: Onboarding,
+  [ROUTES.POS_AUTH]: PosAuth,
   [ROUTES.SCAN_PRODUCT]: ScanProduct,
   [ROUTES.SCAN_QR]: ScanQR,
   [ROUTES.USER_RECOGNIZED]: UserRecognized,
@@ -63,6 +66,7 @@ const AnimatedRouter = () => {
     <>
       <ModalPlaceholder />
       <ToastContainer />
+      <RecoilNexus />
       <TransitionGroup component={null}>
         <CSSTransition key={location.key} timeout={300} classNames="fade">
           <Routes location={location}>

@@ -1,4 +1,5 @@
 export * from './connector'
 export * from './product'
-export * from './auth'
+export * from './User'
 export * from './payment/requestPayment'
+export * from './Auth'
