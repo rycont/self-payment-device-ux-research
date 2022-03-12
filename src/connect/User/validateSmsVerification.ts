@@ -1,5 +1,4 @@
 import { Coupon, UserWithApprovalToken } from '@/type'
-import { userMockModel } from '.'
 import { createAPIConnector } from '..'
 
 export const validateSmsVerification = createAPIConnector<

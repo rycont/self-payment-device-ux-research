@@ -1,23 +1,29 @@
-import { Coupon } from '@/type'
+import { Coupon, UserWithApprovalToken } from '@/type'
 import { createAPIConnector } from '../connector'
-import { userMockModel } from './index.model'
 
 export const getUserFromApprovalToken = createAPIConnector<
   {},
   {
     approvalToken: string
   },
-  {
-    systemId: string
-    name: string
-    profileImage: string
-    studentNumber?: string
-    receivedCoupons: Coupon[]
-  }
+  UserWithApprovalToken['user']
 >('user/approval-token', {
   method: 'POST',
   async mockHandler() {
-    return userMockModel.random()
+    return {
+      name: '최재현',
+      profileImage: 'https://github.com/rycont.png',
+      receivedCoupons: [
+        {
+          issuer: {
+            name: '아무개',
+          },
+          name: '경제골든벨 1등',
+          amount: 3000,
+          id: 2384723,
+        },
+      ],
+    }
   },
   needAuth: true,
 })

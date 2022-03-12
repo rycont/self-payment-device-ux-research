@@ -1,11 +1,10 @@
-import { User, FaceSignResultType, UserWithPaymentToken } from '@/type'
+import { FaceSignResultType, UserWithApprovalToken } from '@/type'
 import { createAPIConnector, Doc } from '..'
-import { userMockModel } from './index.model'
 
 export const getFaceSignResult = createAPIConnector<
   {},
   {},
-  | (UserWithPaymentToken & {
+  | (UserWithApprovalToken & {
       type: FaceSignResultType.SURE
     })
   | {
@@ -21,15 +20,19 @@ export const getFaceSignResult = createAPIConnector<
     if (Math.random() > 0.8) {
       return {
         type: FaceSignResultType.SURE,
-        user: userMockModel.random(),
-        paymentToken: '뭐시기 저시기 토큰',
+        approvalToken: '뭐시기 저시기 토큰',
+        user: {
+          name: '최재현',
+          profileImage: 'https://github.com/rycont.png',
+          receivedCoupons: [],
+        },
       }
     }
 
     if (Math.random() > 0.6) {
       return {
         type: FaceSignResultType.MULTIPLE_POSSIBILITY,
-        ids: [userMockModel.random().id, userMockModel.random().id],
+        ids: [100, 200, 300],
       }
     }
 

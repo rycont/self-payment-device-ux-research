@@ -1,4 +1,3 @@
-import { userMockModel } from '.'
 import { createAPIConnector } from '..'
 
 export const requestSmsVerification = createAPIConnector<
@@ -26,14 +25,7 @@ export const requestSmsVerification = createAPIConnector<
         message: '학번이 올바르지 않아요',
       }
 
-    const queriedUser = userMockModel.get(
-      'studentId',
-      'studentId'
-    )({
-      studentId: req.studentNumber,
-    })
-
-    if (queriedUser.phoneNumber)
+    if (Math.random() < 0.9)
       return {
         isValid: true,
         maskedPhoneNumber: '010-1234-5678'.replace(

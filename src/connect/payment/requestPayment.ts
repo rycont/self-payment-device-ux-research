@@ -1,9 +1,9 @@
-import { Product, UserWithPaymentToken } from '@/type'
+import { UserWithApprovalToken } from '@/type'
 import { createAPIConnector } from '..'
 
 export const requestPayment = createAPIConnector<
   {},
-  UserWithPaymentToken & {
+  UserWithApprovalToken & {
     products: number[]
     coupons: number[]
   },
