@@ -45,7 +45,7 @@ export const useLogics = () => {
           barcode,
         })
 
-        if (!res) {
+        if (!res || !res.product) {
           throw new Error()
         }
 
@@ -65,10 +65,10 @@ export const useLogics = () => {
     onData(data) {
       if (data.startsWith('eyJ')) {
         try {
-          const parsed = jwtDecode(data)
+          // const parsed = jwtDecode(data)
           // if (isUserWithPaymentToken(parsed)) {
-          setUser(parsed)
-          goto(ROUTES.USER_RECOGNIZED)
+          // setUser(parsed)
+          // goto(ROUTES.USER_RECOGNIZED)
           // }
         } catch (e) {
           toast(
