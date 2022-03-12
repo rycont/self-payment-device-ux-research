@@ -7,9 +7,9 @@ import jwtDecode from 'jwt-decode'
 import { currentUserAtom } from '@/coil'
 import { ROUTES } from '@/constants'
 import { useHIDInput, useTimer } from '@/hook'
-import { isUserWithPaymentToken } from '@/type'
 
 import { useCanvas, drawBackdrop } from './backdrop'
+import { UserWithApprovalToken } from '@/type'
 
 const WAITING_TIME = 60
 
@@ -22,10 +22,8 @@ export const useLogics = () => {
     onData(token) {
       try {
         const parsed = jwtDecode(token)
-        if (isUserWithPaymentToken(parsed)) {
-          setUser(parsed)
-          goto(ROUTES.USER_RECOGNIZED)
-        }
+        setUser(parsed as UserWithApprovalToken)
+        goto(ROUTES.USER_RECOGNIZED)
       } catch (e) {
         toast(
           '정보무늬가 변조되었습니다. 부정사용을 방지하기 30분간 결제가 중지됩니다.',

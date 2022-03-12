@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil'
 
 import { currentUserAtom } from '@/coil'
 import { Pin, Regular, Vexile } from '@/component'
-import { validateSmsVerification } from '@/connect'
+import { getUserFromApprovalToken, validateSmsVerification } from '@/connect'
 import { ROUTES } from '@/constants'
 import { useTimer } from '@/hook'
 
@@ -17,7 +17,8 @@ export const SmsValidationPrompt = () => {
     | {
         maskedPhoneNumber: string
         timelimit: number
-        studentId: number
+        serial: number
+        isValid: boolean
       }
 
   const timer = useTimer(state?.timelimit || 60)
@@ -43,8 +44,8 @@ export const SmsValidationPrompt = () => {
         const res = await validateSmsVerification.request(
           {},
           {
-            otp: pin,
-            studentId: state!.studentId,
+            smsCode: pin,
+            studentNumber: state!.serial,
           }
         )
 
@@ -55,9 +56,10 @@ export const SmsValidationPrompt = () => {
           return false
         }
 
+        console.log(res)
         setUser(res)
-        goto(ROUTES.USER_RECOGNIZED)
-        return true
+        // goto(ROUTES.USER_RECOGNIZED)
+        // return true
       }}
     />
   )

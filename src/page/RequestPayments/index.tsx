@@ -5,10 +5,11 @@ import { ROUTES } from '@/constants'
 import { useRecoilValue } from 'recoil'
 import { cartAtom, currentUserAtom, selectedCouponIdsAtom } from '@/coil'
 import { requestPayment } from '@/connect'
-import { isUserWithPaymentToken, UserWithPaymentToken } from '@/type'
+// import { isUserWithPaymentToken, UserWithPaymentToken } from '@/type'
 import { useEffect } from 'react'
 import { MAIN_ACCENT } from '#/stitches.config'
 import { HashLoader } from 'react-spinners'
+import { UserWithApprovalToken } from '@/type'
 
 export const RequestPayment = () => {
   const user = useRecoilValue(currentUserAtom)
@@ -17,15 +18,15 @@ export const RequestPayment = () => {
   const goto = useNavigate()
 
   useEffect(() => {
-    if (!isUserWithPaymentToken(user)) {
-      goto(ROUTES.ROOT)
-    }
+    // if (!isUserWithPaymentToken(user)) {
+    goto(ROUTES.ROOT)
+    // }
   }, [])
 
   const { data, loaded } = requestPayment.useHook(
     {},
     {
-      ...(user as UserWithPaymentToken),
+      ...(user as UserWithApprovalToken),
       coupons,
       products: cart.map(({ id }) => id),
     }

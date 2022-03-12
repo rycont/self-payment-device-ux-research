@@ -28,7 +28,9 @@ export const SmsPinInput = () => {
         }
 
         toast.success('인증번호를 전송했어요')
-        goto(ROUTES.SMS_VERIFICATION_PROMPT)
+        goto(ROUTES.SMS_VERIFICATION_PROMPT, {
+          state: { ...res, ...location.state },
+        })
         // goto(ROUTES.SMS_VERIFICATION_PIN_INPUT, {
         //   state: {
         //     serial,

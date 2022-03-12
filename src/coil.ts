@@ -3,7 +3,7 @@ import { recoilPersist } from 'recoil-persist'
 
 import { Doc } from './connect'
 import { calculateDiscountedPrice } from './function'
-import { PosAuth, Product, UserWithPaymentToken } from './type'
+import { PosAuth, Product, UserWithApprovalToken } from './type'
 
 const { persistAtom } = recoilPersist()
 
@@ -41,7 +41,7 @@ export const cartSumSelector = selector({
   },
 })
 
-export const currentUserAtom = atom<UserWithPaymentToken | null>({
+export const currentUserAtom = atom<UserWithApprovalToken | null>({
   default: null,
   key: 'CURRENT_USER',
 })

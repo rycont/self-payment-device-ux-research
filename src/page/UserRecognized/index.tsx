@@ -23,14 +23,14 @@ export const UserRecognized = () => {
       return goto(ROUTES.ROOT)
     }
 
-    if (user.coupon.length === 0) return gotoPaymentPage()
+    if (user.receivedCoupons.length === 0) return gotoPaymentPage()
 
     setTimeout(
       () =>
         showModal({
           content: (
             <CouponSelector
-              coupons={user.coupon}
+              coupons={user.receivedCoupons}
               onSubmit={() => {
                 gotoPaymentPage()
               }}

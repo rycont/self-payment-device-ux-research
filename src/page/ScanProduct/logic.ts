@@ -8,7 +8,7 @@ import { cartAtom, cartSumSelector, currentUserAtom } from '@/coil'
 import { Doc, getProductByBarcode } from '@/connect'
 import { ROUTES } from '@/constants'
 import { useHIDInput } from '@/hook'
-import { isUserWithPaymentToken, Product } from '@/type'
+import { Product } from '@/type'
 
 export const useLogics = () => {
   const [showNonBarcodeProduct, setShowNonBarcodeProduct] = useState(false)
@@ -66,10 +66,10 @@ export const useLogics = () => {
       if (data.startsWith('eyJ')) {
         try {
           const parsed = jwtDecode(data)
-          if (isUserWithPaymentToken(parsed)) {
-            setUser(parsed)
-            goto(ROUTES.USER_RECOGNIZED)
-          }
+          // if (isUserWithPaymentToken(parsed)) {
+          setUser(parsed)
+          goto(ROUTES.USER_RECOGNIZED)
+          // }
         } catch (e) {
           toast(
             '정보무늬가 변조되었습니다. 부정사용을 방지하기 30분간 결제가 중지됩니다.',

@@ -171,6 +171,7 @@ export function createAPIConnector<
             ok(data)
           })
           .catch((raisedError) => {
+            console.dir(raisedError)
             if (raisedError instanceof Error) raiseError(raisedError)
             if (raisedError.message) raiseError(new Error(raisedError.message))
             raiseError(new Error(raisedError))

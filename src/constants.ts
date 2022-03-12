@@ -1,8 +1,9 @@
-import { isDev } from './function'
+import { isDev, useLocalServer } from './function'
 
-export const API_URI = isDev
-  ? 'http://localhost:4000/'
-  : 'https://dimipay.up.railway.app/'
+export const API_URI =
+  isDev || useLocalServer
+    ? 'http://localhost:4000/'
+    : 'https://dimipay.up.railway.app/'
 export const PUBSUB_URI = 'https://pubsub.rycont.ninja/sub/scanner'
 
 export enum ROUTES {
@@ -20,5 +21,5 @@ export enum ROUTES {
 }
 
 export const CONFIG = {
-  USE_VIRTUAL_SCANNER: true,
+  USE_VIRTUAL_SCANNER: false,
 }

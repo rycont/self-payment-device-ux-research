@@ -19,13 +19,12 @@ const couponMockModel = createMockModel<Coupon>('coupon', [
 export const userMockModel = createMockModel<User>('user', [
   {
     id: 10101010100,
-    studentId: 2414,
-    type: 0,
+    studentNumber: '2414',
     username: 'rycont',
     name: '최재현',
     profileImage: 'https://github.com/rycont.png',
-    hashedPin: btoa('1122'),
-    coupon: couponMockModel.getAll(),
+    receivedCoupons: couponMockModel.getAll(),
     phoneNumber: '010-3947-2183', // fake
+    systemId: '2443',
   },
 ])
