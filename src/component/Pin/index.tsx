@@ -38,8 +38,8 @@ export const Pin: React.FC<{
           setDigits([])
         }
       })
-      .catch((error) => {
-        toast.error(error?.toString?.() || '다시 시도해주세요')
+      .catch(() => {
+        toast.error('다시 시도해주세요')
         setDigits([])
       })
   }, [digits])

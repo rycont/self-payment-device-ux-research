@@ -74,6 +74,12 @@ const fetchAPI = async (
 
     return await fetchAPI(uri, method, data)
   } catch (e) {
+    if (e instanceof Response) {
+      const { message } = await e.json()
+      if (message) {
+        toast.error(message)
+      }
+    }
     throw e
   }
 }

@@ -1,4 +1,4 @@
-import { Coupon, User } from '@/type'
+import { Coupon } from '@/type'
 import { createMockModel } from '..'
 
 const couponMockModel = createMockModel<Coupon>('coupon', [
@@ -6,13 +6,13 @@ const couponMockModel = createMockModel<Coupon>('coupon', [
     id: 1234,
     issuer: '하미영 선생님',
     name: '랜선찝기 장인상',
-    price: 1000,
+    amount: 1000,
   },
   {
     id: 24123,
     issuer: '박성수 선생님',
     name: '요비선 시공 장인상',
-    price: 1000,
+    amount: 1000,
   },
 ])
 

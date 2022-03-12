@@ -20,7 +20,7 @@ const backdropDisappear = keyframes({
 })
 
 export const ModalBackdrop = styled(Vexile, {
-  backgroundColor: 'rgba(0, 0, 0, 0.1)',
+  backgroundColor: 'rgba(249 249 249 / 0.9)',
   position: 'fixed',
   zIndex: 1,
   padding: '6rem',

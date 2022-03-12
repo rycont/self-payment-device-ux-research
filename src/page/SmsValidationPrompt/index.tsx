@@ -56,9 +56,13 @@ export const SmsValidationPrompt = () => {
           return false
         }
 
-        console.log(res)
-        setUser(res)
-        // goto(ROUTES.USER_RECOGNIZED)
+        const preloaded = new Image()
+
+        preloaded.src = res.user.profileImage
+        preloaded.onload = () => {
+          setUser(res)
+          goto(ROUTES.USER_RECOGNIZED)
+        }
         // return true
       }}
     />

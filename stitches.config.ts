@@ -1,6 +1,15 @@
 import { createStitches } from '@stitches/react'
 
 export const MAIN_ACCENT = '#2EA4AB'
+export const COLORS = {
+  accent: MAIN_ACCENT,
+  background: '#F9F9F9',
+  actionableGray: '#333333',
+  dark3: '#808888',
+  dark4: '#ABB0B0',
+  dark5: '#D5D7D7',
+  dark6: '#F4F5F5',
+}
 
 export const {
   styled,
@@ -13,18 +22,8 @@ export const {
   config,
 } = createStitches({
   theme: {
-    colors: {
-      accent: MAIN_ACCENT,
-      background: '#F9F9F9',
-      actionableGray: '#333333',
-      dark3: '#808888',
-      dark4: '#ABB0B0',
-      dark5: '#D5D7D7',
-      dark6: '#F4F5F5',
-    },
-    shadows: {
-      accent: MAIN_ACCENT,
-    },
+    colors: COLORS,
+    shadows: COLORS,
   },
   utils: {
     elevated: () => ({

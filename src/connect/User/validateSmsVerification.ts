@@ -28,9 +28,11 @@ export const validateSmsVerification = createAPIConnector<
           profileImage: 'https://github.com/rycont.png',
           receivedCoupons: [
             {
-              issuer: '아무개',
+              issuer: {
+                name: '아무개',
+              },
               name: '경제골든벨 1등',
-              price: 3000,
+              amount: 3000,
               id: 2384723,
             },
           ],

@@ -1,5 +1,7 @@
 export interface Coupon {
-  price: number
+  amount: number
   name: string
-  issuer: string
+  issuer: {
+    name: string
+  }
 }

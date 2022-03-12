@@ -33,10 +33,10 @@ export const CouponView: React.FC<
   >
     <Vexile gap={1.5}>
       <Regular>{couponData.name}</Regular>
-      <Description>{couponData.issuer}</Description>
+      <Description>{couponData.issuer.name}</Description>
     </Vexile>
     <Vexile gap={1.5} x="right" y="center">
-      <Regular accent>{couponData.price.toLocaleString()}원</Regular>
+      <Regular accent>{couponData.amount.toLocaleString()}원</Regular>
     </Vexile>
   </CouponViewWrapper>
 )
@@ -52,7 +52,7 @@ export const CouponSelector: React.FC<{
 
   const couponSum = props.coupons
     .filter((e) => selectedCouponIds.includes(e.id))
-    .reduce((a, b) => a + b.price, 0)
+    .reduce((a, b) => a + b.amount, 0)
 
   const isAddable = couponSum < cart
 
