@@ -4,13 +4,13 @@ import { createMockModel } from '..'
 export const productMockModel = createMockModel<Product>('product', [
   {
     id: 1,
-    name: '갈아 만든 배',
+    name: '갈배사이다 캔 500ml',
     price: 1000,
     barcode: '0001',
   },
   {
     id: 2,
-    name: '허니콤보',
+    name: '캔들라이트 수정테이프',
     price: 3000,
     barcode: '0002',
   },
@@ -51,7 +51,12 @@ export const productMockModel = createMockModel<Product>('product', [
   },
   {
     id: 5,
-    name: '초밥',
+    name: '넥타이 (적색)',
+    price: 1000,
+  },
+  {
+    id: 5,
+    name: '넥타이 (청색)',
     price: 1000,
   },
   {

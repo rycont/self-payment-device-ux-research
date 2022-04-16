@@ -10,6 +10,7 @@ import { useHIDInput, useTimer } from '@/hook'
 
 import { useCanvas, drawBackdrop } from './backdrop'
 import { UserWithApprovalToken } from '@/type'
+import { getUserFromApprovalToken } from '@/connect'
 
 const WAITING_TIME = 60
 
@@ -19,10 +20,16 @@ export const useLogics = () => {
 
   useHIDInput({
     isNonNumericAllowed: true,
-    onData(token) {
+    async onData(token) {
       try {
-        const parsed = jwtDecode(token)
-        setUser(parsed as UserWithApprovalToken)
+        const userInfo = await getUserFromApprovalToken.request(token)
+        if (!userInfo) throw new Error()
+
+        setUser({
+          user: userInfo,
+          approvalToken: token,
+        })
+
         goto(ROUTES.USER_RECOGNIZED)
       } catch (e) {
         toast(

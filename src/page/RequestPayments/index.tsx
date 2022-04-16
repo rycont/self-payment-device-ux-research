@@ -18,9 +18,9 @@ export const RequestPayment = () => {
   const goto = useNavigate()
 
   useEffect(() => {
-    // if (!isUserWithPaymentToken(user)) {
-    goto(ROUTES.ROOT)
-    // }
+    if (!user) {
+      goto(ROUTES.ROOT)
+    }
   }, [])
 
   const { data, loaded } = requestPayment.useHook(

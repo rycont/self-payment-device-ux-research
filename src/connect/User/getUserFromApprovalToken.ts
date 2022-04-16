@@ -1,4 +1,4 @@
-import { Coupon, UserWithApprovalToken } from '@/type'
+import { UserWithApprovalToken } from '@/type'
 import { createAPIConnector } from '../connector'
 
 export const getUserFromApprovalToken = createAPIConnector<

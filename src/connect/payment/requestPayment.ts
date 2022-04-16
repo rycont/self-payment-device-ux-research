@@ -19,7 +19,7 @@ export const requestPayment = createAPIConnector<
   mockHandler(_, req) {
     return {
       succeed: false,
-      message: '등록된 결제 수단 (KB 개돼지)에 오류가 발생했어요 : 해지카드',
+      message: '등록된 결제 수단 (KB 꿈드림)에 오류가 발생했어요 : 테스트결제',
     }
   },
   needAuth: true,
