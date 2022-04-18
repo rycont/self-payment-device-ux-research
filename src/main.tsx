@@ -62,7 +62,7 @@ const pages: Record<ROUTES, FunctionComponent> = {
   [ROUTES.USER_RECOGNIZED]: UserRecognized,
   [ROUTES.REQUEST_PAYMENT]: RequestPayment,
   [ROUTES.PAYMENT_PIN_PROMPT]: PaymentPinPrompt,
-  [ROUTES.OPEN_FACE_SIGN]: OpenFaceSign,
+  [ROUTES.FACE_VERIFICATION]: OpenFaceSign,
   [ROUTES.SMS_VERIFICATION_SERIAL_INPUT]: SmsSerialInput,
   [ROUTES.SMS_VERIFICATION_PROMPT]: SmsValidationPrompt,
   [ROUTES.SMS_VERIFICATION_PIN_INPUT]: SmsPinInput,

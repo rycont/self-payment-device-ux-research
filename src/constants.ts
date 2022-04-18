@@ -3,8 +3,8 @@ import { isDev, useLocalServer } from './function'
 export const API_URI =
   isDev || useLocalServer
     ? 'http://localhost:4000/'
-    : 'https://dimipay.up.railway.app/'
-export const PUBSUB_URI = 'https://pubsub.rycont.ninja/sub/scanner'
+    : import.meta.env.VITE_API_SERVER
+export const PUBSUB_URI = import.meta.env.VITE_VIRTUAL_SCANNER_SERVER
 
 export enum ROUTES {
   ROOT = '/',
@@ -14,7 +14,7 @@ export enum ROUTES {
   USER_RECOGNIZED = '/user-recognized',
   REQUEST_PAYMENT = '/request-payment',
   PAYMENT_PIN_PROMPT = '/payment-pin-prompt',
-  OPEN_FACE_SIGN = '/open-face-sign',
+  FACE_VERIFICATION = '/face-verification',
   SMS_VERIFICATION_SERIAL_INPUT = '/sms-verification-serial',
   SMS_VERIFICATION_PIN_INPUT = '/sms-verification-pin',
   SMS_VERIFICATION_PROMPT = '/sms-verification-prompt',

@@ -9,10 +9,7 @@ import { ROUTES } from '@/constants'
 import { useHIDInput, useTimer } from '@/hook'
 
 import { useCanvas, drawBackdrop } from './backdrop'
-import { UserWithApprovalToken } from '@/type'
 import { getUserFromApprovalToken } from '@/connect'
-
-const WAITING_TIME = 60
 
 export const useLogics = () => {
   const setUser = useRecoilState(currentUserAtom)[1]
@@ -42,8 +39,6 @@ export const useLogics = () => {
     },
   })
 
-  const timer = useTimer(WAITING_TIME)
-
   const { drawboard } = useCanvas(drawBackdrop, {
     style: {
       filter: 'blur(20rem)',
@@ -52,17 +47,7 @@ export const useLogics = () => {
     },
   })
 
-  useEffect(() => {
-    if (timer.isEnded) {
-      toast('시간이 초과되어 메인 화면으로 돌아갔어요')
-      return goto(ROUTES.ROOT)
-    }
-  }, [timer.isEnded])
-
   return {
-    state: {
-      timer: timer.lastTime,
-    },
     element: {
       drawboard,
     },

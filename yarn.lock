@@ -549,6 +549,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/w3c-image-capture@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@types/w3c-image-capture@npm:1.0.6"
+  dependencies:
+    "@types/webrtc": "*"
+  checksum: d150134c5f3a39284e3e99e903fef83dd92e6bb66e8ec6ce1358180312685e5b2598225eebe15707378d2438ba5af5f66604cca615282412bece936efd5fb760
+  languageName: node
+  linkType: hard
+
+"@types/webrtc@npm:*":
+  version: 0.0.32
+  resolution: "@types/webrtc@npm:0.0.32"
+  checksum: a32d0225295177b262cba0d435f6317f1c8df51ae8b97e2f741db174a42bdb2b6a718db25e82a297df4e89ffc11f1b23ea7504d3538d929f6b54ddbe0d6ad4ff
+  languageName: node
+  linkType: hard
+
 "@vitejs/plugin-react@npm:^1.0.0":
   version: 1.0.9
   resolution: "@vitejs/plugin-react@npm:1.0.9"
@@ -1957,6 +1973,7 @@ __metadata:
     "@types/react": ^17.0.0
     "@types/react-dom": ^17.0.0
     "@types/react-transition-group": ^4.4.4
+    "@types/w3c-image-capture": ^1.0.6
     "@vitejs/plugin-react": ^1.0.0
     jose: ^4.4.0
     jsencrypt: ^3.2.1

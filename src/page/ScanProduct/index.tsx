@@ -30,7 +30,7 @@ const authenticationMethods = [
   },
   {
     label: '얼굴인증',
-    route: ROUTES.OPEN_FACE_SIGN,
+    route: ROUTES.FACE_VERIFICATION,
   },
 ]
 

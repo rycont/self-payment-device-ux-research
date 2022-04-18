@@ -29,7 +29,7 @@ export const useLogics = () => {
       setProducts((prev) => [...prev.slice(0, index), ...prev.slice(index + 1)])
     },
     goToPurchasePage() {
-      goto(ROUTES.OPEN_FACE_SIGN)
+      goto(ROUTES.FACE_VERIFICATION)
     },
     removeAll() {
       setProducts(() => [])
