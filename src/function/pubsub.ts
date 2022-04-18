@@ -4,7 +4,9 @@ const subs: Record<string, ((data: string) => void)[]> = {}
 
 const listenPubSub = async () => {
   try {
-    const res = JSON.parse(await (await fetch(PUBSUB_URI)).text())
+    const res = JSON.parse(
+      await (await fetch(import.meta.env.VITE_VIRTUAL_SCANNER_SERVER)).text()
+    )
     console.log(res)
     if (!isPubSubData(res)) throw new Error()
 
