@@ -59,6 +59,9 @@ export const useLogics = () => {
 
       setLoadingProductsAmount((prev) => prev - 1)
     },
+    sendPaymentRequest() {
+      console.log('ASDF')
+    },
   }
 
   useHIDInput({

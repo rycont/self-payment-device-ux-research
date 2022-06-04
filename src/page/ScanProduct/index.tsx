@@ -20,17 +20,21 @@ import { ViewArea } from './style'
 import { useLogics } from './logic'
 
 const authenticationMethods = [
+  // {
+  //   label: '앱 QR 결제',
+  //   route: ROUTES.SCAN_QR,
+  // },
+  // {
+  //   label: '문자인증',
+  //   route: ROUTES.SMS_VERIFICATION_SERIAL_INPUT,
+  // },
+  // {
+  //   label: '얼굴인증',
+  //   route: ROUTES.OPEN_FACE_SIGN,
+  // },
   {
-    label: '앱 QR 결제',
-    route: ROUTES.SCAN_QR,
-  },
-  {
-    label: '문자인증',
-    route: ROUTES.SMS_VERIFICATION_SERIAL_INPUT,
-  },
-  {
-    label: '얼굴인증',
-    route: ROUTES.FACE_VERIFICATION,
+    label: '스캔 완료',
+    route: ROUTES.MANUAL_PAYMENT,
   },
 ]
 
@@ -80,7 +84,7 @@ function ScanProduct() {
               {state.cartSum.toLocaleString()}원 결제
             </PageHeader>
           </Vexile>
-          <Hexile gap={2}>
+          {/* <Hexile gap={2}>
             {authenticationMethods.map((item) => (
               <PlainLink to={item.route}>
                 <Button high type="accent">
@@ -88,7 +92,10 @@ function ScanProduct() {
                 </Button>
               </PlainLink>
             ))}
-          </Hexile>
+          </Hexile> */}
+          <Button onClick={logics.sendPaymentRequest} high type="accent">
+            스캔 완료
+          </Button>
         </Hexile>
       </Vexile>
     </Vexile>

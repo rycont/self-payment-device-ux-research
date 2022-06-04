@@ -58,6 +58,7 @@ const pages: Record<ROUTES, FunctionComponent> = {
   [ROUTES.ROOT]: Onboarding,
   [ROUTES.POS_AUTH]: PosAuth,
   [ROUTES.SCAN_PRODUCT]: ScanProduct,
+  [ROUTES.MANUAL_PAYMENT]: ScanQR,
   [ROUTES.SCAN_QR]: ScanQR,
   [ROUTES.USER_RECOGNIZED]: UserRecognized,
   [ROUTES.REQUEST_PAYMENT]: RequestPayment,
