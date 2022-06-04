@@ -80,9 +80,7 @@ function ScanProduct() {
             <DescriptionImportant css={{ color: '$dark3' }}>
               {state.products.length}개 상품
             </DescriptionImportant>
-            <PageHeader accent>
-              {state.cartSum.toLocaleString()}원 결제
-            </PageHeader>
+            <PageHeader accent>{state.cartSum.toLocaleString()}원</PageHeader>
           </Vexile>
           {/* <Hexile gap={2}>
             {authenticationMethods.map((item) => (
@@ -94,7 +92,7 @@ function ScanProduct() {
             ))}
           </Hexile> */}
           <Button onClick={logics.sendPaymentRequest} high type="accent">
-            스캔 완료
+            {state.fluidData.isReady ? '입금을 확인하였습니다' : '스캔 완료'}
           </Button>
         </Hexile>
       </Vexile>

@@ -32,7 +32,7 @@ export const useHIDInput = (props: {
     window.addEventListener('keydown', listener)
     return () => {
       window.removeEventListener('keydown', listener)
-      pubsubUnsubscriber()
+      pubsubUnsubscriber?.()
     }
   }, [])
 }

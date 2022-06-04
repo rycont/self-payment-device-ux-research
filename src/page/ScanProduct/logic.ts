@@ -7,7 +7,7 @@ import jwtDecode from 'jwt-decode'
 import { cartAtom, cartSumSelector, currentUserAtom } from '@/coil'
 import { Doc, getProductByBarcode } from '@/connect'
 import { ROUTES } from '@/constants'
-import { useHIDInput } from '@/hook'
+import { useFluid, useHIDInput } from '@/hook'
 import { Product } from '@/type'
 
 export const useLogics = () => {
@@ -16,7 +16,15 @@ export const useLogics = () => {
   const [products, setProducts] = useRecoilState(cartAtom)
   const cartSum = useRecoilValue(cartSumSelector)
 
-  const setUser = useRecoilState(currentUserAtom)[1]
+  // const setUser = useRecoilState(currentUserAtom)[1]
+  const [fluidData, setFluid] = useFluid<{
+    products: Product[]
+    isReady: boolean
+  }>('products', {
+    isReady: false,
+    products: [],
+  })
+
   const goto = useNavigate()
   const location = useLocation()
 
@@ -60,7 +68,17 @@ export const useLogics = () => {
       setLoadingProductsAmount((prev) => prev - 1)
     },
     sendPaymentRequest() {
-      console.log('ASDF')
+      console.log('뭐가 눌러지긴 함?')
+      if (fluidData.isReady)
+        setFluid({
+          isReady: false,
+          products: [],
+        })
+      else
+        setFluid({
+          products,
+          isReady: true,
+        })
     },
   }
 
@@ -90,12 +108,20 @@ export const useLogics = () => {
     if (location.state?.noBarcode) setShowNonBarcodeProduct(true)
   }, [location.state])
 
+  useEffect(() => {
+    setFluid({
+      products,
+      isReady: false,
+    })
+  }, [products])
+
   return {
     state: {
       products,
       loadingProductsAmount,
       showNonBarcodeProduct,
       cartSum,
+      fluidData,
     },
     logics: functions,
   }

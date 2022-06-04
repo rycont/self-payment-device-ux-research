@@ -5,6 +5,7 @@ export const API_URI =
     ? 'http://localhost:4000/'
     : 'https://dimipay-api.rycont.ninja/'
 export const PUBSUB_URI = 'https://pubsub.rycont.ninja/sub/scanner'
+export const FLUID_CONTAINER_ID = '7f47d256-ca8e-4313-941a-40955ecc6d81'
 
 export enum ROUTES {
   ROOT = '/',
@@ -19,6 +20,7 @@ export enum ROUTES {
   SMS_VERIFICATION_SERIAL_INPUT = '/sms-verification-serial',
   SMS_VERIFICATION_PIN_INPUT = '/sms-verification-pin',
   SMS_VERIFICATION_PROMPT = '/sms-verification-prompt',
+  CUSTOMER_VIEWER = '/customer-viewer',
 }
 
 export const CONFIG = {

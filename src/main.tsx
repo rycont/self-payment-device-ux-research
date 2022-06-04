@@ -26,6 +26,7 @@ import {
   PaymentPinPrompt,
   PosAuth,
   SmsPinInput,
+  CustomerViewer,
 } from '@/page'
 import './animated.css'
 import { ROUTES } from './constants'
@@ -67,6 +68,7 @@ const pages: Record<ROUTES, FunctionComponent> = {
   [ROUTES.SMS_VERIFICATION_SERIAL_INPUT]: SmsSerialInput,
   [ROUTES.SMS_VERIFICATION_PROMPT]: SmsValidationPrompt,
   [ROUTES.SMS_VERIFICATION_PIN_INPUT]: SmsPinInput,
+  [ROUTES.CUSTOMER_VIEWER]: CustomerViewer,
 }
 
 const AnimatedRouter = () => {
@@ -75,7 +77,13 @@ const AnimatedRouter = () => {
   const posAuthToken = useRecoilValue(posAuthTokenAtom)
 
   useEffect(() => {
-    if (location.pathname.slice(1) !== ROUTES.POS_AUTH && !posAuthToken)
+    const currentRoute = location.pathname.slice(1)
+    if (
+      ([ROUTES.POS_AUTH, ROUTES.CUSTOMER_VIEWER] as unknown as string).includes(
+        currentRoute
+      ) &&
+      !posAuthToken
+    )
       goto(ROUTES.POS_AUTH)
   }, [location.pathname])
 
