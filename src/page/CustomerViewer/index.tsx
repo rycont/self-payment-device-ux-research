@@ -91,7 +91,7 @@ export const CustomerViewer: React.FC = () => {
         text: `https://toss.me/새하얗게웃던날을/` + totalPrice,
         size: 500,
         logoImage: LogoB64,
-        logoScale: 0.3,
+        logoScale: 0.2,
       }).draw()
       if (res) setQR(res as string)
     })()
