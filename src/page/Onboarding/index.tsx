@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useRecoilValue, useResetRecoilState } from 'recoil'
 
@@ -12,7 +12,6 @@ import {
 import { DescriptionImportant, PlainLink, Regular, Vexile } from '@/component'
 import { ROUTES } from '@/constants'
 import { useHIDInput } from '@/hook'
-
 import { MainLogo } from './style'
 
 function Onboarding() {
@@ -21,6 +20,8 @@ function Onboarding() {
   const resetUser = useResetRecoilState(currentUserAtom)
   const resetCoupon = useResetRecoilState(selectedCouponIdsAtom)
   const userToken = useRecoilValue(posAuthTokenAtom)
+
+  const [clickCount, setClickCount] = useState(0)
 
   useHIDInput({
     onData(e) {
@@ -33,11 +34,24 @@ function Onboarding() {
   })
 
   useEffect(() => {
+    if (clickCount === 5) {
+      goto(ROUTES.CUSTOMER_VIEWER)
+    }
+  }, [clickCount])
+
+  useEffect(() => {
     if (!userToken) goto(ROUTES.POS_AUTH)
 
     resetCart()
     resetUser()
     resetCoupon()
+
+    const handler = () => setClickCount((e) => e + 1)
+    window.addEventListener('click', handler)
+
+    return () => {
+      window.removeEventListener('click', handler)
+    }
   }, [])
 
   return (
