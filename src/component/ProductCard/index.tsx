@@ -17,14 +17,17 @@ export const ProductView: React.FC<
         {product.discountPolicy ? (
           <>
             <Description>
-              {calculateDiscountedPrice(product.price, product.discountPolicy)}
+              {calculateDiscountedPrice(
+                product.sellingPrice,
+                product.discountPolicy
+              )}
               원
             </Description>
-            <DiscountedPrice strike>{product.price}원</DiscountedPrice>
+            <DiscountedPrice strike>{product.sellingPrice}원</DiscountedPrice>
           </>
         ) : (
           <>
-            <Description>{product.price}원</Description>
+            <Description>{product.sellingPrice}원</Description>
           </>
         )}
       </Hexile>

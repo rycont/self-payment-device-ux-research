@@ -5,7 +5,8 @@ export interface DiscountPolicy {
 
 export interface Product {
   name: string
-  price: number
+  sellingPrice: number
+  purchaseCost?: number
   barcode?: string
   discountPolicy?: DiscountPolicy
 }

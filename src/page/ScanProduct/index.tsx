@@ -33,7 +33,7 @@ const authenticationMethods = [
   //   route: ROUTES.OPEN_FACE_SIGN,
   // },
   {
-    label: '스캔 완료',
+    label: '계산',
     route: ROUTES.MANUAL_PAYMENT,
   },
 ]

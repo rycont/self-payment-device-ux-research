@@ -35,7 +35,7 @@ export const cartSumSelector = selector({
   key: 'CART/SUM',
   get: ({ get }) => {
     return get(cartAtom).reduce(
-      (a, b) => a + calculateDiscountedPrice(b.price, b.discountPolicy),
+      (a, b) => a + calculateDiscountedPrice(b.sellingPrice, b.discountPolicy),
       0
     )
   },
