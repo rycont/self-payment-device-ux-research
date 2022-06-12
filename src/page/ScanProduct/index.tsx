@@ -33,7 +33,7 @@ const authenticationMethods = [
   //   route: ROUTES.OPEN_FACE_SIGN,
   // },
   {
-    label: '계산',
+    label: '계산하기!',
     route: ROUTES.MANUAL_PAYMENT,
   },
 ]
@@ -48,7 +48,9 @@ function ScanProduct() {
         <Hexile gap={3} linebreak>
           {state.products.map((product, index) => (
             <ProductView
-              onClick={() => logics.removeProductByIndex(index)}
+              onClick={() => {
+                logics.removeProductByIndex(index)
+              }}
               {...product}
             />
           ))}
@@ -82,7 +84,7 @@ function ScanProduct() {
             </DescriptionImportant>
             <PageHeader accent>{state.cartSum.toLocaleString()}원</PageHeader>
           </Vexile>
-          {/* <Hexile gap={2}>
+          <Hexile gap={2}>
             {authenticationMethods.map((item) => (
               <PlainLink to={item.route}>
                 <Button high type="accent">
@@ -90,10 +92,7 @@ function ScanProduct() {
                 </Button>
               </PlainLink>
             ))}
-          </Hexile> */}
-          <Button onClick={logics.sendPaymentRequest} high type="accent">
-            {state.fluidData.isReady ? '입금을 확인하였습니다' : '스캔 완료'}
-          </Button>
+          </Hexile>
         </Hexile>
       </Vexile>
     </Vexile>

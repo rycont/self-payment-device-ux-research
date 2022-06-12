@@ -2,6 +2,12 @@ import { CONFIG } from '@/constants'
 import { subscribeTopic } from '@/function'
 import { useEffect } from 'react'
 
+declare global {
+  interface Window {
+    input(text: string): void
+  }
+}
+
 export const useHIDInput = (props: {
   onData(data: string): void
   isNonNumericAllowed?: boolean
@@ -30,6 +36,9 @@ export const useHIDInput = (props: {
     }
 
     window.addEventListener('keydown', listener)
+
+    window.input = (text: string) => props.onData(text)
+
     return () => {
       window.removeEventListener('keydown', listener)
       pubsubUnsubscriber?.()

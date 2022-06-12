@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { API_URI } from '@/constants'
-import { isDev } from '@/function'
+import { API_URI, isDev } from '@/constants'
 import { posAuthTokenAtom } from '@/coil'
 import { getRecoil, setRecoil } from 'recoil-nexus'
 import { toast } from 'react-toastify'

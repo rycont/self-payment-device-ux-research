@@ -1,4 +1,5 @@
-import { isDev, useLocalServer } from './function'
+export const isDev = import.meta.env.VITE_FORCE_MOCK_SERVER === 'true'
+export const useLocalServer = import.meta.env.VITE_USE_LOCAL_SERVER === 'true'
 
 export const API_URI =
   isDev || useLocalServer
@@ -26,4 +27,5 @@ export enum ROUTES {
 
 export const CONFIG = {
   USE_VIRTUAL_SCANNER: false,
+  INTERACTION_PERFORMANCE_MODE: 'full',
 }

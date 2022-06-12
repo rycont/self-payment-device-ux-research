@@ -1,4 +1,4 @@
-import { CONFIG, PUBSUB_URI } from '@/constants'
+import { CONFIG } from '@/constants'
 
 const subs: Record<string, ((data: string) => void)[]> = {}
 

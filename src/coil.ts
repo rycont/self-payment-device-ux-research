@@ -1,7 +1,10 @@
+import { AwesomeQR } from 'awesome-qr'
 import { atom, selector } from 'recoil'
 import { recoilPersist } from 'recoil-persist'
+import { LogoB64 } from './asset'
 
 import { Doc } from './connect'
+import { TOSS_ID } from './constants'
 import { calculateDiscountedPrice } from './function'
 import { PosAuth, Product, UserWithApprovalToken } from './type'
 
@@ -29,6 +32,7 @@ export const modalAppearanceAtom = atom<boolean>({
 export const cartAtom = atom<Doc<Product>[]>({
   default: [],
   key: 'CART',
+  effects_UNSTABLE: [persistAtom],
 })
 
 export const cartSumSelector = selector({
@@ -39,6 +43,11 @@ export const cartSumSelector = selector({
       0
     )
   },
+})
+
+export const tossQRAtom = atom<string | null>({
+  key: 'TOSS_QR',
+  default: null,
 })
 
 export const currentUserAtom = atom<UserWithApprovalToken | null>({

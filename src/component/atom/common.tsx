@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { styled } from '#/stitches.config'
 import { faceSignIcon } from '@/asset'
 import { PageHeader } from '.'
+import { Vexile } from './flexile'
 
 export const PlainLink = styled(Link, {
   textDecoration: 'none',
@@ -21,6 +22,16 @@ export const GoBackButton = styled('img', {
 export const FaceSignLogo = styled('img', {
   height: '20rem',
 })
+
+export const Callout = styled(Vexile, {
+  backgroundColor: '$dark6',
+  borderRadius: '4rem',
+})
+
+Callout.defaultProps = {
+  gap: 1,
+  padding: 4,
+}
 
 FaceSignLogo.defaultProps = {
   src: faceSignIcon,

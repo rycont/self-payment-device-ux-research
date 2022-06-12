@@ -1,20 +1,28 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import jwtDecode from 'jwt-decode'
 
-import { cartAtom, cartSumSelector, currentUserAtom } from '@/coil'
+import {
+  cartAtom,
+  cartSumSelector,
+  tossQRAtom,
+  // tossQRSelector,
+} from '@/coil'
 import { Doc, getProductByBarcode } from '@/connect'
-import { ROUTES } from '@/constants'
+import { ROUTES, TOSS_ID } from '@/constants'
 import { useFluid, useHIDInput } from '@/hook'
 import { Product } from '@/type'
+import { LogoB64 } from '@/asset'
+import { AwesomeQR } from 'awesome-qr'
 
 export const useLogics = () => {
   const [showNonBarcodeProduct, setShowNonBarcodeProduct] = useState(false)
   const [loadingProductsAmount, setLoadingProductsAmount] = useState(0)
   const [products, setProducts] = useRecoilState(cartAtom)
   const cartSum = useRecoilValue(cartSumSelector)
+  const setTossQr = useSetRecoilState(tossQRAtom)
 
   // const setUser = useRecoilState(currentUserAtom)[1]
   const [fluidData, setFluid] = useFluid<{
@@ -114,6 +122,19 @@ export const useLogics = () => {
       isReady: false,
     })
   }, [products])
+
+  useEffect(() => {
+    new AwesomeQR({
+      text: `https://toss.me/${TOSS_ID}/${cartSum}`,
+      size: 600,
+      logoImage: LogoB64,
+      logoScale: 0.2,
+    })
+      .draw()
+      .then((e) => {
+        if (e) setTossQr(e.toString())
+      })
+  }, [cartSum])
 
   return {
     state: {
