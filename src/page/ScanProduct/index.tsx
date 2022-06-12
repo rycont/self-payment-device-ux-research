@@ -85,13 +85,19 @@ function ScanProduct() {
             <PageHeader accent>{state.cartSum.toLocaleString()}원</PageHeader>
           </Vexile>
           <Hexile gap={2}>
-            {authenticationMethods.map((item) => (
-              <PlainLink to={item.route}>
+            {authenticationMethods.map((item) =>
+              state.cartSum ? (
+                <PlainLink to={item.route}>
+                  <Button high type="accent">
+                    {item.label}
+                  </Button>
+                </PlainLink>
+              ) : (
                 <Button high type="accent">
                   {item.label}
                 </Button>
-              </PlainLink>
-            ))}
+              )
+            )}
           </Hexile>
         </Hexile>
       </Vexile>

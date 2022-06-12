@@ -2,44 +2,28 @@ import { useNavigate } from 'react-router'
 import { failed, success } from '@/asset'
 import { Description, GoBack, Lottie, PageHeader, Vexile } from '@/component'
 import { ROUTES } from '@/constants'
-import { useRecoilValue } from 'recoil'
-import { cartAtom, currentUserAtom, selectedCouponIdsAtom } from '@/coil'
-import { requestPayment } from '@/connect'
-// import { isUserWithPaymentToken, UserWithPaymentToken } from '@/type'
-import { useEffect } from 'react'
-import { MAIN_ACCENT } from '#/stitches.config'
-import { HashLoader } from 'react-spinners'
-import { UserWithApprovalToken } from '@/type'
+import { useLocation } from 'react-router-dom'
 
 export const RequestPayment = () => {
-  const user = useRecoilValue(currentUserAtom)
-  const cart = useRecoilValue(cartAtom)
-  const coupons = useRecoilValue(selectedCouponIdsAtom)
+  const prevState = useLocation().state as
+    | {
+        succeed: true
+        transactionId: string
+      }
+    | {
+        succeed: false
+      }
+
   const goto = useNavigate()
 
-  useEffect(() => {
-    if (!user) {
-      goto(ROUTES.ROOT)
-    }
-  }, [])
+  // if (prevState.succeed)
+  //   return (
+  //     <Vexile fillx filly x="center" y="center">
+  //       <HashLoader size={30} color={MAIN_ACCENT} />
+  //     </Vexile>
+  //   )
 
-  const { data, loaded } = requestPayment.useHook(
-    {},
-    {
-      ...(user as UserWithApprovalToken),
-      coupons,
-      products: cart.map(({ id }) => id),
-    }
-  )
-
-  if (!loaded || !data)
-    return (
-      <Vexile fillx filly x="center" y="center">
-        <HashLoader size={30} color={MAIN_ACCENT} />
-      </Vexile>
-    )
-
-  if (data?.succeed)
+  if (prevState?.succeed)
     return (
       <Vexile fillx filly x="center" y="center" gap={4}>
         <Lottie
@@ -67,7 +51,9 @@ export const RequestPayment = () => {
       />
       <Vexile gap={2} x="center">
         <PageHeader>결제에 실패했어요</PageHeader>
-        <Description>{data.message}</Description>
+        <Description>
+          결제 가능한 시간이 지났어요. 100초 이내에 결자를 마무리 해주세요.
+        </Description>
       </Vexile>
       <GoBack />
     </Vexile>

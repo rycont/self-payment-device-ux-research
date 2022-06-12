@@ -6,12 +6,75 @@ import {
   GoBack,
   Callout,
 } from '@/component'
-import { cartSumSelector, tossQRAtom } from '@/coil'
+import { cartAtom, cartSumSelector, posAuthTokenAtom, tossQRAtom } from '@/coil'
+import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
+import { ROUTES } from '@/constants'
+import { useEffect } from 'react'
+import { EventSourcePolyfill } from 'event-source-polyfill'
+import { getRecoil } from 'recoil-nexus'
+import { toast } from 'react-toastify'
+import { depositPayment } from '@/connect/payment/deposit'
 
 export const ManualPayment = () => {
   const totalPrice = useRecoilValue(cartSumSelector)
+  const products = useRecoilValue(cartAtom)
   const qr = useRecoilValue(tossQRAtom)
+  const goto = useNavigate()
+  const auth = useRecoilValue(posAuthTokenAtom)
+
+  useEffect(() => {
+    ;(async () => {
+      if (!auth) {
+        toast.error('단말기를 사용할 수 없어요')
+        return
+      }
+
+      const productsCount = Object.entries(
+        products.reduce(
+          (matched, current) => {
+            return {
+              ...matched,
+              [current.id]: (matched[current.systemId] || 0) + 1,
+            }
+          },
+          {} as {
+            [key: string]: number
+          }
+        )
+      ).map((e) => ({
+        productId: e[0],
+        amount: e[1],
+      }))
+
+      await depositPayment.request(
+        {},
+        {
+          products: productsCount,
+        }
+      )
+
+      const sse = new EventSourcePolyfill(
+        'https://dimipay-api.rycont.ninja/payment/deposit',
+        {
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`,
+          },
+        }
+      )
+
+      sse.addEventListener('message', (e) => {
+        const payload = JSON.parse(e.data as string)
+
+        if (payload.status === 'SUCCESS')
+          goto(ROUTES.REQUEST_PAYMENT, {
+            state: {
+              succeed: true,
+            },
+          })
+      })
+    })()
+  }, [auth, products, goto])
 
   return (
     <Vexile x="center" y="center" filly gap={6}>

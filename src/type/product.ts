@@ -4,6 +4,7 @@ export interface DiscountPolicy {
 }
 
 export interface Product {
+  systemId: string
   name: string
   sellingPrice: number
   purchaseCost?: number

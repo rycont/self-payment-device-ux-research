@@ -1077,6 +1077,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/event-source-polyfill@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@types/event-source-polyfill@npm:1.0.0"
+  checksum: 5b3eacace596ce8c1c3f877ea7967e9634922faa7187f9d4000fd3d7b765f84917603dbc95c98d28ff592e80cb7bc588166ec9ea841d262be0d919bf9ed79c14
+  languageName: node
+  linkType: hard
+
 "@types/events@npm:^3.0.0":
   version: 3.0.0
   resolution: "@types/events@npm:3.0.0"
@@ -1903,6 +1910,13 @@ __metadata:
   version: 2.0.2
   resolution: "estree-walker@npm:2.0.2"
   checksum: 6151e6f9828abe2259e57f5fd3761335bb0d2ebd76dc1a01048ccee22fabcfef3c0859300f6d83ff0d1927849368775ec5a6d265dde2f6de5a1be1721cd94efc
+  languageName: node
+  linkType: hard
+
+"event-source-polyfill@npm:^1.0.26":
+  version: 1.0.26
+  resolution: "event-source-polyfill@npm:1.0.26"
+  checksum: 300f8740b906383ca7e92da3391c5556ef6882bdbd0029395c96c5fe8edf47fe6ca01348481bfb4d272863d8589dfa91f72bd40371e6f514d9836710a8e4c18e
   languageName: node
   linkType: hard
 
@@ -3076,6 +3090,7 @@ __metadata:
     "@fluidframework/core-interfaces": ^0.43.1000
     "@fluidframework/tinylicious-client": ^0.59.4000
     "@stitches/react": ^1.2.5
+    "@types/event-source-polyfill": ^1.0.0
     "@types/node": ^16.11.9
     "@types/react": ^17.0.0
     "@types/react-dom": ^17.0.0
@@ -3083,6 +3098,7 @@ __metadata:
     "@types/w3c-image-capture": ^1.0.6
     "@vitejs/plugin-react": ^1.0.0
     awesome-qr: ^2.1.5-rc.0
+    event-source-polyfill: ^1.0.26
     fluid-framework: ^0.59.4000
     jose: ^4.4.0
     jsencrypt: ^3.2.1
