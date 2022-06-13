@@ -7,14 +7,15 @@ import {
   Callout,
 } from '@/component'
 import { cartAtom, cartSumSelector, posAuthTokenAtom, tossQRAtom } from '@/coil'
-import { EventSourcePolyfill } from 'event-source-polyfill'
+// import { EventSourcePolyfill } from 'event-source-polyfill'
 import { depositPayment } from '@/connect/payment/deposit'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useHIDInput, useTimer } from '@/hook'
-import { ROUTES } from '@/constants'
+import { API_URI, ROUTES } from '@/constants'
+import { EventSourcePolyfill } from 'event-source-polyfill'
 
 export const ManualPayment = () => {
   const totalPrice = useRecoilValue(cartSumSelector)
@@ -53,14 +54,15 @@ export const ManualPayment = () => {
   useEffect(() => {
     if (!auth || !isReady) return
 
-    const sse = new EventSourcePolyfill(
-      'https://dimipay-api.rycont.ninja/payment/deposit',
-      {
-        headers: {
-          Authorization: `Bearer ${auth.accessToken}`,
-        },
-      }
-    )
+    const sse = new EventSourcePolyfill(API_URI + 'payment/deposit', {
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+      },
+    })
+
+    sse.addEventListener('open', (e) => {
+      console.log('CONNECTED!!')
+    })
 
     sse.addEventListener('message', (e) => {
       const payload = JSON.parse(e.data as string)
@@ -78,6 +80,10 @@ export const ManualPayment = () => {
           },
         })
       }
+    })
+
+    sse.addEventListener('error', (e) => {
+      console.log(e)
     })
 
     return () => sse.close()
@@ -117,6 +123,7 @@ export const ManualPayment = () => {
         'text'
       )
 
+      console.log('요청 완료!')
       setIsReady(true)
     })()
   }, [])
