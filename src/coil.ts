@@ -1,10 +1,7 @@
-import { AwesomeQR } from 'awesome-qr'
 import { atom, selector } from 'recoil'
 import { recoilPersist } from 'recoil-persist'
-import { LogoB64 } from './asset'
 
 import { Doc } from './connect'
-import { TOSS_ID } from './constants'
 import { calculateDiscountedPrice } from './function'
 import { PosAuth, Product, UserWithApprovalToken } from './type'
 
@@ -58,5 +55,4 @@ export const currentUserAtom = atom<UserWithApprovalToken | null>({
 export const posAuthTokenAtom = atom<PosAuth | null>({
   default: null,
   key: 'POS_AUTH',
-  effects_UNSTABLE: [persistAtom],
 })
