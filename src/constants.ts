@@ -8,7 +8,7 @@ export const API_URI =
 
 export const PUBSUB_URI = 'https://pubsub.rycont.ninja/sub/scanner'
 export const FLUID_CONTAINER_ID = '7f47d256-ca8e-4313-941a-40955ecc6d81'
-export const TOSS_ID = '새하얗게웃던날을'
+export const TOSS_ID = 'dimipay'
 
 export enum ROUTES {
   ROOT = '/',

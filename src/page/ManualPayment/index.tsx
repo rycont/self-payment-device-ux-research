@@ -35,7 +35,7 @@ export const ManualPayment = () => {
           (matched, current) => {
             return {
               ...matched,
-              [current.id]: (matched[current.systemId] || 0) + 1,
+              [current.systemId]: (matched[current.systemId] || 0) + 1,
             }
           },
           {} as {
@@ -46,12 +46,14 @@ export const ManualPayment = () => {
         productId: e[0],
         amount: e[1],
       }))
+      console.log
 
       await depositPayment.request(
         {},
         {
           products: productsCount,
-        }
+        },
+        'text'
       )
 
       const sse = new EventSourcePolyfill(
@@ -65,13 +67,13 @@ export const ManualPayment = () => {
 
       sse.addEventListener('message', (e) => {
         const payload = JSON.parse(e.data as string)
-
-        if (payload.status === 'SUCCESS')
-          goto(ROUTES.REQUEST_PAYMENT, {
-            state: {
-              succeed: true,
-            },
-          })
+        console.log(payload)
+        // if (payload.status === 'SUCCESS')
+        //   goto(ROUTES.REQUEST_PAYMENT, {
+        //     state: {
+        //       succeed: true,
+        //     },
+        //   })
       })
     })()
   }, [auth, products, goto])

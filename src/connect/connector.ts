@@ -153,7 +153,7 @@ export function createAPIConnector<
         loaded,
       }
     },
-    request(urlParams?: URLParams, reqBody?: ReqType) {
+    request(urlParams?: URLParams, reqBody?: ReqType, type?: 'text') {
       return new Promise<ResType | undefined>((ok, raiseError) => {
         if (isDev && config.mockHandler) {
           setTimeout(async () => {
@@ -171,7 +171,7 @@ export function createAPIConnector<
         const reqUri = fillURLParameter(uri, urlParams)
 
         fetchAPI(API_URI + reqUri, config.method, reqBody, config.needAuth)
-          .then((r) => r.json())
+          .then((r) => r[type || 'json']())
           .then((data) => {
             ok(data)
           })
