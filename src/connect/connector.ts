@@ -35,7 +35,7 @@ const fetchAPI = async (
     const auth = getRecoil(posAuthTokenAtom)
 
     if (needAuth && !auth) {
-      toast.error('포스를 사용할 수 없어요')
+      toast.info('인증이 필요해요')
       throw new Error()
     }
 
@@ -50,11 +50,12 @@ const fetchAPI = async (
       }),
       body: JSON.stringify(data),
     })
+
     if (!res.ok) throw res
     if (res.status !== 418) return res
 
     if (!auth?.refreshToken) {
-      toast.error('포스를 사용할 수 없어요')
+      toast.info('인증이 필요해요')
       throw new Error()
     }
 
@@ -73,7 +74,7 @@ const fetchAPI = async (
       refreshToken: tokens.refreshToken,
     })
 
-    return await fetchAPI(uri, method, data)
+    return await fetchAPI(uri, method, data, needAuth, headers)
   } catch (e) {
     if (e instanceof Response) {
       const { message } = await e.json()

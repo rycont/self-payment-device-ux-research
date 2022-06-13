@@ -42,6 +42,7 @@ globalCss({
   ],
   ':root': {
     fontSize: '6px',
+    '--toastify-font-family': 'Pretendard',
   },
   body: {
     fontSize: '4rem',
@@ -54,6 +55,7 @@ globalCss({
   },
   '*': {
     wordBreak: 'keep-all',
+    userSelect: 'none',
   },
 })()
 

@@ -3,7 +3,7 @@ export const useLocalServer = import.meta.env.VITE_USE_LOCAL_SERVER === 'true'
 
 export const API_URI =
   isDev || useLocalServer
-    ? 'http://localhost:4000/'
+    ? 'http://dimipay-api-dev.rycont.ninja/'
     : 'https://dimipay-api.rycont.ninja/'
 
 export const PUBSUB_URI = 'https://pubsub.rycont.ninja/sub/scanner'

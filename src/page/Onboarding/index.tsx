@@ -13,6 +13,7 @@ import { DescriptionImportant, PlainLink, Regular, Vexile } from '@/component'
 import { ROUTES } from '@/constants'
 import { useHIDInput } from '@/hook'
 import { MainLogo } from './style'
+import { toast } from 'react-toastify'
 
 function Onboarding() {
   const goto = useNavigate()
@@ -21,10 +22,29 @@ function Onboarding() {
   const resetCoupon = useResetRecoilState(selectedCouponIdsAtom)
   const userToken = useRecoilValue(posAuthTokenAtom)
 
-  const [clickCount, setClickCount] = useState(0)
-
   useHIDInput({
     onData(e) {
+      if (e === 'UPDATE') {
+        window.location.reload()
+        return
+      } else if (e === 'THANKS') {
+        toast.info(
+          'Initialy made by Electrochemistry, Rycont, Cokia, Uglyonlytoday, dhalsdyd'
+        )
+        setTimeout(() => {
+          toast.success('Special Thanks to')
+          toast.success('🧑‍🎨Yeonplue')
+          toast.success('🦐Coupy')
+          toast.success('💱19기 이비즈니스과 오예빈 학생')
+        }, 1000)
+
+        setTimeout(() => {
+          toast.info('디미페이가 엄랭보다 큰 업적이 되기를 바랍니다 By Rycont')
+          toast.info('포스 드래그 막아줘 By Electrochemistry')
+        }, 2000)
+        return
+      }
+
       goto(ROUTES.SCAN_PRODUCT, {
         state: {
           init: e,
@@ -34,24 +54,11 @@ function Onboarding() {
   })
 
   useEffect(() => {
-    if (clickCount === 5) {
-      goto(ROUTES.CUSTOMER_VIEWER)
-    }
-  }, [clickCount])
-
-  useEffect(() => {
     if (!userToken) goto(ROUTES.POS_AUTH)
 
     resetCart()
     resetUser()
     resetCoupon()
-
-    const handler = () => setClickCount((e) => e + 1)
-    window.addEventListener('click', handler)
-
-    return () => {
-      window.removeEventListener('click', handler)
-    }
   }, [])
 
   return (
