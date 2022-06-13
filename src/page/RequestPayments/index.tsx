@@ -52,7 +52,7 @@ export const RequestPayment = () => {
       <Vexile gap={2} x="center">
         <PageHeader>결제에 실패했어요</PageHeader>
         <Description>
-          결제 가능한 시간이 지났어요. 100초 이내에 결자를 마무리 해주세요.
+          결제 가능한 시간이 지났어요. 100초 이내에 결제를 마무리 해주세요.
         </Description>
       </Vexile>
       <GoBack />

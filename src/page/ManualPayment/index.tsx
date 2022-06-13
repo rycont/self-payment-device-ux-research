@@ -11,7 +11,7 @@ import { EventSourcePolyfill } from 'event-source-polyfill'
 import { depositPayment } from '@/connect/payment/deposit'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useHIDInput, useTimer } from '@/hook'
 import { ROUTES } from '@/constants'
@@ -22,6 +22,7 @@ export const ManualPayment = () => {
   const qr = useRecoilValue(tossQRAtom)
   const goto = useNavigate()
   const auth = useRecoilValue(posAuthTokenAtom)
+  const [isReady, setIsReady] = useState(false)
 
   useHIDInput({
     onData(data) {
@@ -48,6 +49,39 @@ export const ManualPayment = () => {
         },
       })
   }, [isEnded])
+
+  useEffect(() => {
+    if (!auth || !isReady) return
+
+    const sse = new EventSourcePolyfill(
+      'https://dimipay-api.rycont.ninja/payment/deposit',
+      {
+        headers: {
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      }
+    )
+
+    sse.addEventListener('message', (e) => {
+      const payload = JSON.parse(e.data as string)
+      if (payload.status === 'SUCCESS')
+        goto(ROUTES.REQUEST_PAYMENT, {
+          state: {
+            succeed: true,
+          },
+        })
+
+      if (payload.status === 'TIMEOUT') {
+        goto(ROUTES.REQUEST_PAYMENT, {
+          state: {
+            succeed: false,
+          },
+        })
+      }
+    })
+
+    return () => sse.close()
+  }, [isReady])
 
   useEffect(() => {
     ;(async () => {
@@ -81,32 +115,7 @@ export const ManualPayment = () => {
         'text'
       )
 
-      const sse = new EventSourcePolyfill(
-        'https://dimipay-api.rycont.ninja/payment/deposit',
-        {
-          headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-          },
-        }
-      )
-
-      sse.addEventListener('message', (e) => {
-        const payload = JSON.parse(e.data as string)
-        if (payload.status === 'SUCCESS')
-          goto(ROUTES.REQUEST_PAYMENT, {
-            state: {
-              succeed: true,
-            },
-          })
-
-        if (payload.status === 'TIMEOUT') {
-          goto(ROUTES.REQUEST_PAYMENT, {
-            state: {
-              succeed: false,
-            },
-          })
-        }
-      })
+      setIsReady(true)
     })()
   }, [auth, products, goto])
 
