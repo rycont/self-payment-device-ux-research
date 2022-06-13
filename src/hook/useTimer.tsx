@@ -34,11 +34,18 @@ export const useTimer = (time: number) => {
 
   return {
     element: (
-      <Vexile fillx x="center" gap={2}>
+      <Vexile
+        fillx
+        x="center"
+        gap={2}
+        style={{
+          maxWidth: '60rem',
+        }}
+      >
         <TimeLeftIndicator
           css={{
             '&:after': {
-              width: (20 - lastTime) * 5 + '%',
+              width: time - lastTime + '%',
             },
           }}
         />

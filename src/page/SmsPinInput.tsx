@@ -6,7 +6,9 @@ import { requestSmsVerification } from '@/connect'
 
 export const SmsPinInput = () => {
   const goto = useNavigate()
-  const location = useLocation()
+  const state = useLocation().state as {
+    serial: string
+  }
 
   return (
     <Pin
@@ -18,7 +20,7 @@ export const SmsPinInput = () => {
           {},
           {
             pin,
-            studentNumber: (location.state as any).serial,
+            studentNumber: state.serial,
           }
         )
 
@@ -29,7 +31,7 @@ export const SmsPinInput = () => {
 
         toast.success('인증번호를 전송했어요')
         goto(ROUTES.SMS_VERIFICATION_PROMPT, {
-          state: { ...res, ...(location.state as any) },
+          state: { ...res, ...state },
         })
         // goto(ROUTES.SMS_VERIFICATION_PIN_INPUT, {
         //   state: {

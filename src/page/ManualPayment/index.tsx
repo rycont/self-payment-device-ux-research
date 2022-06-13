@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { useHIDInput } from '@/hook'
+import { useHIDInput, useTimer } from '@/hook'
 import { ROUTES } from '@/constants'
 
 export const ManualPayment = () => {
@@ -35,6 +35,19 @@ export const ManualPayment = () => {
     },
     isNonNumericAllowed: true,
   })
+
+  const { element: timer, isEnded } = useTimer(100)
+
+  useEffect(() => {
+    if (isEnded)
+      goto(ROUTES.REQUEST_PAYMENT, {
+        state: {
+          state: {
+            succeed: false,
+          },
+        },
+      })
+  }, [isEnded])
 
   useEffect(() => {
     ;(async () => {
@@ -85,6 +98,14 @@ export const ManualPayment = () => {
               succeed: true,
             },
           })
+
+        if (payload.status === 'TIMEOUT') {
+          goto(ROUTES.REQUEST_PAYMENT, {
+            state: {
+              succeed: false,
+            },
+          })
+        }
       })
     })()
   }, [auth, products, goto])
@@ -110,6 +131,7 @@ export const ManualPayment = () => {
           추후 업데이트를 통해 문자인증 결제가 제공될 예정입니다
         </Description>
       </Callout>
+      {timer}
       <GoBack />
     </Vexile>
   )

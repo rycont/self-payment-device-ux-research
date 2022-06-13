@@ -10,7 +10,11 @@ import { ROUTES } from '@/constants'
 
 export const PaymentPinPrompt = () => {
   const goto = useNavigate()
-  const ids = (useLocation().state as any)?.ids
+  const ids = (
+    useLocation().state as {
+      ids: number[]
+    }
+  )?.ids
   const setUser = useRecoilState(currentUserAtom)[1]
 
   useEffect(() => {
