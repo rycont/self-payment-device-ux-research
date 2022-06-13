@@ -107,6 +107,8 @@ export const ManualPayment = () => {
         amount: e[1],
       }))
 
+      console.log('요청중')
+
       await depositPayment.request(
         {},
         {
@@ -117,7 +119,7 @@ export const ManualPayment = () => {
 
       setIsReady(true)
     })()
-  }, [auth, products, goto])
+  }, [])
 
   return (
     <Vexile x="center" y="center" filly gap={6}>

@@ -12,7 +12,7 @@ import {
 } from '@/coil'
 import { Doc, getProductByBarcode } from '@/connect'
 import { ROUTES, TOSS_ID } from '@/constants'
-import { useFluid, useHIDInput } from '@/hook'
+import { useHIDInput } from '@/hook'
 import { Product } from '@/type'
 import { LogoB64 } from '@/asset'
 import { AwesomeQR } from 'awesome-qr'
@@ -25,13 +25,13 @@ export const useLogics = () => {
   const setTossQr = useSetRecoilState(tossQRAtom)
 
   // const setUser = useRecoilState(currentUserAtom)[1]
-  const [fluidData, setFluid] = useFluid<{
-    products: Product[]
-    isReady: boolean
-  }>('products', {
-    isReady: false,
-    products: [],
-  })
+  // const [fluidData, setFluid] = useFluid<{
+  //   products: Product[]
+  //   isReady: boolean
+  // }>('products', {
+  //   isReady: false,
+  //   products: [],
+  // })
 
   const goto = useNavigate()
   const state = useLocation().state as
@@ -82,16 +82,16 @@ export const useLogics = () => {
     },
     sendPaymentRequest() {
       console.log('뭐가 눌러지긴 함?')
-      if (fluidData.isReady)
-        setFluid({
-          isReady: false,
-          products: [],
-        })
-      else
-        setFluid({
-          products,
-          isReady: true,
-        })
+      // if (fluidData.isReady)
+      //   setFluid({
+      //     isReady: false,
+      //     products: [],
+      //   })
+      // else
+      //   setFluid({
+      //     products,
+      //     isReady: true,
+      //   })
     },
   }
 
@@ -121,12 +121,12 @@ export const useLogics = () => {
     if (state?.noBarcode) setShowNonBarcodeProduct(true)
   }, [state])
 
-  useEffect(() => {
-    setFluid({
-      products,
-      isReady: false,
-    })
-  }, [products])
+  // useEffect(() => {
+  //   setFluid({
+  //     products,
+  //     isReady: false,
+  //   })
+  // }, [products])
 
   useEffect(() => {
     new AwesomeQR({
@@ -147,7 +147,7 @@ export const useLogics = () => {
       loadingProductsAmount,
       showNonBarcodeProduct,
       cartSum,
-      fluidData,
+      // fluidData,
     },
     logics: functions,
   }
