@@ -7,14 +7,14 @@ import {
   Callout,
 } from '@/component'
 import { cartAtom, cartSumSelector, posAuthTokenAtom, tossQRAtom } from '@/coil'
+import { EventSourcePolyfill } from 'event-source-polyfill'
+import { depositPayment } from '@/connect/payment/deposit'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
-import { ROUTES } from '@/constants'
 import { useEffect } from 'react'
-import { EventSourcePolyfill } from 'event-source-polyfill'
-import { getRecoil } from 'recoil-nexus'
 import { toast } from 'react-toastify'
-import { depositPayment } from '@/connect/payment/deposit'
+import { useHIDInput } from '@/hook'
+import { ROUTES } from '@/constants'
 
 export const ManualPayment = () => {
   const totalPrice = useRecoilValue(cartSumSelector)
@@ -22,6 +22,19 @@ export const ManualPayment = () => {
   const qr = useRecoilValue(tossQRAtom)
   const goto = useNavigate()
   const auth = useRecoilValue(posAuthTokenAtom)
+
+  useHIDInput({
+    onData(data) {
+      if (data === 'EDH2') {
+        goto(ROUTES.REQUEST_PAYMENT, {
+          state: {
+            succeed: true,
+          },
+        })
+      }
+    },
+    isNonNumericAllowed: true,
+  })
 
   useEffect(() => {
     ;(async () => {
@@ -46,7 +59,6 @@ export const ManualPayment = () => {
         productId: e[0],
         amount: e[1],
       }))
-      console.log
 
       await depositPayment.request(
         {},
@@ -67,13 +79,12 @@ export const ManualPayment = () => {
 
       sse.addEventListener('message', (e) => {
         const payload = JSON.parse(e.data as string)
-        console.log(payload)
-        // if (payload.status === 'SUCCESS')
-        //   goto(ROUTES.REQUEST_PAYMENT, {
-        //     state: {
-        //       succeed: true,
-        //     },
-        //   })
+        if (payload.status === 'SUCCESS')
+          goto(ROUTES.REQUEST_PAYMENT, {
+            state: {
+              succeed: true,
+            },
+          })
       })
     })()
   }, [auth, products, goto])
