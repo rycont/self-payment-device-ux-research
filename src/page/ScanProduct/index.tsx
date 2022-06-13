@@ -33,7 +33,7 @@ const authenticationMethods = [
   //   route: ROUTES.OPEN_FACE_SIGN,
   // },
   {
-    label: '계산하기!',
+    label: '계산하기',
     route: ROUTES.MANUAL_PAYMENT,
   },
 ]
@@ -69,7 +69,7 @@ function ScanProduct() {
           <NonBarcodeProduct selectProduct={logics.addNonBarcodeProduct} />
         )}
         <Hexile x="space" y="center">
-          <GoBack />
+          <GoBack to={ROUTES.ROOT}>대기화면으로</GoBack>
           <Hexile gap={2}>
             <Button onClick={logics.toggleNonBarcodeProduct}>
               바코드가 없는 상품 등록
