@@ -18,7 +18,7 @@ export const SmsPinInput = () => {
           {},
           {
             pin,
-            studentNumber: location.state.serial,
+            studentNumber: (location.state as any).serial,
           }
         )
 
@@ -29,7 +29,7 @@ export const SmsPinInput = () => {
 
         toast.success('인증번호를 전송했어요')
         goto(ROUTES.SMS_VERIFICATION_PROMPT, {
-          state: { ...res, ...location.state },
+          state: { ...res, ...(location.state as any) },
         })
         // goto(ROUTES.SMS_VERIFICATION_PIN_INPUT, {
         //   state: {

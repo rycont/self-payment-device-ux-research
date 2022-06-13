@@ -34,7 +34,12 @@ export const useLogics = () => {
   })
 
   const goto = useNavigate()
-  const location = useLocation()
+  const state = useLocation().state as
+    | {
+        init: string
+        noBarcode: boolean
+      }
+    | undefined
 
   const functions = {
     addNonBarcodeProduct(product: Doc<Product>) {
@@ -112,9 +117,9 @@ export const useLogics = () => {
   })
 
   useEffect(() => {
-    if (location.state?.init) functions.addProductByBarcode(location.state.init)
-    if (location.state?.noBarcode) setShowNonBarcodeProduct(true)
-  }, [location.state])
+    if (state?.init) functions.addProductByBarcode(state.init)
+    if (state?.noBarcode) setShowNonBarcodeProduct(true)
+  }, [state])
 
   useEffect(() => {
     setFluid({
