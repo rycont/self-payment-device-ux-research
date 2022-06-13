@@ -120,7 +120,9 @@ export const ManualPayment = () => {
         {
           products: productsCount,
         },
-        'text'
+        {
+          type: 'text',
+        }
       )
 
       console.log('요청 완료!')

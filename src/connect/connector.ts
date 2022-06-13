@@ -28,7 +28,8 @@ const fetchAPI = async (
   uri: string,
   method: string,
   data: any,
-  needAuth?: boolean
+  needAuth?: boolean,
+  headers?: Record<string, string>
 ): Promise<Response> => {
   try {
     const auth = getRecoil(posAuthTokenAtom)
@@ -45,6 +46,7 @@ const fetchAPI = async (
         ...(needAuth && {
           Authorization: `Bearer ${auth!.accessToken}`,
         }),
+        ...headers,
       }),
       body: JSON.stringify(data),
     })
@@ -153,7 +155,14 @@ export function createAPIConnector<
         loaded,
       }
     },
-    request(urlParams?: URLParams, reqBody?: ReqType, type?: 'text') {
+    request(
+      urlParams?: URLParams,
+      reqBody?: ReqType,
+      option?: {
+        type?: 'text'
+        headers?: Record<string, string>
+      }
+    ) {
       return new Promise<ResType | undefined>((ok, raiseError) => {
         if (isDev && config.mockHandler) {
           setTimeout(async () => {
@@ -170,8 +179,14 @@ export function createAPIConnector<
 
         const reqUri = fillURLParameter(uri, urlParams)
 
-        fetchAPI(API_URI + reqUri, config.method, reqBody, config.needAuth)
-          .then((r) => r[type || 'json']())
+        fetchAPI(
+          API_URI + reqUri,
+          config.method,
+          reqBody,
+          config.needAuth,
+          option?.headers
+        )
+          .then((r) => r[option?.type || 'json']())
           .then((data) => {
             ok(data)
           })

@@ -8,7 +8,7 @@ import {
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import 'react-toastify/dist/ReactToastify.min.css'
 import React, { FunctionComponent, useEffect } from 'react'
-import { ToastContainer } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 import RecoilNexus from 'recoil-nexus'
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil'
 import ReactDOM from 'react-dom'
@@ -34,6 +34,7 @@ import { ROUTES } from './constants'
 import './asset/numericalGlyph/index.css'
 import { ModalPlaceholder } from './component'
 import { posAuthTokenAtom } from './coil'
+import { getBarcodelessProduct, refresh } from './connect'
 
 globalCss({
   '@import': [
@@ -78,14 +79,26 @@ const AnimatedRouter = () => {
   const posAuthToken = useRecoilValue(posAuthTokenAtom)
 
   useEffect(() => {
-    const currentRoute = location.pathname.slice(1)
-    if (
-      ([ROUTES.POS_AUTH, ROUTES.CUSTOMER_VIEWER] as unknown as string).includes(
-        currentRoute
-      ) &&
-      !posAuthToken
+    const currentRoute = location.pathname
+    const isAuthlessPage = (
+      [ROUTES.POS_AUTH, ROUTES.CUSTOMER_VIEWER] as unknown as string
+    ).includes(currentRoute)
+
+    if (isAuthlessPage) return
+    if (!posAuthToken) goto(ROUTES.POS_AUTH)
+
+    getBarcodelessProduct.request().catch((e) =>
+      refresh
+        .request(undefined, undefined, {
+          headers: {
+            Authorization: `Bearer ${posAuthToken!.refreshToken}`,
+          },
+        })
+        .catch((e) => {
+          toast.error('토큰이 만료되었습니다')
+          goto(ROUTES.POS_AUTH)
+        })
     )
-      goto(ROUTES.POS_AUTH)
   }, [location.pathname])
 
   return (
