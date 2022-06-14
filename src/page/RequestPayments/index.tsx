@@ -56,7 +56,7 @@ export const RequestPayment = () => {
           error = (e as any).toString()
       }
 
-      const form = new URLSearchParams({
+      const form = JSON.stringify({
         succeed: succeed.toString(),
         products: JSON.stringify(productsCount),
         'form-name': 'request-payment',
@@ -64,13 +64,15 @@ export const RequestPayment = () => {
         date: new Date().toISOString(),
       })
 
-      await fetch('/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: form,
-      })
+      localStorage.setItem('PAYMENT/' + new Date().toISOString(), form)
+
+      // await fetch('/', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/x-www-form-urlencoded',
+      //   },
+      //   body: form,
+      // })
     })()
   }, [])
 
