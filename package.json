@@ -2,7 +2,7 @@
   "name": "self-payment-device-ux-research",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "VITE_COMMIT_REF=$COMMIT_REF && vite",
     "build": "tsc && vite build",
     "serve": "vite preview"
   },

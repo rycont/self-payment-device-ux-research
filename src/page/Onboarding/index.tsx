@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { useRecoilValue, useResetRecoilState } from 'recoil'
 
@@ -25,7 +25,9 @@ function Onboarding() {
   useHIDInput({
     isNonNumericAllowed: true,
     onData(e) {
-      if (e === 'UPDATE') {
+      if (e === 'VERSION') {
+        alert(import.meta.env.VITE_COMMIT_REF || 'unknown')
+      } else if (e === 'UPDATE') {
         window.location.reload()
         return
       } else if (e === 'THANKS') {
