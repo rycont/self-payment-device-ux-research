@@ -26,11 +26,13 @@ export const useHIDInput = (props: {
       }
 
       if (e.key === 'Enter') {
+        if (!text) return
         props.onData(text)
         text = ''
       }
 
-      if (props.isNonNumericAllowed || isNaN(parseInt(e.key))) return
+      if (!props.isNonNumericAllowed && isNaN(parseInt(e.key))) return
+      if (e.key.length !== 1) return
 
       text += e.key
     }
