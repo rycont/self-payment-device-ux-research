@@ -1,20 +1,46 @@
 import { useNavigate } from 'react-router'
-import { failed, success } from '@/asset'
-import { Description, GoBack, Lottie, PageHeader, Vexile } from '@/component'
+import { success } from '@/asset'
+import { Lottie, PageHeader, Vexile } from '@/component'
 import { ROUTES } from '@/constants'
-import { useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
+import { cartAtom } from '@/coil'
+import { depositPayment } from '@/connect/payment/deposit'
+import { useRecoilValue } from 'recoil'
 
 export const RequestPayment = () => {
-  const prevState = useLocation().state as
-    | {
-        succeed: true
-        transactionId: string
-      }
-    | {
-        succeed: false
-      }
-
+  const products = useRecoilValue(cartAtom)
   const goto = useNavigate()
+
+  useEffect(() => {
+    ;(async () => {
+      const productsCount = Object.entries(
+        products.reduce(
+          (matched, current) => {
+            return {
+              ...matched,
+              [current.systemId]: (matched[current.systemId] || 0) + 1,
+            }
+          },
+          {} as {
+            [key: string]: number
+          }
+        )
+      ).map((e) => ({
+        productId: e[0],
+        amount: e[1],
+      }))
+
+      await depositPayment.request(
+        {},
+        {
+          products: productsCount,
+        },
+        {
+          type: 'text',
+        }
+      )
+    })()
+  }, [])
 
   // if (prevState.succeed)
   //   return (
@@ -23,39 +49,39 @@ export const RequestPayment = () => {
   //     </Vexile>
   //   )
 
-  if (prevState?.succeed)
-    return (
-      <Vexile fillx filly x="center" y="center" gap={4}>
-        <Lottie
-          width={40}
-          height={40}
-          speed={0.7}
-          loop={false}
-          animate={success}
-          autoReverse
-          onFinish={() => goto(ROUTES.ROOT)}
-        />
-        <PageHeader>결제가 완료되었습니다</PageHeader>
-      </Vexile>
-    )
-
+  // if (prevState?.succeed)
   return (
     <Vexile fillx filly x="center" y="center" gap={4}>
       <Lottie
         width={40}
         height={40}
-        speed={1.8}
+        speed={0.7}
         loop={false}
-        animate={failed}
-        onFinish={() => {}}
+        animate={success}
+        autoReverse
+        onFinish={() => goto(ROUTES.ROOT)}
       />
-      <Vexile gap={2} x="center">
-        <PageHeader>결제에 실패했어요</PageHeader>
-        <Description>
-          결제 가능한 시간이 지났어요. 100초 이내에 결제를 마무리 해주세요.
-        </Description>
-      </Vexile>
-      <GoBack />
+      <PageHeader>결제가 완료되었습니다</PageHeader>
     </Vexile>
   )
+
+  // return (
+  //   <Vexile fillx filly x="center" y="center" gap={4}>
+  //     <Lottie
+  //       width={40}
+  //       height={40}
+  //       speed={1.8}
+  //       loop={false}
+  //       animate={failed}
+  //       onFinish={() => {}}
+  //     />
+  //     <Vexile gap={2} x="center">
+  //       <PageHeader>결제에 실패했어요</PageHeader>
+  //       <Description>
+  //         결제 가능한 시간이 지났어요. 100초 이내에 결제를 마무리 해주세요.
+  //       </Description>
+  //     </Vexile>
+  //     <GoBack />
+  //   </Vexile>
+  // )
 }

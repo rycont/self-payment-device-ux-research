@@ -6,129 +6,31 @@ import {
   GoBack,
   Callout,
 } from '@/component'
-import { cartAtom, cartSumSelector, posAuthTokenAtom, tossQRAtom } from '@/coil'
-// import { EventSourcePolyfill } from 'event-source-polyfill'
-import { depositPayment } from '@/connect/payment/deposit'
+import { cartSumSelector, tossQRAtom } from '@/coil'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
-import { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
-import { useHIDInput, useTimer } from '@/hook'
-import { API_URI, ROUTES } from '@/constants'
-import { EventSourcePolyfill } from 'event-source-polyfill'
+import { useHIDInput } from '@/hook'
+import { ROUTES } from '@/constants'
 
 export const ManualPayment = () => {
   const totalPrice = useRecoilValue(cartSumSelector)
-  const products = useRecoilValue(cartAtom)
   const qr = useRecoilValue(tossQRAtom)
   const goto = useNavigate()
-  const auth = useRecoilValue(posAuthTokenAtom)
-  const [isReady, setIsReady] = useState(false)
 
   useHIDInput({
-    onData(data) {
+    async onData(data) {
       if (data === 'EDH2') {
-        goto(ROUTES.REQUEST_PAYMENT, {
-          state: {
-            succeed: true,
-          },
-        })
+        {
+          goto(ROUTES.REQUEST_PAYMENT, {
+            state: {
+              succeed: true,
+            },
+          })
+        }
       }
     },
     isNonNumericAllowed: true,
   })
-
-  const { element: timer, isEnded } = useTimer(100)
-
-  useEffect(() => {
-    if (isEnded)
-      goto(ROUTES.REQUEST_PAYMENT, {
-        state: {
-          state: {
-            succeed: false,
-          },
-        },
-      })
-  }, [isEnded])
-
-  useEffect(() => {
-    if (!auth || !isReady) return
-
-    const sse = new EventSourcePolyfill(API_URI + 'payment/deposit', {
-      headers: {
-        Authorization: `Bearer ${auth.accessToken}`,
-      },
-    })
-
-    sse.addEventListener('open', (e) => {
-      console.log('CONNECTED!!')
-    })
-
-    sse.addEventListener('message', (e) => {
-      const payload = JSON.parse(e.data as string)
-      if (payload.status === 'SUCCESS')
-        goto(ROUTES.REQUEST_PAYMENT, {
-          state: {
-            succeed: true,
-          },
-        })
-
-      if (payload.status === 'TIMEOUT') {
-        goto(ROUTES.REQUEST_PAYMENT, {
-          state: {
-            succeed: false,
-          },
-        })
-      }
-    })
-
-    sse.addEventListener('error', (e) => {
-      console.log(e)
-    })
-
-    return () => sse.close()
-  }, [isReady])
-
-  useEffect(() => {
-    ;(async () => {
-      if (!auth) {
-        toast.error('단말기를 사용할 수 없어요')
-        return
-      }
-
-      const productsCount = Object.entries(
-        products.reduce(
-          (matched, current) => {
-            return {
-              ...matched,
-              [current.systemId]: (matched[current.systemId] || 0) + 1,
-            }
-          },
-          {} as {
-            [key: string]: number
-          }
-        )
-      ).map((e) => ({
-        productId: e[0],
-        amount: e[1],
-      }))
-
-      console.log('요청중')
-
-      await depositPayment.request(
-        {},
-        {
-          products: productsCount,
-        },
-        {
-          type: 'text',
-        }
-      )
-
-      console.log('요청 완료!')
-      setIsReady(true)
-    })()
-  }, [])
 
   return (
     <Vexile x="center" y="center" filly gap={6}>
@@ -151,7 +53,6 @@ export const ManualPayment = () => {
           추후 업데이트를 통해 문자인증 결제가 제공될 예정입니다
         </Description>
       </Callout>
-      {timer}
       <GoBack />
     </Vexile>
   )

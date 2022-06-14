@@ -23,6 +23,7 @@ function Onboarding() {
   const userToken = useRecoilValue(posAuthTokenAtom)
 
   useHIDInput({
+    isNonNumericAllowed: true,
     onData(e) {
       if (e === 'UPDATE') {
         window.location.reload()
