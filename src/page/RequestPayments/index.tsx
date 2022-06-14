@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router'
 import { success } from '@/asset'
 import { Lottie, PageHeader, Vexile } from '@/component'
-import { ROUTES } from '@/constants'
+import { API_URI, isDev, ROUTES } from '@/constants'
 import { useEffect } from 'react'
 import { cartAtom } from '@/coil'
 import { depositPayment } from '@/connect/payment/deposit'
@@ -30,15 +30,47 @@ export const RequestPayment = () => {
         amount: e[1],
       }))
 
-      await depositPayment.request(
-        {},
-        {
-          products: productsCount,
-        },
-        {
-          type: 'text',
+      let succeed = null
+      let error = ''
+
+      try {
+        if (
+          (await depositPayment.request(
+            {},
+            {
+              products: productsCount,
+            },
+            {
+              type: 'text',
+            }
+          )) === 'ok'
+        ) {
+          succeed = true
+        } else {
+          throw new Error()
         }
-      )
+      } catch (e) {
+        succeed = false
+        if (e instanceof Error) error = e.name + ' / ' + e.message
+        else if ((e as any).toString instanceof Function)
+          error = (e as any).toString()
+      }
+
+      const form = new URLSearchParams({
+        succeed: succeed.toString(),
+        products: JSON.stringify(productsCount),
+        'form-name': 'request-payment',
+        target: API_URI,
+        date: new Date().toISOString(),
+      })
+
+      await fetch('/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: form,
+      })
     })()
   }, [])
 
