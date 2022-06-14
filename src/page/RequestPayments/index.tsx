@@ -39,6 +39,11 @@ export const RequestPayment = () => {
             {},
             {
               products: productsCount,
+              userIdentity: {
+                systemId: import.meta.env.VITE_TEMPORAL_USER_SUID,
+                paymentMethod: import.meta.env.VITE_TEMPORAL_PAYMENT_METHOD,
+                transactionMethod: 'APP_QR',
+              },
             },
             {
               type: 'text',

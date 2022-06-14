@@ -27,6 +27,7 @@ function Onboarding() {
     onData(e) {
       if (e === 'VERSION') {
         alert(import.meta.env.VITE_COMMIT_REF || 'unknown')
+        return
       } else if (e === 'UPDATE') {
         window.location.reload()
         return

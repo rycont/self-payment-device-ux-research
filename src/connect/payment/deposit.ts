@@ -7,6 +7,11 @@ export const depositPayment = createAPIConnector<
       productId: string
       amount: number
     }[]
+    userIdentity: {
+      systemId: string
+      paymentMethod: string
+      transactionMethod: string
+    }
   },
   {}
 >('payment/approval', {
