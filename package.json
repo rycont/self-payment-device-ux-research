@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "VITE_COMMIT_REF=$COMMIT_REF && vite",
-    "build": "tsc && vite build",
+    "build": "tsc && VITE_COMMIT_REF=$COMMIT_REF vite build",
     "serve": "vite preview"
   },
   "dependencies": {
