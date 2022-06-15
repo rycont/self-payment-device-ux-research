@@ -47,13 +47,10 @@ export const ManualPayment = () => {
       </Vexile>
       <Callout>
         <Description center>
-          아직 행정적 절차의 문제로 계좌이체 결제만 가능합니다
-        </Description>
-        <Description center>
-          추후 업데이트를 통해 문자인증 결제가 제공될 예정입니다
+          관리자의 송금 확인이 있기 전 까지 기다려주세요
         </Description>
       </Callout>
-      <GoBack />
+      <GoBack>결제 취소</GoBack>
     </Vexile>
   )
 }
