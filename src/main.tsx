@@ -41,7 +41,7 @@ globalCss({
     'https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css',
   ],
   ':root': {
-    fontSize: '6px',
+    fontSize: '7px',
     '--toastify-font-family': 'Pretendard',
   },
   body: {
