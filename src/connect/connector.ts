@@ -59,22 +59,24 @@ const fetchAPI = async (
       throw new Error()
     }
 
-    const tokens = await (
-      await fetch(API_URI + '/pos-login/refresh', {
-        method: 'POST',
-        headers: new Headers({
-          Authorization: `Bearer ${auth.refreshToken}`,
-        }),
-      })
-    ).json()
+    throw new Error()
 
-    setRecoil(posAuthTokenAtom, {
-      ...auth,
-      accessToken: tokens.accessToken,
-      refreshToken: tokens.refreshToken,
-    })
+    // const tokens = await (
+    //   await fetch(API_URI + '/pos-login/refresh', {
+    //     method: 'POST',
+    //     headers: new Headers({
+    //       Authorization: `Bearer ${auth.refreshToken}`,
+    //     }),
+    //   })
+    // ).json()
 
-    return await fetchAPI(uri, method, data, needAuth, headers)
+    // setRecoil(posAuthTokenAtom, {
+    //   ...auth,
+    //   accessToken: tokens.accessToken,
+    //   refreshToken: tokens.refreshToken,
+    // })
+
+    // return await fetchAPI(uri, method, data, needAuth, headers)
   } catch (e) {
     if (e instanceof Response) {
       const { message } = await e.json()
@@ -221,16 +223,16 @@ export const createMockModel = <DataType>(
         idKey: string,
         searchProperty?: keyof DataType
       ) =>
-      (reqData: ResType) => {
-        if (!reqData) throw new Error('Cannot find error to find docment')
-        const queried = datas.find(
-          (data) =>
-            data[searchProperty ? searchProperty : 'id'] === reqData[idKey]
-        )
-        console.log(datas, reqData)
-        if (queried) return queried
-        throw new Error(`Cannot find ${dataName} by key "${reqData[idKey]}"`)
-      },
+        (reqData: ResType) => {
+          if (!reqData) throw new Error('Cannot find error to find docment')
+          const queried = datas.find(
+            (data) =>
+              data[searchProperty ? searchProperty : 'id'] === reqData[idKey]
+          )
+          console.log(datas, reqData)
+          if (queried) return queried
+          throw new Error(`Cannot find ${dataName} by key "${reqData[idKey]}"`)
+        },
     create: () => (reqData: DataType) => {
       const createdDocument: Doc<DataType> = {
         id: uniqueIndex++,

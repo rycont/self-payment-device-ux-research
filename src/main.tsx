@@ -89,18 +89,18 @@ const AnimatedRouter = () => {
     if (isAuthlessPage) return
     if (!posAuthToken) goto(ROUTES.POS_AUTH)
 
-    getBarcodelessProduct.request().catch((e) =>
-      refresh
-        .request(undefined, undefined, {
-          headers: {
-            Authorization: `Bearer ${posAuthToken!.refreshToken}`,
-          },
-        })
-        .catch((e) => {
-          toast.error('토큰이 만료되었습니다')
-          goto(ROUTES.POS_AUTH)
-        })
-    )
+    // getBarcodelessProduct.request().catch((e) =>
+    //   refresh
+    //     .request(undefined, undefined, {
+    //       headers: {
+    //         Authorization: `Bearer ${posAuthToken!.refreshToken}`,
+    //       },
+    //     })
+    //     .catch((e) => {
+    //       toast.error('토큰이 만료되었습니다')
+    //       goto(ROUTES.POS_AUTH)
+    //     })
+    // )
   }, [location.pathname])
 
   return (
