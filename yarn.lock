@@ -769,6 +769,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"base32.js@npm:0.0.1":
+  version: 0.0.1
+  resolution: "base32.js@npm:0.0.1"
+  checksum: 74e520ca832b034c43c0996f52ffa29792fa2f2bb2b75fc8415fb6cd42194a486cac8a68531d73e401ae836194093e2746f7c4325e860ff0a6de8d05a54af132
+  languageName: node
+  linkType: hard
+
 "base64-js@npm:^1.3.1":
   version: 1.5.1
   resolution: "base64-js@npm:1.5.1"
@@ -2405,6 +2412,7 @@ __metadata:
     recoil: ^0.5.2
     recoil-nexus: ^0.3.15
     recoil-persist: ^4.0.0
+    speakeasy: ^2.0.0
     typescript: ^4.3.2
     url: ^0.11.0
     vite: ^2.6.4
@@ -2502,6 +2510,15 @@ __metadata:
   version: 0.5.7
   resolution: "source-map@npm:0.5.7"
   checksum: 5dc2043b93d2f194142c7f38f74a24670cd7a0063acdaf4bf01d2964b402257ae843c2a8fa822ad5b71013b5fcafa55af7421383da919752f22ff488bc553f4d
+  languageName: node
+  linkType: hard
+
+"speakeasy@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "speakeasy@npm:2.0.0"
+  dependencies:
+    base32.js: 0.0.1
+  checksum: 2a44aa4336cd39a0dcdc051c7adcd3fc76fdba239dc1ded50052164c9d80d773183827934a62850a5fb7a7a19f13bf5561ec88bd23777c6d228c4aaa175bea1a
   languageName: node
   linkType: hard
 

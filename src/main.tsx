@@ -34,7 +34,7 @@ import { ROUTES } from './constants'
 import './asset/numericalGlyph/index.css'
 import { ModalPlaceholder } from './component'
 import { posAuthTokenAtom } from './coil'
-import { getBarcodelessProduct, refresh } from './connect'
+import { getBarcodelessProduct, healthCheck, refresh } from './connect'
 
 globalCss({
   '@import': [
@@ -87,20 +87,26 @@ const AnimatedRouter = () => {
     ).includes(currentRoute)
 
     if (isAuthlessPage) return
-    if (!posAuthToken) goto(ROUTES.POS_AUTH)
+    if (!posAuthToken) {
+      goto(ROUTES.POS_AUTH)
+      return
+    }
 
-    // getBarcodelessProduct.request().catch((e) =>
-    //   refresh
-    //     .request(undefined, undefined, {
-    //       headers: {
-    //         Authorization: `Bearer ${posAuthToken!.refreshToken}`,
-    //       },
-    //     })
-    //     .catch((e) => {
-    //       toast.error('토큰이 만료되었습니다')
-    //       goto(ROUTES.POS_AUTH)
-    //     })
-    // )
+    healthCheck.request().catch((e) => {
+      console.log('ㅇㄴ 진짜임?')
+      console.log('간다간다쑝간다', posAuthToken)
+      refresh
+        .request(undefined, undefined, {
+          headers: {
+            Authorization: `Bearer ${posAuthToken!.refreshToken}`,
+          },
+        })
+        .catch((e) => {
+          console.log('네~')
+          toast.error('로그인이 필요합니다')
+          goto(ROUTES.POS_AUTH)
+        })
+    })
   }, [location.pathname])
 
   return (

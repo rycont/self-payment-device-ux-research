@@ -65,9 +65,9 @@ function ScanProduct() {
         </Hexile>
       </ViewArea>
       <Vexile relative gap={2} padding={6}>
-        {state.showNonBarcodeProduct && (
+        {/* {state.showNonBarcodeProduct && (
           <NonBarcodeProduct selectProduct={logics.addNonBarcodeProduct} />
-        )}
+        )} */}
         <Hexile x="space" y="center">
           <GoBack to={ROUTES.ROOT}>대기화면으로</GoBack>
           <Hexile gap={2}>
