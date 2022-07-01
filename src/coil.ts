@@ -52,7 +52,7 @@ export const currentUserAtom = atom<UserWithApprovalToken | null>({
   key: 'CURRENT_USER',
 })
 
-export const posAuthTokenAtom = atom<PosAuth | null>({
-  default: null,
-  key: 'POS_AUTH',
-})
+// export const posAuthTokenAtom = atom<PosAuth | null>({
+//   default: null,
+//   key: 'POS_AUTH',
+// })

@@ -33,8 +33,8 @@ import './animated.css'
 import { ROUTES } from './constants'
 import './asset/numericalGlyph/index.css'
 import { ModalPlaceholder } from './component'
-import { posAuthTokenAtom } from './coil'
-import { getBarcodelessProduct, healthCheck, refresh } from './connect'
+import { healthCheck, refresh } from './connect'
+import { lstore } from './function'
 
 globalCss({
   '@import': [
@@ -78,7 +78,6 @@ const pages: Record<ROUTES, FunctionComponent> = {
 const AnimatedRouter = () => {
   const location = useLocation()
   const goto = useNavigate()
-  const posAuthToken = useRecoilValue(posAuthTokenAtom)
 
   useEffect(() => {
     const currentRoute = location.pathname
@@ -87,26 +86,17 @@ const AnimatedRouter = () => {
     ).includes(currentRoute)
 
     if (isAuthlessPage) return
-    if (!posAuthToken) {
-      goto(ROUTES.POS_AUTH)
-      return
-    }
 
-    healthCheck.request().catch((e) => {
-      console.log('ㅇㄴ 진짜임?')
-      console.log('간다간다쑝간다', posAuthToken)
-      refresh
-        .request(undefined, undefined, {
-          headers: {
-            Authorization: `Bearer ${posAuthToken!.refreshToken}`,
-          },
-        })
-        .catch((e) => {
-          console.log('네~')
-          toast.error('로그인이 필요합니다')
-          goto(ROUTES.POS_AUTH)
-        })
-    })
+    try {
+      const accessToken = lstore.load('ACCESS_TOKEN')
+
+      healthCheck.request().catch((e) => {
+        toast.error('로그인이 필요합니다')
+        goto(ROUTES.POS_AUTH)
+      })
+    } catch (e) {
+      goto(ROUTES.POS_AUTH)
+    }
   }, [location.pathname])
 
   return (

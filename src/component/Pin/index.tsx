@@ -5,6 +5,7 @@ import {
   UnderlinedPageHeader,
   Vexile,
 } from '@/component'
+import { useHIDInput } from '@/hook'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { Description } from '../atom'
@@ -28,6 +29,10 @@ export const Pin: React.FC<{
   const addDigit = (digit: number) => {
     setDigits((prevDigits) => [...prevDigits, digit])
   }
+
+  useHIDInput({
+    onData(data) {},
+  })
 
   useEffect(() => {
     if (digits.length !== PIN_DIGITS_LENGTH) return

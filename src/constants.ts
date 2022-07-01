@@ -30,3 +30,13 @@ export const CONFIG = {
   USE_VIRTUAL_SCANNER: false,
   INTERACTION_PERFORMANCE_MODE: 'full',
 }
+
+export const LSTORE_KEYS = {
+  ACCESS_TOKEN: "ACCESS_TOKEN",
+  REFRESH_TOKEN: "REFRESH_TOKEN"
+}
+
+export type StoreType = {
+  ACCESS_TOKEN: string
+  REFRESH_TOKEN: string
+}

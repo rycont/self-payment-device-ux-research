@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { API_URI, isDev } from '@/constants'
-import { posAuthTokenAtom } from '@/coil'
 import { getRecoil, setRecoil } from 'recoil-nexus'
 import { toast } from 'react-toastify'
+import { PosAuth } from '@/type'
+import { lstore, LStroageNotFoundError } from '@/function'
 
 export const fillURLParameter = <URLParams>(
   route: string,
@@ -32,19 +33,14 @@ const fetchAPI = async (
   headers?: Record<string, string>
 ): Promise<Response> => {
   try {
-    const auth = getRecoil(posAuthTokenAtom)
-
-    if (needAuth && !auth) {
-      toast.info('인증이 필요해요')
-      throw new Error()
-    }
+    const accessToken = needAuth && lstore.load("ACCESS_TOKEN")
 
     const res = await fetch(uri, {
       method,
       headers: new Headers({
         'Content-Type': 'application/json',
         ...(needAuth && {
-          Authorization: `Bearer ${auth!.accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         }),
         ...headers,
       }),
@@ -52,38 +48,48 @@ const fetchAPI = async (
     })
 
     if (!res.ok) throw res
-    if (res.status !== 418) return res
 
-    if (!auth?.refreshToken) {
-      toast.info('인증이 필요해요')
-      throw new Error()
-    }
-
-    throw new Error()
-
-    // const tokens = await (
-    //   await fetch(API_URI + '/pos-login/refresh', {
-    //     method: 'POST',
-    //     headers: new Headers({
-    //       Authorization: `Bearer ${auth.refreshToken}`,
-    //     }),
-    //   })
-    // ).json()
-
-    // setRecoil(posAuthTokenAtom, {
-    //   ...auth,
-    //   accessToken: tokens.accessToken,
-    //   refreshToken: tokens.refreshToken,
-    // })
-
-    // return await fetchAPI(uri, method, data, needAuth, headers)
+    return res
   } catch (e) {
-    if (e instanceof Response) {
+    if (e instanceof Response && e.status !== 418) {
       const { message } = await e.json()
       if (message) {
         toast.error(message)
       }
+      throw e
     }
+
+    if (e instanceof Response && e.status === 418) {
+      try {
+
+        const refreshToken = lstore.load("REFRESH_TOKEN")
+
+        const tokens = await (
+          await fetch(API_URI + 'pos-login/refresh', {
+            method: 'POST',
+            headers: new Headers({
+              Authorization: `Bearer ${refreshToken}`,
+            }),
+          })
+        ).json()
+
+        lstore.save(
+          "ACCESS_TOKEN",
+          tokens.accessToken
+        )
+
+        lstore.save(
+          "REFRESH_TOKEN",
+          tokens.refreshToken
+        )
+
+        return await fetchAPI(uri, method, data, needAuth, headers)
+      } catch (e) {
+        alert("포스를 다시 활성화해주세요")
+        window.location.reload()
+      }
+    }
+
     throw e
   }
 }
@@ -194,7 +200,9 @@ export function createAPIConnector<
             ok(data)
           })
           .catch((raisedError) => {
-            console.dir(raisedError)
+            if (raisedError instanceof LStroageNotFoundError) {
+              console.log("auth required")
+            }
             if (raisedError instanceof Error) raiseError(raisedError)
             if (raisedError.message) raiseError(new Error(raisedError.message))
             raiseError(new Error(raisedError))

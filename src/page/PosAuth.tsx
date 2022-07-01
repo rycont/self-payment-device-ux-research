@@ -1,13 +1,12 @@
-import { posAuthTokenAtom } from '@/coil'
 import { Pin } from '@/component'
 import { loginWithPasscode } from '@/connect'
 import { ROUTES } from '@/constants'
+import { lstore } from '@/function'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useSetRecoilState } from 'recoil'
 
 export const PosAuth = () => {
-  const setPosAuthToken = useSetRecoilState(posAuthTokenAtom)
   const goto = useNavigate()
 
   return (
@@ -25,7 +24,8 @@ export const PosAuth = () => {
           return false
         }
 
-        setPosAuthToken(res)
+        lstore.save('ACCESS_TOKEN', res.accessToken)
+        lstore.save('REFRESH_TOKEN', res.refreshToken)
         goto(ROUTES.ROOT)
       }}
       title="포스 활성화 인증번호"
