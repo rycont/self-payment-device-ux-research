@@ -2,12 +2,17 @@ import { Pin } from '@/component'
 import { loginWithPasscode } from '@/connect'
 import { ROUTES } from '@/constants'
 import { lstore } from '@/function'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useSetRecoilState } from 'recoil'
 
 export const PosAuth = () => {
   const goto = useNavigate()
+
+  useEffect(() => {
+    lstore.clear()
+  }, [])
 
   return (
     <Pin
@@ -26,6 +31,8 @@ export const PosAuth = () => {
 
         lstore.save('ACCESS_TOKEN', res.accessToken)
         lstore.save('REFRESH_TOKEN', res.refreshToken)
+        lstore.save('POS_NAME', res.name);
+
         goto(ROUTES.ROOT)
       }}
       title="포스 활성화 인증번호"

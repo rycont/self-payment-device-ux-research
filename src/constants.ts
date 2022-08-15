@@ -4,7 +4,7 @@ export const useLocalServer = import.meta.env.VITE_USE_LOCAL_SERVER === 'true'
 export const API_URI =
   isDev || useLocalServer
     ? 'https://dimipay-api-dev.rycont.ninja/'
-    : 'https://dimipay-back-v2-production.up.railway.app/'
+    : 'https://dimipay-back-v2-dev-production.up.railway.app/'
 
 export const PUBSUB_URI = 'https://pubsub.rycont.ninja/sub/scanner'
 export const FLUID_CONTAINER_ID = '7f47d256-ca8e-4313-941a-40955ecc6d81'
@@ -34,9 +34,11 @@ export const CONFIG = {
 export const LSTORE_KEYS = {
   ACCESS_TOKEN: 'ACCESS_TOKEN',
   REFRESH_TOKEN: 'REFRESH_TOKEN',
+  POS_NAME: 'POS_NAME',
 }
 
 export type StoreType = {
   ACCESS_TOKEN: string
   REFRESH_TOKEN: string
+  POS_NAME: string
 }

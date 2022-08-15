@@ -8,7 +8,7 @@ export class LStroageNotFoundError extends Error {
 
 const load = (key: keyof typeof LSTORE_KEYS) => {
     const loaded = localStorage.getItem(key)
-    if (!loaded) throw new LStroageNotFoundError()
+    if (!loaded) return null
 
     const parsed = JSON.parse(loaded)
     if (!parsed) throw new LStroageNotFoundError()
@@ -21,7 +21,12 @@ const save = (key: keyof typeof LSTORE_KEYS, value: StoreType[typeof key]) => {
     localStorage.setItem(key, JSON.stringify(value))
 }
 
+const clear = () => {
+    localStorage.clear()
+}
+
 export const lstore = {
     load,
-    save
+    save,
+    clear
 }

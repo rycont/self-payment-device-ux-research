@@ -63,6 +63,7 @@ export const Pin: React.FC<{
           <PinDigit
             focused={digits.length === index}
             filled={digits[index] !== undefined}
+            key={`pin${index}`}
           />
         ))}
       </Hexile>

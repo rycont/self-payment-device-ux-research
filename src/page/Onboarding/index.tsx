@@ -1,13 +1,13 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useRecoilValue, useResetRecoilState } from 'recoil'
 
 import { verticalLogo } from '@/asset'
 import { cartAtom, currentUserAtom, selectedCouponIdsAtom } from '@/coil'
-import { DescriptionImportant, PlainLink, Regular, Vexile } from '@/component'
+import { Description, DescriptionImportant, Hexile, PlainLink, Regular, Vexile } from '@/component'
 import { ROUTES } from '@/constants'
 import { useHIDInput } from '@/hook'
-import { MainLogo } from './style'
+import { ConnectInfo, MainLogo, Status } from './style'
 import { toast } from 'react-toastify'
 import { lstore } from '@/function'
 
@@ -16,6 +16,9 @@ function Onboarding() {
   const resetCart = useResetRecoilState(cartAtom)
   const resetUser = useResetRecoilState(currentUserAtom)
   const resetCoupon = useResetRecoilState(selectedCouponIdsAtom)
+  const name = lstore.load("POS_NAME")
+
+  const [internetStatus, setInternetStatus] = useState<boolean>(navigator.onLine);
 
   useHIDInput({
     isNonNumericAllowed: true,
@@ -29,6 +32,8 @@ function Onboarding() {
     },
   })
 
+  const statusChange = () => setInternetStatus(navigator.onLine);
+
   useEffect(() => {
     const userToken = lstore.load('ACCESS_TOKEN')
     if (!userToken) goto(ROUTES.POS_AUTH)
@@ -36,10 +41,27 @@ function Onboarding() {
     resetCart()
     resetUser()
     resetCoupon()
+
+    window.addEventListener("online", statusChange);
+    window.addEventListener("offline", statusChange);
+    return () => {
+      window.removeEventListener("online", statusChange);
+      window.removeEventListener("offline", statusChange);
+    }
   }, [])
 
   return (
     <Vexile fillx filly x="center" y="center" gap={12}>
+      <ConnectInfo x='right' gap={2}>
+        <Hexile filly y='center' gap={2}>
+          <Description>{name} 연결됨</Description>
+          <Status connect />
+        </Hexile>
+        <Hexile filly y='center' gap={2}>
+          <Description>인터넷 연결{internetStatus ? '됨' : ' 유실됨'}</Description>
+          <Status connect={internetStatus} />
+        </Hexile>
+      </ConnectInfo>
       <MainLogo
         src={verticalLogo}
         alt="디미페이 로고"
